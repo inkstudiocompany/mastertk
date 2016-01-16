@@ -23,4 +23,11 @@
 	 'prefix' => '',
 	]);
 	
-	$capsule->bootEloquent();	
+	$capsule->bootEloquent();
+
+	/** Twig **/
+	
+	$loader = new Twig_Loader_Filesystem(BASE . 'src/views');
+	$twig = new Twig_Environment($loader, array(
+    	'cache' => BASE . 'web/cache/views',
+	));
