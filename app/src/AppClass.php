@@ -1,5 +1,7 @@
 <?php
 
+	namespace Application;
+
 	class App
 	{
 		private $parameters = null;
@@ -35,5 +37,10 @@
 		public function set($parameter, $value)
 		{
 			$this->parameters[$parameter] = $value;
+		}
+
+		public function config()
+		{
+			var_dump($this->parameters);
 		}
 	}

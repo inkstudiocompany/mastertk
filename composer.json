@@ -9,5 +9,10 @@
     ],
     "require": {
     	 "illuminate/database": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Model\\": "src/model"
+        }
     }
 }
