@@ -7,7 +7,7 @@
             protected $primaryKey = "idUsuario";
 
             public function idRolPrincipal(){
-                return $this->belongsTo('Model\ORM\Rol');
+                return $this->belongsTo('Model\ORM\Rol','idRolPrincipal','idRol');
             }
             
             public function idTipoDocumento(){
