@@ -9,6 +9,11 @@ class Equipo extends EntityBase{
     protected $primaryKey = 'idEquipo';
     
     public function idProyecto(){
-                return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
-            }
+        return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
+    }
+
+    public function equipoAtencion()
+    {
+    	$this->hasMany('Model\ORM\Proyecto','idEquipo','idEquipo');
+    }
 }
