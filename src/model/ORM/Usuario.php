@@ -6,12 +6,16 @@
             protected $table = "Usuario";
             protected $primaryKey = "idUsuario";
 
-            public function idRolPrincipal(){
+         /*   public function idRolPrincipal(){
                 return $this->belongsTo('Model\ORM\Rol','idRolPrincipal','idRol');
             }
-            
-            public function idTipoDocumento(){
+         */   
+            public function tipoDocumento(){
                 return $this->belongsTo('Model\ORM\TipoDocumento','idTipoDocumento','idTipoDocumento');
+            }
+            
+              public function rolPrincipal(){
+                return $this->belongsTo('Model\ORM\Rol','idRolPrincipal','idRol');
             }
                
         }

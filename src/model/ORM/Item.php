@@ -8,11 +8,11 @@ class Item extends EntityBase{
     
     protected $primaryKey = 'idItem';
 
-		    public function idProyecto(){
+	public function proyecto(){
                 return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
             }
 
-            public function idTipoItem(){
+            public function tipoItem(){
                 return $this->belongsTo('Model\ORM\TipoItem', 'idTipoItem', 'idTipoItem');
             }
 

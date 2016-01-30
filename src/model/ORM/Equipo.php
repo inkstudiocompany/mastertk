@@ -8,7 +8,7 @@ class Equipo extends EntityBase{
     
     protected $primaryKey = 'idEquipo';
     
-    public function idProyecto(){
+    public function proyecto(){
         return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
     }
 
