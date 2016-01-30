@@ -8,8 +8,9 @@
         }
     ],
     "require": {
-    	 "illuminate/database": "*",
-        "twig/twig": "~1.0"
+    	"illuminate/database": "*",
+        "twig/twig": "~1.0",
+        "twbs/bootstrap": "3"
     },
     "autoload": {
         "psr-4": {
