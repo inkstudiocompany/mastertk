@@ -5,7 +5,7 @@
             
 		    protected $table = "Rol";
 			
-            protected $primaryKey = 'idRol';
+            protected $primaryKey = 'idRol'; 
 		
 	}
         
