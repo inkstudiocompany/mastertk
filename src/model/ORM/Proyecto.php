@@ -6,4 +6,7 @@
 	class Proyecto extends Model
 	{
 		protected $table = 'Proyecto';
+		
+	    protected $primaryKey = 'idProyecto';
+		
 	}

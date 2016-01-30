@@ -1,18 +1,14 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Model\ORM;
 
-/**
- * Description of Equipo
- *
- * @author jn
- */
-class Equipo {
-    //put your code here
+class Equipo extends EntityBase{
+    
+    protected $table = "Equipo";
+    
+    protected $primaryKey = 'idEquipo';
+    
+    public function idProyecto(){
+                return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
+            }
 }

@@ -3,7 +3,9 @@
 
         class Rol extends EntityBase{
             
-            protected $primaryKey = 'idRol';
+		    protected $table = "Rol";
+			
+            protected $primaryKey = 'idRol'; 
 		
 	}
         
