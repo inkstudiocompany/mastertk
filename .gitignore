@@ -1,3 +1,4 @@
 /vendor/
-compiser.lock
-.gitignore
+composer.lock
+/web/cache/
+web/cache
