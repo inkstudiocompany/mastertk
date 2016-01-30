@@ -8,7 +8,7 @@ class Estado extends EntityBase{
     
     protected $primaryKey = 'idEstado';
 	
-            public function idTipoItem(){
+            public function tipoItem(){
                 return $this->belongsTo('Model\ORM\TipoItem', 'idTipoItem', 'idTipoItem');
             }
 	

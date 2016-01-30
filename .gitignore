@@ -2,3 +2,7 @@
 composer.lock
 /web/cache/
 web/cache
+app/config/parameters.ini
+/nbproject/private/
+nbproject/
+web/cache/*

@@ -1,3 +1,32 @@
 {% include 'common/base/header.html.twig' %}
 
-Hello putos...!
+
+<body>
+<div class="container">
+	<div class="page-header">
+		<img src="{{ 'web/images/unlp.jpg' }}" class="logotipo col-md-2" />
+  		<h1 class="col-md-8"> <small></small></h1>
+
+  		<div class="profile col-md-2" id="profilePanel">
+  			<div class="image_profile">
+  				<img src="https://scontent-mia1-1.xx.fbcdn.net/hphotos-xpt1/v/t1.0-9/12417619_10153355266454103_4237973287739828278_n.jpg?oh=4c367141678cfe52bdb704e1fff55adc&oe=57431064"
+  				/>
+			</div>
+			<div class="actionbuttons">
+				<h6>
+					<a href="">Mr Poronga</a>
+				</h6>
+				<a class="glyphicon glyphicon-off">Logout</a>				
+			</div>
+  		</div>
+	</div>
+	<div class="row col-md-12">
+		{% include 'common/base/navbar.html.twig' %}
+	</div>
+	<div class="col-md-12 jumbotron">
+	</div>
+</div>
+</body>
+
+<script type="text/javascript" src="{{ 'vendor/twbs/bootstrap/assets/js/jquery.js' }}"></script>
+<script type="text/javascript" src="{{ 'vendor/twbs/bootstrap/dist/js/bootstrap.min.js' }}"></script>

@@ -8,15 +8,15 @@ class UsuarioRolEquipo extends EntityBase{
     
     protected $primaryKey = 'idUsuarioRolEquipo';
 
-		    public function idUsuario(){
+            public function usuario(){
                 return $this->belongsTo('Model\ORM\Usuario','idUsuario','idUsuario');
             }
 
-            public function idRol(){
+            public function rol(){
                 return $this->belongsTo('Model\ORM\Rol', 'idRol', 'idRol');
             }
 
-            public function idEquipo(){
+            public function equipo(){
                 return $this->belongsTo('Model\ORM\Equipo','idEquipo','idEquipo');
             }
         
