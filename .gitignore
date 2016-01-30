@@ -5,3 +5,4 @@ web/cache
 app/config/parameters.ini
 /nbproject/private/
 nbproject/
+web/cache/*
