@@ -5,6 +5,6 @@
 #RewriteRule ^(.*)$ index.php [L, R=301]
 
 RewriteEngine on
-RewriteCond %{REQUEST_URI} !^/?(vendor|web)/
+RewriteCond %{REQUEST_URI} !^/?(vendor|web|masterTK)/
 #RewriteCond $1 !^(web/|css)
 RewriteRule ^ index.php [QSA,L]
