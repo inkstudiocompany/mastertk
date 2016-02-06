@@ -7,13 +7,22 @@
 
 	use Illuminate\Database\Capsule\Manager as Capsule;
 	use Application\App as App;
+	use Application\Controller\HomeController;
+
 
 	$app = App::getInstance();
 
 	$app::Router()->get('/', function(){
-		echo 'hello';
+		$home = new HomeController();
+		echo $home->index();
 	});
-	
+
+	$app::Router()->get('/home', function(){
+		$home = new HomeController();
+		echo $home->index();
+	});
+
+	$app::Router()->run();
 	/*$capsule = new Capsule;
 
 	$app = App::getInstance();
@@ -30,10 +39,3 @@
 	]);
 	
 	$capsule->bootEloquent();*/
-
-	/** Twig **/
-
-	$loader = new Twig_Loader_Filesystem(BASE . 'src/views');
-	$twig = new Twig_Environment($loader, array(
-    	'cache' => BASE . 'web/cache/views',
-	));
