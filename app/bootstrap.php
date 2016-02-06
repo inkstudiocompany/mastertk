@@ -8,6 +8,7 @@
 
 	use Application\App as App;
 	use Application\Controller\HomeController;
+	use Application\Controller\ProjectController;
 
 	$app = App::getInstance();
 
@@ -24,6 +25,11 @@
 	$app::Router()->get($app->path('my_projects'), function(){
 		$home = new HomeController();
 		echo $home->index();
+	});
+
+	$app::Router()->get($app->path('admin_project'), function(){
+		$project = new ProjectController();
+		echo $project->listado();
 	});
 
 	$app::Router()->run();
