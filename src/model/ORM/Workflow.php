@@ -8,8 +8,13 @@ class Workflow extends EntityBase{
     
     protected $primaryKey = 'idWorkflow';
 
-    public function transicionitem()
-    {
-    	$this->hasMany('Model\ORM\TransicionItem','idWorkFlow','idWorkFlow');
+    public function estadoActual(){
+    	$this->hasMany('Model\ORM\Estado','idEstadoActual','idEstado');
     }
+    
+    public function estadoSiguiente(){
+    	$this->hasMany('Model\ORM\Estado','idEstadoSiguiente','idEstado');
+    }
+    
+    
 }

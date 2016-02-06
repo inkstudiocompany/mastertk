@@ -19,5 +19,9 @@ class UsuarioRolEquipo extends EntityBase{
             public function equipo(){
                 return $this->belongsTo('Model\ORM\Equipo','idEquipo','idEquipo');
             }
+            
+            public function itemsAsignados(){
+                return $this->hasMany('Model\ORM\Item', 'idUsuarioRolEquipo' ,'responsable');
+            }
         
 }
