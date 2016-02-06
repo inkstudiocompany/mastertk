@@ -5,10 +5,9 @@
 	require BASE . 'app/src/AppClass.php'; 
 	require BASE . 'app/src/config.php';
     require BASE . 'app/src/capsule.php';
-    
+
 	use Application\App as App;
 	use Application\Controller\HomeController;
-
 
 	$app = App::getInstance();
 
@@ -17,7 +16,12 @@
 		echo $home->index();
 	});
 
-	$app::Router()->get('/home', function(){
+	$app::Router()->get($app->path('homepage'), function(){
+		$home = new HomeController();
+		echo $home->index();
+	});
+
+	$app::Router()->get($app->path('my_projects'), function(){
 		$home = new HomeController();
 		echo $home->index();
 	});

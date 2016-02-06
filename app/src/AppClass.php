@@ -7,10 +7,23 @@
 		private $parameters = null;
 		private static $instance = null;
 		private static $router = null;
+		private $routes = null;
 
 		public function __construct()
 		{
 			$this->parameters = [];
+			$this->routes = [
+				'homepage' => '/home',
+				'my_projects' => '/misproyectos',
+				'my_tickets' => '/mistickets',
+				'history' => '/historial',
+				'equipment' => '/equipos',
+				'roles' => '/roles',
+				'users' => '/usuarios',
+				'type_item' => '/tipoitem',
+				'states' => '/estados',
+				'workflow' => '/workflow',
+			];
 		}
 
 		public static function getInstance()
@@ -30,6 +43,13 @@
     	public static function Router()
     	{
     		return static::$router;
+    	}
+
+    	public function path($path)
+    	{
+    		if(isset($this->routes[$path]) === false) return '/';
+
+    		return $this->routes[$path];
     	}
 
 		/**
