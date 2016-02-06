@@ -16,7 +16,8 @@
 		public static function getInstance()
     	{
         	if (null === static::$instance) {
-            	static::$instance = new static();
+            	$miclase = __CLASS__;
+                self::$instance = new $miclase;
         	}
 
         	if (null === static::$router) {

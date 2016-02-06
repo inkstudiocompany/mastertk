@@ -1,5 +1,10 @@
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
+#RewriteEngine On
+#RewriteBase /
+##RewriteCond %{REQUEST_FILENAME} !-f
+##RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.*)$ index.php [L, R=301]
+
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^/?(vendor|web)/
+#RewriteCond $1 !^(web/|css)
+RewriteRule ^ index.php [QSA,L]
