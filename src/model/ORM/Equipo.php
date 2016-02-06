@@ -12,8 +12,8 @@ class Equipo extends EntityBase{
         return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
     }
 
-    public function equipoAtencion()
-    {
-    	$this->hasMany('Model\ORM\Proyecto','idEquipo','idEquipo');
+    public function usuarioRolEquipo(){
+        return $this ->hasMany('Model\ORM\UsuarioRolEquipo','idEquipo','idEquipo');
     }
+
 }

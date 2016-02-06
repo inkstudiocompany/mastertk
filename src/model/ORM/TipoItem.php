@@ -9,7 +9,11 @@ class TipoItem extends EntityBase{
     protected $primaryKey = 'idTipoItem';
 	
         public function proyecto(){
-                return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
-            }
+            return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
+        }
+        
+        public function estados(){
+            return $this ->hasMany('Model\ORM\Estado','idTipoItem','idTipoItem');
+        }    
 
 }
