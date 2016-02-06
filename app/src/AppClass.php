@@ -6,6 +6,7 @@
 	{
 		private $parameters = null;
 		private static $instance = null;
+		private static $router = null;
 
 		public function __construct()
 		{
@@ -17,8 +18,17 @@
         	if (null === static::$instance) {
             	static::$instance = new static();
         	}
+
+        	if (null === static::$router) {
+            	static::$router = new \Slim\App();
+        	}
         
         	return static::$instance;
+    	}
+
+    	public static function Router()
+    	{
+    		return static::$router;
     	}
 
 		/**
