@@ -1,27 +1,27 @@
 <ul class="nav nav-pills">
 	<li role="presentation" class="active">
-  		<a href="#">Home</a>
+  		<a href="{{ app.path('homepage') }}">Home</a>
 	</li>
   	<li role="presentation">
-  		<a href="#">Mis Proyectos</a>
+  		<a href="{{ app.path('my_projects') }}">Mis Proyectos</a>
 	</li>
   	<li role="presentation">
-  		<a href="#">Mis Tickets</a>
+  		<a href="{{ app.path('my_tickets') }}">Mis Tickets</a>
 	</li>
 	<li role="presentation">
-  		<a href="#">Historial</a>
+  		<a href="{{ app.path('history') }}">Historial</a>
 	</li>
 	<li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Panel de Control<span class="caret"></span></a>
       	<ul class="dropdown-menu">
-      		<li><a href="#">Equipos</a></li>
-            <li><a href="#">Roles</a></li>
-            <li><a href="#">Usuarios</a></li>
+      		<li><a href="{{ app.path('equipment') }}">Equipos</a></li>
+            <li><a href="{{ app.path('roles') }}">Roles</a></li>
+            <li><a href="{{ app.path('users') }}">Usuarios</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Tipo Item</a></li>
+            <li><a href="{{ app.path('type_item') }}">Tipo Item</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Estados</a></li>
-            <li><a href="#">Work Flow</a></li>
+            <li><a href="{{ app.path('states') }}">Estados</a></li>
+            <li><a href="{{ app.path('workflow') }}">Work Flow</a></li>
       	</ul>
     </li>
 </ul>
