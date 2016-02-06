@@ -1,6 +1,8 @@
 <?php
 	define ('BASE', realpath('./') . '/');
 
+	$url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+
 	require BASE . 'vendor/autoload.php';
 	require BASE . 'app/src/AppClass.php'; 
 	require BASE . 'app/src/config.php';

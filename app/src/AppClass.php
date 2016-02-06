@@ -46,14 +46,20 @@
     		return static::$router;
     	}
 
-    	public function path($path)
+    	public function path($path, $absolute = false)
     	{
     		if(isset($this->routes[$path]) === false) return '/';
 
-    		return $this->routes[$path];
+    		$response = $this->routes[$path];
+
+    		if ($absolute === true) {
+    			$response = $this->get('host') . $this->routes[$path];
+    		}
+
+    		return $response;
     	}
 
-		/**
+    	/**
 		* get
 		*
 		* Obtiene el parametro
