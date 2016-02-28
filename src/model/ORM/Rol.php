@@ -5,8 +5,13 @@
             
 		    protected $table = "Rol";
 			
-            protected $primaryKey = 'idRol'; 
-		
+            protected $primaryKey = 'idRol';
+
+
+			public function usuarios(){
+				return $this->hasMany('Model\ORM\Usuario','idRolPrincipal', 'idRol');
+			}
+
 	}
         
         
