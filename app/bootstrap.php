@@ -11,6 +11,7 @@
 	use Application\App as App;
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
+	use Application\Controller\RolController;
 
 	$app = App::getInstance();
 
@@ -32,6 +33,11 @@
 	$app::Router()->get($app->path('admin_project'), function(){
 		$project = new ProjectController();
 		echo $project->listado();
+	});
+
+	$app::Router()->get($app->path('roles'), function(){
+		$project = new RolController();
+		echo $project->index();
 	});
 
 	$app::Router()->run();

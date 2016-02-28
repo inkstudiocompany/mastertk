@@ -1,0 +1,23 @@
+{
+  "name": "mastertk",
+  "version": "1.0.0",
+  "description": "Proyecto final de base de datos",
+  "main": "index.js",
+  "dependencies": {
+    "validate.js": "^0.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://inkstudiocompany:inkStudio1983@github.com/inkstudiocompany/mastertk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inkstudiocompany/mastertk/issues"
+  },
+  "homepage": "https://github.com/inkstudiocompany/mastertk#readme"
+}
