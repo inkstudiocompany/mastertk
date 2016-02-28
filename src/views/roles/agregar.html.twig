@@ -1,28 +1,19 @@
-{% extends 'common/base.html.twig' %}
+{% extends 'common/forms.html.twig' %}
 
-{% block body %}
+{% block form_title %}
+  Nuevo Rol
+{% endblock form_title %}
 
-Agregar Rol<br />
-<form id="agregar_rol" name="agregar_rol" method="post" action="">
-  <div class="form-group">
-<table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
-  <tr>
-    <td width="108">Nombre</td>
-    <td width="649"><input name="agregar_nombreRol" type="text" id="agregar_nombreRol" size="100" maxlength="255" /></td>
-  </tr>
-  <tr>
-    <td>Descripcion</td>
-    <td><input name="agregar_descripcionRol" type="text" id="agregar_descripcionRol" size="100" maxlength="255" /></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td><p>
-      <br />
-      <input type="submit" name="botonagregarRol" id="botonagregarRol" value="Agregar Rol" />
-      </p></td>
-  </tr>
-</table>
-  </div>
-</form>
-
-{% endblock body %}
+{% block form %}
+  <form id="agregar_rol" name="agregar_rol" method="post" action="">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input name="nombre" type="text" id="nombre" class="form-control" placeholder="Nombre" />
+    </div>
+    <div class="form-group">
+      <label for="nombre">Descripción</label>
+      <input name="descripcion" type="text" id="descripcion" class="form-control" placeholder="Descripción" />
+    </div>
+    </div>
+  </form>
+{% endblock form %}
