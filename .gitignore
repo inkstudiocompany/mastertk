@@ -8,3 +8,5 @@ app/config/parameters.ini
 nbproject/
 web/cache/*
 node_modules
+/web/js
+/web/css
