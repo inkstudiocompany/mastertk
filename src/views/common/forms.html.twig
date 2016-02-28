@@ -1,0 +1,18 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+<div class="panel panel-info col-md-8 fullwidth center">
+	<div class="panel-heading">
+		{% block form_title %}{% endblock form_title %}
+	</div>
+  	<div class="panel-body">
+    	{% block form %}
+		{% endblock form %}
+  	</div>
+  	<div class="panel-footer">
+  		Buttons
+  	</div>
+</div>
+
+{% endblock body %}
