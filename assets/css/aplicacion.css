@@ -17,3 +17,9 @@
 .fullwidth {
 	padding: 0; 
 }
+
+.btn-danger{ 
+	color: #428bca; 
+	background: none; 
+	border-color: #428bca;
+}
