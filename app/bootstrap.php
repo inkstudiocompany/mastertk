@@ -8,6 +8,10 @@
 	require BASE . 'app/src/config.php';
     require BASE . 'app/src/capsule.php';
 
+	use \Psr\Http\Message\ServerRequestInterface as Request;
+	use \Psr\Http\Message\ResponseInterface as Response;
+
+
 	use Application\App as App;
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
@@ -45,7 +49,8 @@
 		echo $project->addForm();
 	});
 
-	$app::Router()->post($app->path('new_rol'), function(){
+	$app::Router()->post($app->path('new_rol'), function( Request $request, Response $response, $args){
+		var_dump($request->getAttribute('nombre'));
 		$project = new RolController();
 		echo $project->addForm();
 	});

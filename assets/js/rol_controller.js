@@ -1,24 +1,16 @@
+jQuery.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^[a-z]+$/i.test(value);
+}, "Ingrese caracteres ALFABETICOS solamente"); 
+
 $(document).ready(function (){ 
 	console.log('consoll ');
                 $("#agregar_rol").validate({
                     rules: {
                         nombre: "required",
-                        descripcion:{
-                                required: function(element) {
-                                	var valor = $("#descripcion").val();
-                                	console.log ('Nombre',valor);
-
-                                	if (valor) {
-                                		var letters = /^[A-Za-z]+$/;	
-                                		return valor.value.match(letters);
-	                                } 
-	                                return false;
-
-							}
-						}
+                        descripcion: { lettersonly: true}
 					},
                     messages: {
-                        nombre: "Por favor ingrese un Nombre de ROL",
+                        nombre: "Por favor ingrese un ROL",
                         descripcion: "No se permiten caracteres especiales"
                     }
                 });
