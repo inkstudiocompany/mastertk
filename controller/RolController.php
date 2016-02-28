@@ -29,9 +29,4 @@
         {
             return rol::find($id);
         }
-
-        // public function listado()
-        // {
-        // 	echo $this->render('proyectos/listado.html.twig');
-        // }
     }
