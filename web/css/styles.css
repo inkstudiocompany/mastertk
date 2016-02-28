@@ -1,9 +1,0 @@
-.page-header{ overflow: auto; padding-left: 0px; padding-right: 0px; }
-.page-header .logotipo{ position: relative; float: left; width: 120px; }
-.page-header h1{ position: relative; width: 70%; width:60vw; }
-
-.page-header #profilePanel{ float: right;background: #f9f9f9; padding: 5px 10px; -webkit-border-radius: 5px;
-border-radius: 5px; width: 15%; width: 13vw; }
-.page-header #profilePanel .image_profile{  border: 1px solid #999; float: left; -webkit-border-radius: 50%; border-radius: 50%; overflow: hidden; width: 60px; height: 60px; }
-.page-header #profilePanel img{  width: 110%; min-height: 100%;}
-.page-header #profilePanel .actionbuttons{ float: right; }
