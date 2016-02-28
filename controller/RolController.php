@@ -5,7 +5,7 @@
 	use Model\ORM\Rol as rol;
 
 
-	class RolController extends ControllerBase
+    class RolController extends ControllerBase implements EntityController
     {
         public function index()
         {
@@ -28,5 +28,13 @@
         public static function getById($id)
         {
             return rol::find($id);
+        }
+
+        public function createNew($nombre, $descripcion){
+            $rol = new rol();
+            $rol -> nombre = $nombre;
+            $rol -> descripcion =$descripcion;
+            $rol -> save();
+            return $rol;
         }
     }
