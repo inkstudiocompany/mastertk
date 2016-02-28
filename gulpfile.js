@@ -17,7 +17,7 @@ gulp.task('default', ['jslibs', 'javascript', 'fonts', 'csslibs', 'css']);
 
 
 var libsJavascript = [
-  'node_modules/validate.js/validate.min.js','vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
+  'node_modules/jquery-validation/dist/jquery.validate.js','vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
   'vendor/twbs/bootstrap/assets/js/jquery.js'
 ];
 
