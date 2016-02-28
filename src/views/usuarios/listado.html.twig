@@ -1,0 +1,43 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+Perfil de Usuario<br />
+<form id="ver_usuario" name="ver_usuario" method="post" action="">
+  <table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="108" nowrap="nowrap">Nombre y Apellido</td>
+      <td width="649"><?php $nombreCompleto; ?></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap">Tipo de Documento</td>
+      <td><?php $nombreDocumento; ?></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap">Nro. de Documento</td>
+      <td><?php $numDocumento; ?></td>
+    </tr>
+    <tr>
+      <td>email</td>
+      <td><?php $email; ?></td>
+    </tr>
+    <tr>
+      <td>Usuario</td>
+      <td><?php $usuario; ?></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><?php $password; ?></td>
+    </tr>
+    <tr>
+      <td>Rol Asignado</td>
+      <td><?php $nombreRol; ?></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap">Proyectos Asignados</td>
+      <td><?php $nombreProyecto; ?></td>
+    </tr>
+  </table>
+</form>
+
+{% endblock body %}
