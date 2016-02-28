@@ -8,6 +8,9 @@
 	require BASE . 'app/src/config.php';
     require BASE . 'app/src/capsule.php';
 
+    use \Psr\Http\Message\ServerRequestInterface as Request;
+	use \Psr\Http\Message\ResponseInterface as Response;
+
 	use Application\App as App;
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
@@ -33,6 +36,11 @@
 	$app::Router()->get($app->path('admin_project'), function(){
 		$project = new ProjectController();
 		echo $project->listado();
+	});
+
+	$app::Router()->get($app->path('new_project'), function(){
+		$project = new ProjectController();
+		echo $project->addForm();
 	});
 
 	$app::Router()->get($app->path('roles'), function(){

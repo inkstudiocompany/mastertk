@@ -18,6 +18,7 @@
 				'my_tickets' => '/mistickets',
 				'history' => '/historial',
 				'admin_project' => '/proyectos',
+				'new_project' => '/proyectos/nuevo',
 				'equipment' => '/equipos',
 				'roles' => '/roles',
 				'new_rol' => '/roles/nuevo',

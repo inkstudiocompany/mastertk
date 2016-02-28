@@ -1,16 +1,16 @@
 <?php
 	namespace Model\ORM;
 
-        class Rol extends EntityBase{
+    class Rol extends EntityBase
+    {
             
-		    protected $table = "Rol";
+	    protected $table = "Rol";
 			
-            protected $primaryKey = 'idRol';
+        protected $primaryKey = 'idRol';
 
-
-			public function usuarios(){
-				return $this->hasMany('Model\ORM\Usuario','idRolPrincipal', 'idRol');
-			}
+		public function usuarios(){
+			return $this->hasMany('Model\ORM\Usuario','idRolPrincipal', 'idRol');
+		}
 
 	}
         

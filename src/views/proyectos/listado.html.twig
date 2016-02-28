@@ -3,8 +3,11 @@
 {% block body %}
 
 <div class="panel panel-default">
-  <div class="panel-heading">ABM Proyectos</div>
-{{ dump(proyectos) }}
+  <div class="panel-heading">
+    ABM Proyectos
+    <a class="btn btn-primary right" href="{{ app.path('new_project') }}" role="button">Nuevo</a>
+  </div>
+
   <!-- Table -->
   <table class="table">
     <tr>
@@ -13,18 +16,27 @@
       <td class="">Proyectos Productivo</td>
       <td class="col-md-2">Acciones</td>
     </tr>
-    <tr>
-      <td nowrap="nowrap"><?php $nombreProyecto; ?></td>
-      <td nowrap="nowrap"><?php $nombreCompleto; ?>... read idLider ......</td>
-      <td nowrap="nowrap"><?php $productivoProyecto; ?></td>
-      <td nowrap="nowrap">
-        {# <div class="btn-group btn-group-xs" role="group"> #}
-          <button type="button" class="btn btn-sm btn-info">Detalles</button>
-          <button type="button" class="btn btn-sm btn-info">Editar</button>
-          <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
-        {# </div> #}
-      </td>
-    </tr>
+    {% if proyectos is not empty %}
+      <tr>
+        <td nowrap="nowrap"><?php $nombreProyecto; ?></td>
+        <td nowrap="nowrap"><?php $nombreCompleto; ?>... read idLider ......</td>
+        <td nowrap="nowrap"><?php $productivoProyecto; ?></td>
+        <td nowrap="nowrap">
+          {# <div class="btn-group btn-group-xs" role="group"> #}
+            <button type="button" class="btn btn-sm btn-info">Detalles</button>
+            <button type="button" class="btn btn-sm btn-info">Editar</button>
+            <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
+          {# </div> #}
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="4" class="alert alert-info text-center">
+          <strong>Ups!</strong>
+          No existen registros
+        </td>
+      </tr>
+    {% endif %}
     <tr>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
