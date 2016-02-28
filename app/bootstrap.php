@@ -40,5 +40,10 @@
 		echo $project->index();
 	});
 
+	$app::Router()->get($app->path('new_rol'), function(){
+		$project = new RolController();
+		echo $project->addForm();
+	});
+
 	$app::Router()->run();
 ?>

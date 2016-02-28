@@ -15,6 +15,11 @@
 
         }
 
+        public function addForm()
+        {
+            return  $this->render('roles/agregar.html.twig');
+        }
+
         public static function listAll()
         {
             return rol::all();

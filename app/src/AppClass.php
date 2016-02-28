@@ -20,6 +20,7 @@
 				'admin_project' => '/proyectos',
 				'equipment' => '/equipos',
 				'roles' => '/roles',
+				'new_rol' => '/roles/nuevo',
 				'users' => '/usuarios',
 				'type_item' => '/tipoitem',
 				'states' => '/estados',
