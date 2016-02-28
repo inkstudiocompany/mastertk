@@ -1,17 +1,18 @@
 {% extends 'common/forms.html.twig' %}
 
+
 {% block form_title %}
   Nuevo Rol
 {% endblock form_title %}
 
 {% block form %}
-  <form id="agregar_rol" name="agregar_rol" method="post" action="./">
+  <form id="agregar_rol" name="agregar_rol" method="post" action="">
     <div class="form-group">
       <label for="nombre">Nombre</label>
       <input name="nombre" type="text" id="nombre" class="form-control" placeholder="Nombre" required />
     </div>
     <div class="form-group">
-      <label for="nombre">Descripción</label>
+      <label for="descripcion">Descripción</label>
       <input name="descripcion" type="text" id="descripcion" class="form-control" placeholder="Descripción" />
     </div>
 
