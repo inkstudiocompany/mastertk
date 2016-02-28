@@ -11,9 +11,10 @@ var gulp = require('gulp'),
   	concat = require('gulp-concat'),
   	uglifycss = require('gulp-uglifycss'),
   	uglify = require('gulp-uglify'),
+    batch = require('gulp-batch'),
     watch = require('gulp-watch');
 
-gulp.task('default', ['jslibs', 'javascript', 'fonts', 'csslibs', 'css']);
+gulp.task('default', ['jslibs', 'javascript', 'fonts', 'csslibs', 'css', 'watch']);
 
 
 var libsJavascript = [
@@ -43,14 +44,14 @@ gulp.task('csslibs', [], function () {
 });
 
 gulp.task('css', [], function () {
-    gulp.src('assets/css/*.css')
+  gulp.src('assets/css/*.css')
     .pipe(concat('application.css'))
     .pipe(uglifycss())
-  	.pipe(gulp.dest('web/css/'));
+    .pipe(gulp.dest('web/css/'));
 });
 
 gulp.task('javascript', [], function () {
-    gulp.src('assets/js/*.js')
+  gulp.src('assets/js/*')
     .pipe(concat('application.js'))
     .pipe(uglify())
     .pipe(gulp.dest('web/js/'));
@@ -59,4 +60,18 @@ gulp.task('javascript', [], function () {
 gulp.task('fonts', [], function () {
     gulp.src('vendor/twbs/bootstrap/dist/fonts/*')
     .pipe(gulp.dest('web/fonts/'));
+});
+
+gulp.task('watch', function () {
+    watch('assets/css/*.css', batch(function (events, done) {
+        gulp.start('css', function(){
+          console.log('css done!');
+        });
+    }));
+
+    watch('assets/js/*.js', batch(function (events, done) {
+        gulp.start('javascript', function(){
+          console.log('javascript done!');
+        });
+    }));
 });

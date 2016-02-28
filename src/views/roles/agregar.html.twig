@@ -5,7 +5,7 @@
 {% endblock form_title %}
 
 {% block form %}
-  <form id="agregar_rol" name="agregar_rol" method="post" action="">
+  <form id="agregar_rol" name="agregar_rol" method="post" action="./">
     <div class="form-group">
       <label for="nombre">Nombre</label>
       <input name="nombre" type="text" id="nombre" class="form-control" placeholder="Nombre" required />
@@ -16,7 +16,7 @@
     </div>
 
     <div class="btn-group right" role="group" aria-label="formActions">
-      <button type="button" class="btn btn-danger">Cancelar</button>
+      <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
       <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
   </form>
