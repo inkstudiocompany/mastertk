@@ -1,1 +1,0 @@
-"use sctrict";!function(n){n.fn.myfunction=function(){}}(jQuery),$(document).ready(function(){$('button[rol="backButton"]').on("click",function(){window.history.go(-1)})});
