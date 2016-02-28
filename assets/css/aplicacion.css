@@ -18,8 +18,13 @@
 	padding: 0; 
 }
 
-.btn-danger{ 
+.btn-danger,
+.btn-danger:hover{ 
 	color: #428bca; 
 	background: none; 
 	border-color: #428bca;
+}
+
+.btn-danger:hover{ 
+	background-color: #f9f9f9;
 }

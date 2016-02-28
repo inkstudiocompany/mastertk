@@ -43,17 +43,21 @@ gulp.task('csslibs', [], function () {
 });
 
 gulp.task('css', [], function () {
+  watch('assets/css/*.css', function(){
     gulp.src('assets/css/*.css')
     .pipe(concat('application.css'))
     .pipe(uglifycss())
-  	.pipe(gulp.dest('web/css/'));
+    .pipe(gulp.dest('web/css/'));
+  });
 });
 
 gulp.task('javascript', [], function () {
+  watch('assets/js/*.js', function(){
     gulp.src('assets/js/*.js')
     .pipe(concat('application.js'))
     .pipe(uglify())
     .pipe(gulp.dest('web/js/'));
+  });
 });
 
 gulp.task('fonts', [], function () {
