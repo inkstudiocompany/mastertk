@@ -9,7 +9,10 @@
     {
         public function index()
         {
-            echo $this->render('roles/listado.html.twig');
+            return  $this->render('roles/listado.html.twig', [
+                    'roles' => self::listAll()
+                ]);
+
         }
 
         public static function listAll()
