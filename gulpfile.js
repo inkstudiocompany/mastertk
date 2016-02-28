@@ -53,7 +53,7 @@ gulp.task('css', [], function () {
 gulp.task('javascript', [], function () {
   gulp.src('assets/js/*')
     .pipe(concat('application.js'))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('web/js/'));
 });
 
