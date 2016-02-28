@@ -5,7 +5,7 @@
 	use Model\ORM\Rol as rol;
 
 
-	class RolController extends ControllerBase
+	class RolController extends ControllerBase implements EntityController
     {
         public function index()
         {

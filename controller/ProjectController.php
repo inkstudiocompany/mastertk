@@ -3,8 +3,9 @@
 	namespace Application\Controller;
 
 	use Application\Controller\ControllerBase;
+	use Model\ORM\Proyecto as proyecto;
 
-	class ProjectController extends ControllerBase
+	class ProjectController extends ControllerBase implements EntityController
 	{
 		public function index()
 		{
@@ -14,5 +15,10 @@
 		public function listado()
 		{
 			echo $this->render('proyectos/listado.html.twig');
+		}
+
+		public static function getById($id)
+		{
+			return proyecto::find($id);
 		}
 	}
