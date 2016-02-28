@@ -2,7 +2,7 @@
 	
 	namespace Application\Controller;
 
-	class ControllerBase
+	abstract class ControllerBase
 	{
 
 		protected static $instance = null;
@@ -26,4 +26,6 @@
 
     		return $this->twig->render($template, $params);
     	}
+
+
 	}

@@ -5,7 +5,7 @@
     use Model\ORM\Usuario as usuario;
 
 
-    class UserController extends ControllerBase
+    class UserController extends ControllerBase implements EntityController
     {
 
         public static function listUserByRol($rolId){
@@ -14,6 +14,8 @@
         }
 
 
-
-
+        public static function getById($id)
+        {
+            usuario::find($id);
+        }
     }
