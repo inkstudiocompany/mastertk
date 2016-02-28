@@ -39,6 +39,11 @@
 		echo $project->listado();
 	});
 
+	$app::Router()->get($app->path('new_project'), function(){
+		$project = new ProjectController();
+		echo $project->addForm();
+	});
+
 	$app::Router()->get($app->path('roles'), function(){
 		$project = new RolController();
 		echo $project->index();
@@ -50,9 +55,13 @@
 	});
 
 	$app::Router()->post($app->path('new_rol'), function( Request $request, Response $response, $args){
-		var_dump($Request[$nombre]);
-		$project = new RolController();
-		echo $project->addForm();
+            $params = $request->getParsedBody();
+            $nombre = $params['nombre'];
+            $descripcion = $params['descripcion'];
+            $rol = RolController:: createNew($nombre, $descripcion);
+            var_dump($rol);
+            $project = new RolController();
+            echo $project->addForm();
 	});
 
 

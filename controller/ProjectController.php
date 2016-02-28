@@ -5,20 +5,18 @@
 	use Application\Controller\ControllerBase;
 	use Model\ORM\Proyecto as proyecto;
 
-	class ProjectController extends ControllerBase implements EntityController
+	class ProjectController extends ControllerBase
 	{
 		public function index()
 		{
-			echo $this->render('proyectos/proyectos.html.twig');
+			return $this->render('proyectos/proyectos.html.twig');
 		}
 
 		public function listado()
 		{
-			echo $this->render('proyectos/listado.html.twig');
+			return $this->render('proyectos/listado.html.twig', [
+				'proyectos' => proyecto::all()
+			]);
 		}
 
-		public static function getById($id)
-		{
-			return proyecto::find($id);
-		}
 	}

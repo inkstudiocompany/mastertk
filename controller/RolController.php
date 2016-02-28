@@ -30,8 +30,8 @@
             return rol::find($id);
         }
 
-        public function createNew($nombre, $descripcion){
-            $rol = new rol();
+        public static function createNew($nombre, $descripcion){
+            $rol = new Rol();
             $rol -> nombre = $nombre;
             $rol -> descripcion =$descripcion;
             $rol -> save();
