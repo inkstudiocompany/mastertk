@@ -1,0 +1,23 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+Agregar Tipo de Documento<br />
+<form id="agregar_tipodocumento" name="agregar_tipodocumento" method="post" action="">
+<table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="108" nowrap="nowrap">Tipo de Documento</td>
+    <td width="649"><input name="agregar_nombreDocumento" type="text" id="agregar_nombreDocumento" size="70" maxlength="255" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><p>
+      <br />
+      <input type="submit" name="botonagregarTipoDocumento" id="botonagregarTipoDocumento" value="Agregar Tipo de Documento" />
+      </p></td>
+  </tr>
+</table>
+</form>
+
+
+{% endblock body %}

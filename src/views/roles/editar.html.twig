@@ -1,0 +1,25 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+ Editar  Rol<br />
+<form id="editar_rol" name="editar_rol" method="post" action="">
+  <table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="108">Nombre</td>
+      <td width="649"><input name="rol_nombreRol" type="text" id="rol_nombreRol" size="100" maxlength="255" value="<?php $nombreRol; ?>"/></td>
+    </tr>
+    <tr>
+      <td>Descripcion</td>
+      <td><input name="rol_descripcionRol" type="text" id="rol_descripcionRol" size="100" maxlength="255" value="<?php $descripcionRol; ?>"/></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><p> <br />
+        <input type="submit" name="botonupdateRol" id="botonupdateRol" value="Update  Rol" />
+      </p></td>
+    </tr>
+  </table>
+</form>
+
+{% endblock body %}

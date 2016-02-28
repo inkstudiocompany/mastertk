@@ -1,0 +1,49 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+Agregar Usuario  <br />
+<form id="agregar_usuario" name="agregar_usuario" method="post" action="">
+  <table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="108" nowrap="nowrap">Nombre y Apellido</td>
+      <td width="649"><input name="agregar_nombreCompleto" type="text" id="agregar_nombreCompleto" size="100" maxlength="255" /></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap">Tipo de Documento</td>
+      <td><select name="TipoDocumento">
+        <option value="0">Ninguno</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap">Nro. de Documento</td>
+      <td><input name="agregar_numDocumento" type="text" id="agregar_numDocumento" size="100" maxlength="255" /></td>
+    </tr>
+    <tr>
+      <td>email</td>
+      <td><input name="agregar_email" type="text" id="agregar_email" size="100" maxlength="255" /></td>
+    </tr>
+    <tr>
+      <td>Usuario</td>
+      <td><input name="agregar_usuario" type="text" id="agregar_usuario" size="100" maxlength="255" /></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><input name="agregar_password" type="text" id="agregar_password" size="100" maxlength="255" /></td>
+    </tr>
+    <tr>
+      <td>Rol Asignado</td>
+      <td><select name="nombreRol">
+        <option value="0">Ninguno</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><p> <br />
+        <input type="submit" name="botonagregarUsuario" id="botonagregarUsuario" value="Agregar Usuario" />
+      </p></td>
+    </tr>
+  </table>
+</form>
+
+{% endblock body %}
