@@ -50,7 +50,7 @@
 	});
 
 	$app::Router()->post($app->path('new_rol'), function( Request $request, Response $response, $args){
-		var_dump($request->getAttribute('nombre'));
+		var_dump($Request[$nombre]);
 		$project = new RolController();
 		echo $project->addForm();
 	});
