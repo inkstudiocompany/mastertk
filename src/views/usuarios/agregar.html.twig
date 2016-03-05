@@ -1,53 +1,59 @@
-{% extends 'common/base.html.twig' %}
+{% extends 'common/forms.html.twig' %}
 
-{% block body %}
 
-Agregar Usuario  <br />
-<form id="agregar_usuario" name="agregar_usuario" method="post" action="">
-  <table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
-    <tr>
-      <td width="108" nowrap="nowrap">Nombre y Apellido</td>
-      <td width="649"><input name="nombreCompleto" type="text" id="nombreCompleto" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td nowrap="nowrap">Tipo de Documento</td>
-      <td><select name="tipoDocumento">
+{% block form_title %}
+  Agregar Usuario
+{% endblock form_title %}
+
+{% block form %}
+
+  <form id="agregar_usuario" name="agregar_usuario" method="POST">
+    <div class="form-group">
+      <label for="nombreCompleto">Nombre y Apellido</label>
+      <input name="nombreCompleto" type="text" id="nombreCompleto" placeholder="Nombre y Apellido" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="tipoDocumento">Tipo de Documento</label>
+      <select name="tipoDocumento" id="tipoDocumento" class="form-control">
         <option value="0">Ninguno</option>
-      </select></td>
-    </tr>
-    <tr>
-      <td nowrap="nowrap">Nro. de Documento</td>
-      <td><input name="numDocumento" type="text" id="numDocumento" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>email</td>
-      <td><input name="email" type="text" id="email" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Usuario</td>
-      <td><input name="usuario" type="text" id="usuario" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Password</td>
-      <td><input name="password" type="text" id="password" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Confirmar Password</td>
-      <td><input name="confirm_password" type="text" id="confirm_password" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Rol Asignado</td>
-      <td><select name="nombreRol">
+        {% for  tipoDocumento in tiposDocumento  %}
+          <option value="{{ tipoDocumento.idTipoDocumento }}">{{ tipoDocumento.nombreDocumento }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="numDocumento">Nro. de Documento</label>
+      <input name="numDocumento" type="text" id="numDocumento"  placeholder="Numero de Documento"  class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label for="email">email</label>
+      <input name="email" type="text" id="email" placeholder="Email"  class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="usuario">Usuario</label>
+      <input name="usuario" type="text" id="usuario" placeholder="Usuario" class="form-control" required  />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input name="password" type="password" id="password" placeholder="Password" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label for="confirm_password">Confirmar Password</label>
+      <input name="confirm_password" type="password" id="confirm_password" placeholder="Password" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label for="nombreRol">Rol Asignado</label>
+      <select name="nombreRol" id="nombreRol" class="form-control" required>
         <option value="0">Ninguno</option>
-      </select></td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td><p> <br />
-        <input type="submit" name="botonagregarUsuario" id="botonagregarUsuario" value="Agregar Usuario" />
-      </p></td>
-    </tr>
-  </table>
+        {% for  rol in roles  %}
+          <option value="{{ rol.idRol }}">{{ rol.nombreRol }}</option>
+        {% endfor %}
+      </select>
+  </div>
+    <div class="btn-group right" role="group" aria-label="formActions">
+      <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
 </form>
 
-{% endblock body %}
+{% endblock form %}
