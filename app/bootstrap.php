@@ -40,6 +40,9 @@
 		echo $home->index();
 	});
 
+	/**
+	 * Proyectos
+	 */
 	$app::Router()->get($app->path('admin_project'), function(){
 		$project = new ProjectController();
 		echo $project->listado();
@@ -114,7 +117,6 @@
             $password = $parse->get('password');
 			$idTipoDocumento = $parse->get('tipoDocumento');
 			$idRolPrincipal = $parse->get('rolPrincipal');
-
 			$usuariosController = new UserController();
             $usuariosController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$idTipoDocumento,$idRolPrincipal);
             

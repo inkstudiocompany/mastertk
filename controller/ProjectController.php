@@ -14,13 +14,14 @@
 
 		public function listado()
 		{
+			$proyectos = proyecto::with('lider') -> get();
 			return $this->render('proyectos/listado.html.twig', [
-				'proyectos' => proyecto::all()
+				'proyectos' => $proyectos
 			]);
 		}
 
 		public function addForm()
 		{
-			return  $this->render('roles/agregar.html.twig');
+			return  $this->render('proyectos/agregar.html.twig');
 		}
 	}

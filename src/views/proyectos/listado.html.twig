@@ -11,24 +11,20 @@
   <!-- Table -->
   <table class="table">
     <tr>
-      <td class="">Nombre Proyecto</td>
-      <td class="">Lider del Proyecto</td>
-      <td class="">Proyectos Productivo</td>
+      <td>Nombre Proyecto</td>
+      <td>Lider del Proyecto</td>
+      <td>Proyectos Productivo</td>
       <td class="col-md-2">Acciones</td>
     </tr>
     {% if proyectos is not empty %}
-      <tr>
-        <td nowrap="nowrap"><?php $nombreProyecto; ?></td>
-        <td nowrap="nowrap"><?php $nombreCompleto; ?>... read idLider ......</td>
-        <td nowrap="nowrap"><?php $productivoProyecto; ?></td>
-        <td nowrap="nowrap">
-          {# <div class="btn-group btn-group-xs" role="group"> #}
-            <button type="button" class="btn btn-sm btn-info">Detalles</button>
-            <button type="button" class="btn btn-sm btn-info">Editar</button>
-            <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
-          {# </div> #}
-        </td>
-      </tr>
+      {% for proyecto in proyectos %}
+        <tr>
+          <td>{{ proyecto.nomProyecto }}</td>
+          <td>{{ proyecto.lider.nombreCompleto }}</td>
+          <td>{{ proyecto.productivo }}</td>
+          <td></td>
+        </tr>
+      {% endfor %}
     {% else %}
       <tr>
         <td colspan="4" class="alert alert-info text-center">
@@ -38,10 +34,7 @@
       </tr>
     {% endif %}
     <tr>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td colspan="4"></td>
     </tr>
   </table>
 </div>
