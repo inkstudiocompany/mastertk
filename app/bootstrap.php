@@ -25,6 +25,19 @@
 		echo $home->index();
 	});
 
+	$app::Router()->get($app->path('message_confirm'), function(Request $request, Response $response, $args){
+		$dataResponse = [];
+		$parse = new RequestParse($request, $args);
+		
+		$options = [];
+		$options['title'] = $parse->get('title');
+		$options['message'] = $parse->get('message');
+		$dataResponse['html'] = App::getInstance()->Message()->confirm($options);
+		$dataResponse['status'] = true;
+
+		return $response->withJson($dataResponse);
+	});
+
 	$app::Router()->get('/', function(){
 		$home = new HomeController();
 		echo $home->index();
@@ -71,7 +84,7 @@
 		$rolController = new RolController();
         $rolController -> createNew($nombre, $descripcion);
 
-        echo $rolController->index();
+        return $response->withRedirect(App::getInstance()->path('roles'), 301);
 	});
 
 	$app::Router()->get($app->path('edit_rol'), function(){
