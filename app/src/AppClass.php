@@ -65,7 +65,7 @@
             }
         }
 
-        public function path($path, $params, $absolute = false)
+        public function path($path, $params=[], $absolute = false)
         {
             if(isset($this->routes[$path]) === false) return '/';
 
