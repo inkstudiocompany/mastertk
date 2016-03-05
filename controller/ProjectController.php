@@ -32,9 +32,8 @@
             $proyecto -> inicioProyecto = $inicioProyecto;
             $proyecto -> finProyecto = $finProyecto;
             $proyecto -> productivoProyecto = $productivoProyecto;
-            $proyecto -> idLider = $idLider;
-            $lider = UserController::getById($idLider);
-            $usuario -> idLider()-> associate($idLider);
+            $usuario = UserController::getById($idLider);
+            $proyecto -> lider -> associate($usuario);
             $proyecto-> save();
             return $proyecto;
         }
