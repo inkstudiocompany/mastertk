@@ -23,6 +23,7 @@
 				'roles' => '/roles',
 				'new_rol' => '/roles/nuevo',
 				'users' => '/usuarios',
+				'new_user' => '/usuarios/nuevo',
 				'type_item' => '/tipoitem',
 				'states' => '/estados',
 				'workflow' => '/workflow',

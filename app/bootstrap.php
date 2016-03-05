@@ -16,6 +16,7 @@
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
 	use Application\Controller\RolController;
+    use Application\Controller\UserController;
 
 	$app = App::getInstance();
 
@@ -60,7 +61,21 @@
             $descripcion = $params['descripcion'];
 			$rolController = new RolController();
             $rolController -> createNew($nombre, $descripcion);
-            echo $rolController->addForm();
+            echo $rolController->index();
+	});
+
+
+	# USUARIO#
+
+	$app::Router()->get($app->path('users'), function(){
+		//var_dump("En usuarios");
+		$usuariosController = new UserController();
+		echo $usuariosController->index();
+	});
+
+	$app::Router()->get($app->path('new_user'), function(){
+		$usuariosController = new UserController();
+		echo $usuariosController->addForm();
 	});
 
 
