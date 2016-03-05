@@ -6,7 +6,7 @@
 	require BASE . 'vendor/autoload.php';
 	require BASE . 'app/src/AppClass.php'; 
 	require BASE . 'app/src/config.php';
-    require BASE . 'app/src/capsule.php';
+        require BASE . 'app/src/capsule.php';
 
 	use \Psr\Http\Message\ServerRequestInterface as Request;
 	use \Psr\Http\Message\ResponseInterface as Response;
@@ -19,6 +19,11 @@
     use Application\Controller\UserController;
 
 	$app = App::getInstance();
+
+	$app::Router()->get('prueba', function(){
+		$home = new HomeController();
+		echo $home->index();
+	});
 
 	$app::Router()->get('/', function(){
 		$home = new HomeController();
@@ -46,8 +51,8 @@
 	});
 
 	$app::Router()->get($app->path('roles'), function(){
-		$project = new RolController();
-		echo $project->index();
+		$rol = new RolController();
+		echo $rol->index();
 	});
 
 	$app::Router()->get($app->path('new_rol'), function(){
@@ -64,6 +69,11 @@
             echo $rolController->index();
 	});
 
+	$app::Router()->get($app->path('edit_rol'), function(){
+		$rol = new RolController();
+		echo $rol->addForm();
+	});
+
 
 	# USUARIO#
 
@@ -77,7 +87,6 @@
 		$usuariosController = new UserController();
 		echo $usuariosController->addForm();
 	});
-
 
 	$app::Router()->post($app->path('new_user'), function( Request $request, Response $response, $args){
             $params = $request->getParsedBody();

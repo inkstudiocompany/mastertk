@@ -16,14 +16,15 @@
       <td class="col-md-2">Acciones</td>
     </tr>
     {% if roles is not empty %}
-      {% for rol  in roles %}
+      {% for rol  in roles %} {{ rol }}
       <tr>
         <td nowrap="nowrap">{{ rol.nombreRol}}</td>
         <td nowrap="nowrap">{{ rol.descripcion}}</td>
         <td nowrap="nowrap">
           {# <div class="btn-group btn-group-xs" role="group"> #}
             <button type="button" class="btn btn-sm btn-info">Detalles</button>
-            <button type="button" class="btn btn-sm btn-info">Editar</button>
+            <button type="button" class="btn btn-sm btn-info" 
+              data-urledit="{{ app.path('edit_rol', ['id' => rol.idRol ]) }}" role-button="editar">Editar</button>
             <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
           {# </div> #}
         </td>

@@ -14,11 +14,14 @@ var gulp = require('gulp'),
     batch = require('gulp-batch'),
     watch = require('gulp-watch');
 
-gulp.task('default', ['jslibs', 'javascript', 'fonts', 'csslibs', 'css', 'watch']);
+gulp.task('default', ['watch'], function(){
+  gulp.start(['jslibs', 'javascript', 'fonts', 'csslibs', 'css']);
+});
 
 
 var libsJavascript = [
-  'node_modules/jquery-validation/dist/jquery.validate.js','vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
+  'node_modules/jquery-validation/dist/jquery.validate.js',
+  'vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
   'vendor/twbs/bootstrap/assets/js/jquery.js'
 ];
 
@@ -30,35 +33,31 @@ var libsCss = [
 * Configuración de la tarea 'demo'
 */
 gulp.task('jslibs', [], function () {
-    libsJavascript.forEach(function(script){
-      gulp.src(script)
+    return gulp.src(libsJavascript)
       .pipe(gulp.dest('web/js/'));
-    });
 });
 
 gulp.task('csslibs', [], function () {
-    libsCss.forEach(function(script){
-      gulp.src(script)
+    return gulp.src(libsCss)
       .pipe(gulp.dest('web/css/'));
-    });
 });
 
 gulp.task('css', [], function () {
-  gulp.src('assets/css/*.css')
+  return gulp.src('assets/css/*.css')
     .pipe(concat('application.css'))
     .pipe(uglifycss())
     .pipe(gulp.dest('web/css/'));
 });
 
 gulp.task('javascript', [], function () {
-  gulp.src('assets/js/*')
+  return gulp.src('assets/js/*')
     .pipe(concat('application.js'))
     //.pipe(uglify())
     .pipe(gulp.dest('web/js/'));
 });
 
 gulp.task('fonts', [], function () {
-    gulp.src('vendor/twbs/bootstrap/dist/fonts/*')
+    return gulp.src('vendor/twbs/bootstrap/dist/fonts/*')
     .pipe(gulp.dest('web/fonts/'));
 });
 
