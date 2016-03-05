@@ -3,7 +3,7 @@
 $(document).ready(function (){
 	$("#agregar_rol").validate({
         rules: {
-            nombre: "required",
+            nombre: { lettersonly: true},
             descripcion: { numberslettersonly: true}
     	},
         messages: {
