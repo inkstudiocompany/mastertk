@@ -12,9 +12,9 @@ $(document).ready(function (){
         messages: {
             nomProyecto: "No se permiten caracteres especiales",
             objProyecto: "No se permiten caracteres especiales",
-            inicioProyecto: "",
-            finProyecto: "",
-            productivoProyecto: "",
+            inicioProyecto: "Debe ingresar el INICIO del Proyecto",
+            finProyecto: "Debe ingresar el FIN del Proyecto",
+            productivoProyecto: "Debe ingresar SI / NO, esta Productivo",
             idLider:""
         }
     });

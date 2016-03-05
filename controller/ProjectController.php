@@ -24,4 +24,19 @@
 		{
 			return  $this->render('proyectos/agregar.html.twig');
 		}
+
+        public function createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider){
+            $proyecto= new proyecto();
+            $proyecto -> nomProyecto = $nomProyecto;
+            $proyecto -> objProyecto = $objProyecto;
+            $proyecto -> inicioProyecto = $inicioProyecto;
+            $proyecto -> finProyecto = $finProyecto;
+            $proyecto -> productivoProyecto = $productivoProyecto;
+            $proyecto -> idLider = $idLider;
+            $lider = UserController::getById($idLider);
+            $usuario -> idLider()-> associate($idLider);
+            $proyecto-> save();
+            return $proyecto;
+        }
+
 	}
