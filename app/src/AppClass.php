@@ -30,6 +30,8 @@
 				$configuration = [
 					'settings' => [
 						'displayErrorDetails' => true,
+                        'debug' => true,
+
 					],
 				];
 				$c = new \Slim\Container($configuration);
@@ -63,7 +65,8 @@
 
             if ($params) {
                 foreach ($params as $key => $value) {
-                    $response = str_replace(':'.$key, $value, $response);
+                    //$response = str_replace(':'.$key, $value, $response);
+                    $response = str_replace('[/{'.$key.'}]', '/' . $value, $response);
                 }
             }
 

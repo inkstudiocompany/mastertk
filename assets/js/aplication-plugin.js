@@ -10,8 +10,25 @@
 		var url = e.data('urledit');
 		
 		e.on('click', function(){
-			console.log('Click!');
-			//window.document.location.href = url;
+			window.document.location.href = url;
+		});
+	}
+
+	$.fn.borrar = function() {
+		var e = $(this);
+		
+		e.on('click', function(){
+			var url = e.data('urldelete');
+
+			$.ajax({
+				method: 'post',
+				url: url,
+				success: function(response) {
+					if (response.status === true) {
+						document.location.reload();
+					}
+				}
+			});
 		});
 	}
 })(jQuery);

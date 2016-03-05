@@ -18,8 +18,7 @@
 	padding: 0; 
 }
 
-.btn-danger,
-.btn-danger:hover{ 
+.btn-danger, .btn-danger:hover, .btn-danger:active, .btn-danger:focus, .btn-danger:visited{ 
 	color: #428bca; 
 	background: none; 
 	border-color: #428bca;

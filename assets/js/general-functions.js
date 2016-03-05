@@ -15,4 +15,6 @@ $(document).ready(function(){
 	});
 
 	$('button[role-button="editar"]').editar();
+
+	$('button[role-button="eliminar"]').borrar();
 });

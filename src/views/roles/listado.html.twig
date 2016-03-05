@@ -25,7 +25,7 @@
             <button type="button" class="btn btn-sm btn-info">Detalles</button>
             <button type="button" class="btn btn-sm btn-info" 
               data-urledit="{{ app.path('edit_rol', {'id': rol.idRol }, true) }}" role-button="editar">Editar</button>
-            <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
+            <button type="button" class="btn btn-sm btn-danger" data-urldelete="{{ app.path('delete_rol', {'id': rol.idRol }, true) }}" role-button="eliminar">Eliminar <i class='glyphicon glyphicon-trash'></i></button>
           {# </div> #}
         </td>
       </tr>

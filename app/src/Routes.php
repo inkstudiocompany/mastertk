@@ -16,7 +16,8 @@
 				#Roles
 				'roles' => '/roles',
 				'new_rol' => '/roles/nuevo',
-                'edit_rol' => '/roles/editar/:id',
+                'edit_rol' => '/roles/editar[/{id}]',
+                'delete_rol' => '/roles/borrar[/{id}]',
 
                 #Usuarios
 				'users' => '/usuarios',

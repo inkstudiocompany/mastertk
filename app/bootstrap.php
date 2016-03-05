@@ -50,6 +50,9 @@
 		echo $project->addForm();
 	});
 
+	/**
+	* Roles
+	*/
 	$app::Router()->get($app->path('roles'), function(){
 		$rol = new RolController();
 		echo $rol->index();
@@ -74,6 +77,18 @@
 	$app::Router()->get($app->path('edit_rol'), function(){
 		$rol = new RolController();
 		echo $rol->addForm();
+	});
+
+	$app::Router()->post($app->path('delete_rol'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request, $args);
+		$dataResponse = [];
+
+		if ($id = $parse->get('id')) {
+			$rol = new RolController();
+			$dataResponse['status'] = (boolean) $rol->delete($id);
+		}
+		
+		return $response->withJson($dataResponse);
 	});
 
 

@@ -31,11 +31,18 @@
             return Rol::find($id);
         }
 
-        public  function createNew($nombre, $descripcion){
+        public  function createNew($nombre, $descripcion)
+        {
             $rol= new Rol();
             $rol -> nombreRol = $nombre;
             $rol -> descripcion= $descripcion;
             $rol -> save();
             return $rol;
+        }
+
+        public function delete($id = 0) 
+        {
+            $rol = Rol::find($id);
+            return $rol->delete();
         }
     }
