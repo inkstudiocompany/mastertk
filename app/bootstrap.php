@@ -61,8 +61,8 @@
             $finProyecto = $parse->get('finProyecto');
             $productivoProyecto = $parse->get('productivoProyecto');
 			$idLider = $parse->get('idLider');
-			$project = new ProjectController();
-            $project -> createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider);
+			$projectoController = new ProjectController();
+            $projectoController -> createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider);
         
             echo $project->index();
 	});
