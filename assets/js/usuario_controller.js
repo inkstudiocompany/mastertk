@@ -35,11 +35,11 @@ $(document).ready(function (){
 
 
                     messages: {
-                        numDocumento: "Debe ingresar un nro. de documento" 
-                        nombreCompleto: "Debe ingresar un nombre" 
-                        email: "Debe ingresar un email valido" 
-                        usuario: "No se permiten caracteres especiales" 
-                        password: "Debe contener contener 5 caracteres como minimo"
+                        numDocumento: "Debe ingresar un nro. de documento" ,
+                        nombreCompleto: "Debe ingresar un nombre" ,
+                        email: "Debe ingresar un email valido" ,
+                        usuario: "No se permiten caracteres especiales" ,
+                        password: "Debe contener contener 5 caracteres como minimo",
                         confirm_password: "Debe coincidir con la password escrita anteriormente"
                     }
                 });
