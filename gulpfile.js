@@ -21,12 +21,14 @@ gulp.task('default', ['jslibs', 'javascript', 'fonts', 'csslibs', 'css', 'watch'
 
 var libsJavascript = [
   'node_modules/jquery-validation/dist/jquery.validate.js',
+  'node_modules/jquery-datetimepicker/jquery.datetimepicker.min.js',
   'vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
   'vendor/twbs/bootstrap/assets/js/jquery.js'
 ];
 
 var libsCss = [
-  'vendor/twbs/bootstrap/dist/css/bootstrap.min.css'
+  'vendor/twbs/bootstrap/dist/css/bootstrap.min.css',
+    'node_modules/jquery-datetimepicker/jquery.datetimepicker.css'
 ];
 
 /*

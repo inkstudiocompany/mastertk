@@ -53,6 +53,9 @@
 		echo $home->index();
 	});
 
+	/**
+	 * Proyectos
+	 */
 	$app::Router()->get($app->path('admin_project'), function(){
 		$project = new ProjectController();
 		echo $project->listado();
@@ -61,6 +64,21 @@
 	$app::Router()->get($app->path('new_project'), function(){
 		$project = new ProjectController();
 		echo $project->addForm();
+	});
+
+	$app::Router()->post($app->path('new_project'), function( Request $request, Response $response, $args){
+            $parse = new RequestParse($request);
+            $nomProyecto = $parse->get('nomProyecto');
+            $objProyecto = $parse->get('objProyecto');
+            $inicioProyecto = $parse->get('inicioProyecto');
+            $finProyecto = $parse->get('finProyecto');
+            $productivoProyecto = $parse->get('productivoProyecto');
+			$idLider = $parse->get('idLider');
+
+			$project = new ProjectController();
+            $project -> createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider);
+
+            echo $project->index();
 	});
 
 	/**
@@ -127,7 +145,6 @@
             $password = $parse->get('password');
 			$idTipoDocumento = $parse->get('tipoDocumento');
 			$idRolPrincipal = $parse->get('rolPrincipal');
-
 			$usuariosController = new UserController();
             $usuariosController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$idTipoDocumento,$idRolPrincipal);
             
