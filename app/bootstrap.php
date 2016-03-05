@@ -53,6 +53,20 @@
 		echo $project->addForm();
 	});
 
+	$app::Router()->post($app->path('new_project'), function( Request $request, Response $response, $args){
+            $parse = new RequestParse($request);
+            $nomProyecto = $parse->get('nomProyecto');
+            $objProyecto = $parse->get('objProyecto');
+            $inicioProyecto = $parse->get('inicioProyecto');
+            $finProyecto = $parse->get('finProyecto');
+            $productivoProyecto = $parse->get('productivoProyecto');
+			$idLider = $parse->get('idLider');
+			$projectoController = new ProjectController();
+            $projectoController -> createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider);
+        
+            echo $projectoController->index();
+	});
+
 	/**
 	* Roles
 	*/
