@@ -16,9 +16,10 @@
       <td class="col-md-2">Acciones</td>
     </tr>
     {% if roles is not empty %}
+      {% for rol  in roles %}
       <tr>
-        <td nowrap="nowrap"><?php $nombreProyecto; ?></td>
-        <td nowrap="nowrap"><?php $nombreCompleto; ?></td>
+        <td nowrap="nowrap">{{ rol.nombreRol|e }}</td>
+        <td nowrap="nowrap">{{ rol.descripcion|e }}</td>
         <td nowrap="nowrap">
           {# <div class="btn-group btn-group-xs" role="group"> #}
             <button type="button" class="btn btn-sm btn-info">Detalles</button>
@@ -27,6 +28,7 @@
           {# </div> #}
         </td>
       </tr>
+      {% endfor %}
     {% else %}
       <tr>
         <td colspan="3" class="alert alert-info text-center">
