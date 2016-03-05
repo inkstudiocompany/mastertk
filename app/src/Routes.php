@@ -12,13 +12,21 @@
 				'admin_project' => '/proyectos',
 				'new_project' => '/proyectos/nuevo',
 				'equipment' => '/equipos',
+				
+				#Roles
 				'roles' => '/roles',
 				'new_rol' => '/roles/nuevo',
                 'edit_rol' => '/roles/editar/:id',
+
+                #Usuarios
 				'users' => '/usuarios',
 				'new_user' => '/usuarios/nuevo',
+
+				#Items
 				'type_item' => '/tipoitem',
 				'states' => '/estados',
+
+				#Workflow
 				'workflow' => '/workflow',
 			];
 

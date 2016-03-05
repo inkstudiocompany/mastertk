@@ -10,14 +10,14 @@
 
 	use \Psr\Http\Message\ServerRequestInterface as Request;
 	use \Psr\Http\Message\ResponseInterface as Response;
-
-
+	
 	use Application\App as App;
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
 	use Application\Controller\RolController;
     use Application\Controller\UserController;
-
+    use Application\Controller\RequestParse;
+    
 	$app = App::getInstance();
 
 	$app::Router()->get('prueba', function(){
@@ -60,13 +60,15 @@
 		echo $project->addForm();
 	});
 
-	$app::Router()->post($app->path('new_rol'), function( Request $request, Response $response, $args){
-            $params = $request->getParsedBody();
-            $nombre = $params['nombre'];
-            $descripcion = $params['descripcion'];
-			$rolController = new RolController();
-            $rolController -> createNew($nombre, $descripcion);
-            echo $rolController->index();
+	$app::Router()->post($app->path('new_rol'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request);
+		$nombre = $parse->get('nombre');
+        $descripcion = $parse->get('descripcion');
+
+		$rolController = new RolController();
+        $rolController -> createNew($nombre, $descripcion);
+
+        echo $rolController->index();
 	});
 
 	$app::Router()->get($app->path('edit_rol'), function(){
@@ -89,16 +91,18 @@
 	});
 
 	$app::Router()->post($app->path('new_user'), function( Request $request, Response $response, $args){
-            $params = $request->getParsedBody();
-            $numDocumento = $params['numDocumento'];
-            $nombreCompleto = $params['nombreCompleto'];
-            $email = $params['email'];
-            $usuario = $params['usuario'];
-            $password = $params['password'];
-			$idTipoDocumento = $params['tipoDocumento'];
-			$idRolPrincipal = $params['rolPrincipal'];
+            $parse = new RequestParse($request);
+            $numDocumento = $parse->get('numDocumento');
+            $nombreCompleto = $parse->get('nombreCompleto');
+            $email = $parse->get('email');
+            $usuario = $parse->get('usuario');
+            $password = $parse->get('password');
+			$idTipoDocumento = $parse->get('tipoDocumento');
+			$idRolPrincipal = $parse->get('rolPrincipal');
+
 			$usuariosController = new UserController();
             $usuariosController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$idTipoDocumento,$idRolPrincipal);
+            
             echo $usuariosController->index();
 	});
 
