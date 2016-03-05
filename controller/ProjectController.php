@@ -33,7 +33,7 @@
             $proyecto -> finProyecto = $finProyecto;
             $proyecto -> productivoProyecto = $productivoProyecto;
             $usuario = UserController::getById($idLider);
-            $proyecto -> lider -> associate($usuario);
+            $proyecto -> lider() -> associate($usuario);
             $proyecto-> save();
             return $proyecto;
         }
