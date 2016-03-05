@@ -9,26 +9,28 @@
         private static $router = null;
         private $routes = null;
 
-        public function __construct()
-        {
-            $this->parameters = [];
-            $this->routes = [
-                'prueba' => '/prueba',
-                'homepage' => '/home',
-                'my_projects' => '/misproyectos',
-                'my_tickets' => '/mistickets',
-                'history' => '/historial',
-                'admin_project' => '/proyectos',
-                'new_project' => '/proyectos/nuevo',
-                'equipment' => '/equipos',
-                'roles' => '/roles',
-                'new_rol' => '/roles/nuevo',
-                'users' => '/usuarios',
-                'type_item' => '/tipoitem',
-                'states' => '/estados',
-                'workflow' => '/workflow',
-            ];
-        }
+
+		public function __construct()
+		{
+			$this->parameters = [];
+			$this->routes = [
+				'homepage' => '/home',
+				'my_projects' => '/misproyectos',
+				'my_tickets' => '/mistickets',
+				'history' => '/historial',
+				'admin_project' => '/proyectos',
+				'new_project' => '/proyectos/nuevo',
+				'equipment' => '/equipos',
+				'roles' => '/roles',
+				'new_rol' => '/roles/nuevo',
+                'edit_rol' => '/roles/editar/:id',
+				'users' => '/usuarios',
+				'new_user' => '/usuarios/nuevo',
+				'type_item' => '/tipoitem',
+				'states' => '/estados',
+				'workflow' => '/workflow',
+			];
+		}
 
         public static function getInstance()
         {
@@ -37,12 +39,19 @@
             self::$instance = new $miclase;
             }
 
-            if (null === static::$router) {
-            static::$router = new \Slim\App();
-            }
 
-            return static::$instance;
-        }
+        	if (null === static::$router) {
+				$configuration = [
+					'settings' => [
+						'displayErrorDetails' => true,
+					],
+				];
+				$c = new \Slim\Container($configuration);
+            	static::$router = new \Slim\App($c);
+        	}
+        
+        	return static::$instance;
+    	}
 
         public static function Router()
         {
@@ -56,14 +65,20 @@
             }
         }
 
-        public function path($path, $absolute = false)
+        public function path($path, $params, $absolute = false)
         {
             if(isset($this->routes[$path]) === false) return '/';
 
             $response = $this->routes[$path];
 
+            if ($params) {
+                foreach ($params as $key => $value) {
+                    $response = str_replace('/:'.$key, '/'.$value, $response);
+                }
+            }
+
             if ($absolute === true) {
-                    $response = $this->get('host') . $this->routes[$path];
+                $response = $this->get('host') . $this->routes[$path];
             }
 
             return $response;

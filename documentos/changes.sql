@@ -1,0 +1,1 @@
+ALTER TABLE SistemaTickets.Rol ADD descripcion VARCHAR(250) NULL;

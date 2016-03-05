@@ -2,7 +2,7 @@
 
 	namespace Application\Controller;
 
-	use Model\ORM\Rol as rol;
+	use Model\ORM\Rol;
 
 
     class RolController extends ControllerBase implements EntityController
@@ -22,18 +22,19 @@
 
         public static function listAll()
         {
-            return rol::all();
+
+            return Rol::all();
         }
 
         public static function getById($id)
         {
-            return rol::find($id);
+            return Rol::find($id);
         }
 
-        public function createNew($nombre, $descripcion){
-            $rol = new rol();
-            $rol -> nombre = $nombre;
-            $rol -> descripcion =$descripcion;
+        public  function createNew($nombre, $descripcion){
+            $rol= new Rol();
+            $rol -> nombreRol = $nombre;
+            $rol -> descripcion= $descripcion;
             $rol -> save();
             return $rol;
         }
