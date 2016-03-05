@@ -42,8 +42,8 @@
       <input name="confirm_password" type="password" id="confirm_password" placeholder="Password" class="form-control" required/>
     </div>
     <div class="form-group">
-      <label for="nombreRol">Rol Asignado</label>
-      <select name="nombreRol" id="nombreRol" class="form-control" required>
+      <label for="rolPrincipal">Rol Asignado</label>
+      <select name="rolPrincipal" id="rolPrincipal" class="form-control" required>
         <option value="0">Ninguno</option>
         {% for  rol in roles  %}
           <option value="{{ rol.idRol }}">{{ rol.nombreRol }}</option>

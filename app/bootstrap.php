@@ -79,19 +79,17 @@
 	});
 
 
-$app::Router()->post($app->path('new_usuario'), function( Request $request, Response $response, $args){
+	$app::Router()->post($app->path('new_user'), function( Request $request, Response $response, $args){
             $params = $request->getParsedBody();
             $numDocumento = $params['numDocumento'];
             $nombreCompleto = $params['nombreCompleto'];
             $email = $params['email'];
             $usuario = $params['usuario'];
             $password = $params['password'];
-            $confirm_password = $params['confirm_password'];
-            $descripcion = $params['descripcion'];
-			$idTipoDocumento = $params['idTipoDocumento'];
-			$idRolPrincipal = $params['idRolPrincipal'];
+			$idTipoDocumento = $params['tipoDocumento'];
+			$idRolPrincipal = $params['rolPrincipal'];
 			$usuariosController = new UserController();
-            $usuariosController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$descripcion,$idTipoDocumento,$idRolPrincipal);
+            $usuariosController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$idTipoDocumento,$idRolPrincipal);
             echo $usuariosController->index();
 	});
 
