@@ -71,14 +71,14 @@
 
             $response = $this->routes[$path];
 
-            if ($params) {
-                foreach ($params as $key => $value) {
-                    $response = str_replace('/:'.$key, '/'.$value, $response);
-                }
-            }
-
             if ($absolute === true) {
                 $response = $this->get('host') . $this->routes[$path];
+            }
+
+            if ($params) {
+                foreach ($params as $key => $value) {
+                    $response = str_replace(':'.$key, $value, $response);
+                }
             }
 
             return $response;

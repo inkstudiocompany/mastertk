@@ -15,7 +15,7 @@ var gulp = require('gulp'),
     watch = require('gulp-watch');
 
 gulp.task('default', ['watch'], function(){
-  gulp.start(['jslibs', 'javascript', 'fonts', 'csslibs', 'css']);
+  gulp.start(['jslibs', 'javascript', 'fonts', 'csslibs', 'css'])
 });
 
 

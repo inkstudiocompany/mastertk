@@ -18,4 +18,6 @@ $(document).ready(function(){
 	$('button[rol="backButton"]').on('click', function(){
 		window.history.go(-1);
 	});
+
+	$('button[role-button="editar"]').editar();
 });

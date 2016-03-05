@@ -1,3 +1,4 @@
+'use strict';
 
 $(document).ready(function (){
 	$("#agregar_rol").validate({
@@ -10,6 +11,4 @@ $(document).ready(function (){
             descripcion: "No se permiten caracteres especiales"
         }
     });
-
-    $('button[role-button="editar"]').editar();
-})
+});
