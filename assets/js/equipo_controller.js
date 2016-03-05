@@ -1,4 +1,4 @@
-$(document).ready(function (){ 
+$(document).ready(function (){
     $("#agregar_rol").validate({
         rules: {
             nombre: "required",

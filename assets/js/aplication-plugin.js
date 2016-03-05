@@ -10,7 +10,8 @@
 		var url = e.data('urledit');
 		
 		e.on('click', function(){
-			window.document.location.href = url;
+			console.log('Click!');
+			//window.document.location.href = url;
 		});
 	}
 })(jQuery);

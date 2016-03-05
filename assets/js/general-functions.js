@@ -1,11 +1,6 @@
 'use strict';
 /* Funcionalidades generales */
 
-/*
-jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^[a-zA-Z0-9 "!?.-]+$/.test(value);
-}, "Ingrese caracteres permitidos solamente (a-z ; A-Z; 0-9; ; !; ?; .; -)"); */
-
 jQuery.validator.addMethod("lettersonly", function(value, element) {
   return this.optional(element) || /^([a-zA-Z]+\s)*[a-zA-Z]+$/.test(value);
 }, "Ingrese caracteres alfanumericos solamente"); 
