@@ -6,7 +6,7 @@
 	require BASE . 'vendor/autoload.php';
 	require BASE . 'app/src/AppClass.php'; 
 	require BASE . 'app/src/config.php';
-        require BASE . 'app/src/capsule.php';
+	require BASE . 'app/src/capsule.php';
 
 	use \Psr\Http\Message\ServerRequestInterface as Request;
 	use \Psr\Http\Message\ResponseInterface as Response;
