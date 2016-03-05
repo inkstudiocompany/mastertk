@@ -25,6 +25,7 @@
                 #Usuarios
 				'users' => '/usuarios',
 				'new_user' => '/usuarios/nuevo',
+				'get_user' => '/usuarios/get[/{id}]',
 
 				#Items
 				'type_item' => '/tipoitem',

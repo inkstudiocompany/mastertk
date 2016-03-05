@@ -18,5 +18,28 @@ $(document).ready(function (){
             idLider:"Debe seleccionar un LIDER"
         }
     });
+
+    $('#agregar_proyecto #rol').change(function() {
+        console.log( this.value );
+        var value = this.value;
+        var option = $('<option />');
+        option.attr('value', '').text('- Seleccione Uno -');
+        $("#agregar_proyecto #idLider").empty().append(option);
+        $.ajax({
+            method: 'GET',
+            url: '/usuarios/get/'+value,
+            success: function(response) {
+                if (response.usuarios) {
+                    $(response.usuarios).each(function() {
+                        console.log(this.idUsuario, this.nombreCompleto);
+                        var option = $('<option />');
+                        option.attr('value', this.idUsuario).text(this.nombreCompleto);
+                        $('#agregar_proyecto #idLider').append(option);
+                    });
+                }
+            }
+        });
+    });
+
 });
 

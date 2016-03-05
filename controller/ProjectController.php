@@ -19,21 +19,20 @@
 				'proyectos' => $proyectos
 			]);
 		}
-
 		public function addForm()
 		{
-			return  $this->render('proyectos/agregar.html.twig');
+			return  $this->render('proyectos/agregar.html.twig',[
+				'roles'=> RolController::listAll()]);
 		}
 
-        public function createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider){
+        public function createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto = 0,$idLider){
             $proyecto= new proyecto();
             $proyecto -> nomProyecto = $nomProyecto;
             $proyecto -> objProyecto = $objProyecto;
             $proyecto -> inicioProyecto = $inicioProyecto;
             $proyecto -> finProyecto = $finProyecto;
             $proyecto -> productivoProyecto = $productivoProyecto;
-            $usuario = UserController::getById($idLider);
-            $proyecto -> lider() -> associate($usuario);
+            $proyecto -> lider() -> associate($idLider);
             $proyecto-> save();
             return $proyecto;
         }

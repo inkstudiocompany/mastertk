@@ -72,7 +72,7 @@
             $objProyecto = $parse->get('objProyecto');
             $inicioProyecto = $parse->get('inicioProyecto');
             $finProyecto = $parse->get('finProyecto');
-            $productivoProyecto = $parse->get('productivoProyecto');
+            $productivoProyecto = $parse->get('proyectoproductivo');
 			$idLider = $parse->get('idLider');
 
 			$project = new ProjectController();
@@ -149,6 +149,16 @@
             $usuariosController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$idTipoDocumento,$idRolPrincipal);
             
             echo $usuariosController->index();
+	});
+
+	$app::Router()->get($app->path('get_user'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request, $args);
+		$dataResponse = [];
+		if ($id = $parse->get('id')) {
+			$dataResponse['usuarios'] = UserController::listUserByRol($id);
+		}
+
+		return $response->withJson($dataResponse);
 	});
 
 
