@@ -1,12 +1,10 @@
 $(document).ready(function (){
-    $("#agregar_rol").validate({
+    $("#agregar_equipo").validate({
         rules: {
-            nombre: "required",
-            descripcion: { lettersonly: true}
+            nombreEquipo: { lettersonly: true}
 		},
         messages: {
-            nombre: "Por favor ingrese un ROL",
-            descripcion: "No se permiten caracteres especiales"
+            nombreEquipo: "No se permiten caracteres especiales"
         }
     });
 })
