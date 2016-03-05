@@ -14,7 +14,9 @@ var gulp = require('gulp'),
     batch = require('gulp-batch'),
     watch = require('gulp-watch');
 
-gulp.task('default', ['jslibs', 'javascript', 'fonts', 'csslibs', 'css']);
+gulp.task('default', ['watch'], function(){
+  gulp.start(['jslibs', 'javascript', 'fonts', 'csslibs', 'css']);
+});
 
 
 var libsJavascript = [
