@@ -1,12 +1,22 @@
 $(document).ready(function (){ 
-    $("#agregar_rol").validate({
+    $("#agregar_proyecto").validate({
         rules: {
-            nombre: "required",
-            descripcion: { lettersonly: true}
+            nomProyecto: { lettersonly: true},
+            objProyecto: { lettersonly: true},
+            inicioProyecto: "required",
+            finProyecto: "required",
+            productivoProyecto: "required",
+            idLider: {required: true},
+
 		},
         messages: {
-            nombre: "Por favor ingrese un ROL",
-            descripcion: "No se permiten caracteres especiales"
+            nomProyecto: "No se permiten caracteres especiales",
+            objProyecto: "No se permiten caracteres especiales",
+            inicioProyecto: "",
+            finProyecto: "",
+            productivoProyecto: "",
+            idLider:""
         }
     });
 })
+
