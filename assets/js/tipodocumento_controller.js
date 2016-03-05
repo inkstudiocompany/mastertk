@@ -1,4 +1,4 @@
-jQuery.validator.addMethod("numberslettersonly", function(value, element) {
+jQuery.validator.addMethod("lettersonly", function(value, element) {
   return this.optional(element) || /^[a-zA-Z0-9 "!?.-]+$/.test(value);
 }, "Ingrese caracteres permitidos solamente (a-z ; A-Z; 0-9; "; !; ?; .; -")"); 
 
@@ -7,7 +7,7 @@ $(document).ready(function (){
                 $("#agregar_rol").validate({
                     rules: {
                         nombre: "required",
-                        descripcion: { numberslettersonly: true}
+                        descripcion: { lettersonly: true}
 					},
                     messages: {
                         nombre: "Por favor ingrese un ROL",
