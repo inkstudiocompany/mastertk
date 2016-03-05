@@ -88,9 +88,11 @@ $app::Router()->post($app->path('new_usuario'), function( Request $request, Resp
             $password = $params['password'];
             $confirm_password = $params['confirm_password'];
             $descripcion = $params['descripcion'];
-			$rolController = new UserController();
-            $rolController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$confirm_password,$descripcion);
-            echo $userController->index();
+			$idTipoDocumento = $params['idTipoDocumento'];
+			$idRolPrincipal = $params['idRolPrincipal'];
+			$usuariosController = new UserController();
+            $usuariosController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$descripcion,$idTipoDocumento,$idRolPrincipal);
+            echo $usuariosController->index();
 	});
 
 

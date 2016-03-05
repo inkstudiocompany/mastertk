@@ -41,5 +41,20 @@
             ]);
         }
 
+        public  function createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$descripcion,$idTipoDocumento,$idRolPrincipal){
+            $usuario= new Usuario();
+            $usuario -> numDocumento = $numDocumento;
+            $usuario -> nombreCompleto = $nombreCompleto;
+            $usuario -> email = $email;
+            $usuario -> usuario = $usuario;
+            $usuario -> password = $password;
+            $usuario -> descripcion = $descripcion;
+            $rol = RolController::getById($idRolPrincipal);
+            $tipodedocumento = DocumentTypeController::getById($idTipoDocumento);
+            $usuario -> rolPrincipal()-> associate($rol);
+            $usuario -> tipoDocumento()-> associate($tipodedocumento);
+            $usuario -> save();
+            return $usuario;
+        }
 
     }
