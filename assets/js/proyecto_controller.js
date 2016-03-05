@@ -6,7 +6,7 @@ $(document).ready(function (){
             inicioProyecto: "required",
             finProyecto: "required",
             productivoProyecto: "required",
-            idLider: {required: true},
+            idLider: {required: true}
 
 		},
         messages: {
@@ -15,8 +15,8 @@ $(document).ready(function (){
             inicioProyecto: "Debe ingresar el INICIO del Proyecto",
             finProyecto: "Debe ingresar el FIN del Proyecto",
             productivoProyecto: "Debe ingresar SI / NO, esta Productivo",
-            idLider:""
+            idLider:"Debe seleccionar un LIDER"
         }
     });
-})
+});
 
