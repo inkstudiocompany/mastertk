@@ -1,57 +1,58 @@
 {% extends 'common/forms.html.twig' %}
 
 {% block form_title %}
-  Nuevo Usuario
+  Agregar Usuario
 {% endblock form_title %}
 
-{% block body %}
-  <form id="agregar_usuario" name="agregar_usuario" method="post" action="">
+{% block form %}
+
+  <form id="agregar_usuario" name="agregar_usuario" method="POST">
     <div class="form-group">
       <label for="nombreCompleto">Nombre y Apellido</label>
-      <input name="nombreCompleto" type="text" id="nombreCompleto" size="100" maxlength="255" placeholder="Nombre y Apellido" required="" />
+      <input name="nombreCompleto" type="text" id="nombreCompleto" placeholder="Nombre y Apellido" class="form-control" required />
     </div>
-
     <div class="form-group">
       <label for="tipoDocumento">Tipo de Documento</label>
-      <select name="tipoDocumento">
+      <select name="tipoDocumento" id="tipoDocumento" class="form-control">
         <option value="0">Ninguno</option>
+        {% for  tipoDocumento in tiposDocumento  %}
+          <option value="{{ tipoDocumento.idTipoDocumento }}">{{ tipoDocumento.nombreDocumento }}</option>
+        {% endfor %}
       </select>
     </div>
-    
     <div class="form-group">
-    <tr>
-      <td nowrap="nowrap">Nro. de Documento</td>
-      <td><input name="numDocumento" type="text" id="numDocumento" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>email</td>
-      <td><input name="email" type="text" id="email" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Usuario</td>
-      <td><input name="usuario" type="text" id="usuario" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Password</td>
-      <td><input name="password" type="text" id="password" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Confirmar Password</td>
-      <td><input name="confirm_password" type="text" id="confirm_password" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Rol Asignado</td>
-      <td><select name="nombreRol">
+      <label for="numDocumento">Nro. de Documento</label>
+      <input name="numDocumento" type="text" id="numDocumento"  placeholder="Numero de Documento"  class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label for="email">email</label>
+      <input name="email" type="text" id="email" placeholder="Email"  class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="usuario">Usuario</label>
+      <input name="usuario" type="text" id="usuario" placeholder="Usuario" class="form-control" required  />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input name="password" type="password" id="password" placeholder="Password" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label for="confirm_password">Confirmar Password</label>
+      <input name="confirm_password" type="password" id="confirm_password" placeholder="Password" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label for="rolPrincipal">Rol Asignado</label>
+      <select name="rolPrincipal" id="rolPrincipal" class="form-control" required>
         <option value="0">Ninguno</option>
-      </select></td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td><p> <br />
-        <input type="submit" name="botonagregarUsuario" id="botonagregarUsuario" value="Agregar Usuario" />
-      </p></td>
-    </tr>
-  </table>
+        {% for  rol in roles  %}
+          <option value="{{ rol.idRol }}">{{ rol.nombreRol }}</option>
+        {% endfor %}
+      </select>
+  </div>
+    <div class="btn-group right" role="group" aria-label="formActions">
+      <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
 </form>
 
-{% endblock body %}
+{% endblock form %}

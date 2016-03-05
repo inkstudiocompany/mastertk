@@ -21,8 +21,9 @@
 
         public function index()
         {
+            $usuarios = usuario::with('tipoDocumento','rolPrincipal')->get();
             return  $this->render('usuarios/listado.html.twig', [
-                'usuarios' => self::listAll()
+                'usuarios' => $usuarios
             ]);
 
         }
@@ -41,5 +42,19 @@
             ]);
         }
 
+        public function createNew($numDocumento,$nombreCompleto,$email,$nombreUsuario,$password,$idTipoDocumento,$idRolPrincipal){
+            $usuario= new Usuario();
+            $usuario -> numDocumento = $numDocumento;
+            $usuario -> nombreCompleto = $nombreCompleto;
+            $usuario -> email = $email;
+            $usuario -> usuario = $nombreUsuario;
+            $usuario -> password = $password;
+            $rol = RolController::getById($idRolPrincipal);
+            $tipodedocumento = DocumentTypeController::getById($idTipoDocumento);
+            $usuario -> rolPrincipal()-> associate($rol);
+            $usuario -> tipoDocumento()-> associate($tipodedocumento);
+            $usuario -> save();
+            return $usuario;
+        }
 
     }
