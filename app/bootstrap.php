@@ -6,7 +6,7 @@
 	require BASE . 'vendor/autoload.php';
 	require BASE . 'app/src/AppClass.php'; 
 	require BASE . 'app/src/config.php';
-    require BASE . 'app/src/capsule.php';
+        require BASE . 'app/src/capsule.php';
 
 	use \Psr\Http\Message\ServerRequestInterface as Request;
 	use \Psr\Http\Message\ResponseInterface as Response;
@@ -18,6 +18,11 @@
 	use Application\Controller\RolController;
 
 	$app = App::getInstance();
+
+	$app::Router()->get('prueba', function(){
+		$home = new HomeController();
+		echo $home->index();
+	});
 
 	$app::Router()->get('/', function(){
 		$home = new HomeController();
@@ -62,7 +67,6 @@
             $project = new RolController();
             echo $project->addForm();
 	});
-
 
 	$app::Router()->run();
 ?>
