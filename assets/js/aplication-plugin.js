@@ -6,19 +6,17 @@
 	}
 
 	$.fn.editar = function() {
-		var e = $(this);
-		var url = e.data('urledit');
-		
-		e.on('click', function(){
+		$(this).on('click', function(){
+			var e = $(this);
+			var url = e.data('urledit');
 			window.document.location.href = url;
 		});
 	}
 
 	$.fn.borrar = function() {
-		var e = $(this);
-		
-		e.on('click', function(){
-			var url = e.data('urldelete');
+		$(this).on('click', function(){
+			var e = $(this);
+			var url = e.attr('data-urldelete');
 
 			$.ajax({
 				method: 'post',
