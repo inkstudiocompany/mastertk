@@ -15,7 +15,7 @@
     <div class="form-group">
       <label for="tipoDocumento">Tipo de Documento</label>
       <select name="tipoDocumento" id="tipoDocumento" class="form-control">
-        <option value="0">Ninguno</option>
+        <option value="">Ninguno</option>
         {% for  tipoDocumento in tiposDocumento  %}
           <option value="{{ tipoDocumento.idTipoDocumento }}">{{ tipoDocumento.nombreDocumento }}</option>
         {% endfor %}
@@ -44,7 +44,7 @@
     <div class="form-group">
       <label for="rolPrincipal">Rol Asignado</label>
       <select name="rolPrincipal" id="rolPrincipal" class="form-control" required>
-        <option value="0">Ninguno</option>
+        <option value="">Ninguno</option>
         {% for  rol in roles  %}
           <option value="{{ rol.idRol }}">{{ rol.nombreRol }}</option>
         {% endfor %}
