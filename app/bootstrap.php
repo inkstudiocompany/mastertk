@@ -58,10 +58,9 @@
             $params = $request->getParsedBody();
             $nombre = $params['nombre'];
             $descripcion = $params['descripcion'];
-            $rol = RolController:: createNew($nombre, $descripcion);
-            var_dump($rol);
-            $project = new RolController();
-            echo $project->addForm();
+			$rolController = new RolController();
+            $rolController -> createNew($nombre, $descripcion);
+            echo $rolController->addForm();
 	});
 
 

@@ -37,7 +37,13 @@
         	}
 
         	if (null === static::$router) {
-            	static::$router = new \Slim\App();
+				$configuration = [
+					'settings' => [
+						'displayErrorDetails' => true,
+					],
+				];
+				$c = new \Slim\Container($configuration);
+            	static::$router = new \Slim\App($c);
         	}
         
         	return static::$instance;
