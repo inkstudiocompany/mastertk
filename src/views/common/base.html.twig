@@ -1,16 +1,20 @@
 {% include 'common/base/header.html.twig' %}
 
 <body>
+	<script type="text/javascript" src="/web/js/jquery.js"></script>
+	<script type="text/javascript" src="/web/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/web/js/jquery.validate.js"></script>
+	{#<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>#}
+	<script type="application/javascript" src="/web/js/jquery.datetimepicker.full.min.js"></script>
+	<script type="text/javascript" src="/web/js/application.js"></script>
 	<div class="container">
 		{% include 'common/base/head.html.twig' %}
 		{% include 'common/base/navbar.html.twig' %}
 		{% block body %}
 		{% endblock body %}
+		{% include 'common/modal/confirm.html.twig' %}
 	</div>
 </body>
 
-<script type="text/javascript" src="/web/js/jquery.js"></script>
-<script type="text/javascript" src="/web/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/web/js/jquery.validate.js"></script>
-{#<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>#}
-<script type="text/javascript" src="/web/js/application.js"></script>
+
+

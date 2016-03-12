@@ -20,12 +20,18 @@
 		{
 			$response = ''; 
 
-			if (isset($this->params[$nombre])) {
-				$response = $this->params[$nombre];
+			if ($this->request->isPost() === true) {
+				if (isset($this->params[$nombre])) {
+					$response = $this->params[$nombre];
+				}
+
+				if (isset($this->args[$nombre])) {
+					$response = $this->args[$nombre];
+				}	
 			}
 
-			if (isset($this->args[$nombre])) {
-				$response = $this->args[$nombre];
+			if ($this->request->isGet() === true) {
+				$response = $this->request->getParam($nombre);
 			}
 			
 			return $response;

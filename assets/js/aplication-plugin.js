@@ -18,15 +18,48 @@
 			var e = $(this);
 			var url = e.attr('data-urldelete');
 
-			$.ajax({
-				method: 'post',
-				url: url,
-				success: function(response) {
-					if (response.status === true) {
-						document.location.reload();
-					}
+			$('div[role="confirm"]').confirm(
+				{
+					title: 'Eliminar Rol',
+					message: '¿Desea confirmar esta acción?'
+				}, function(){
+					$.ajax({
+						method: 'post',
+						url: url,
+						success: function(response) {
+							if (response.status === true) {
+								document.location.reload();
+							}
+						}
+					});
 				}
-			});
+			);
+		});
+	}
+
+	$.fn.confirm = function(options, callback) {
+		$.fn.confirm.defaults = {
+		    title: 'Confirm',
+		    message: 'Here are your message'
+		};
+
+		var opts = $.extend( {}, $.fn.confirm.defaults, options );
+
+		var url = $(this).attr('data-url');
+
+		$.ajax({
+			method: 'get',
+			url: url, 
+			data: opts,
+			success: function (response) {
+				if(response.status === true) {
+					$('div[role="confirm"]').find('.modal-content').html(response.html);
+					$('div[role="confirm"]').modal();
+
+					var confirmButton = $('div[role="confirm"]').find('button[button-action="confirm"]');
+					confirmButton.on('click', callback);
+				}
+			}
 		});
 	}
 })(jQuery);

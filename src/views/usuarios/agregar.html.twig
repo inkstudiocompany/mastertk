@@ -43,7 +43,7 @@
     <div class="form-group">
       <label for="rolPrincipal">Rol Asignado</label>
       <select name="rolPrincipal" id="rolPrincipal" class="form-control" required>
-        <option value="">Ninguno</option>
+        <option value="">- Seleccione Uno -</option>
         {% for  rol in roles  %}
           <option value="{{ rol.idRol }}">{{ rol.nombreRol }}</option>
         {% endfor %}

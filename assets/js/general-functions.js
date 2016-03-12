@@ -17,4 +17,15 @@ $(document).ready(function(){
 	$('button[role-button="editar"]').editar();
 
 	$('button[role-button="eliminar"]').borrar();
+
+	$.datetimepicker.setLocale('es');
+
+	$( ".datepicker" ).datetimepicker({
+		timepicker:false,
+		format:'Y-m-d'
+	});
+
 });
+
+
+

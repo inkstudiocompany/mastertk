@@ -12,6 +12,9 @@
 				'admin_project' => '/proyectos',
 				'new_project' => '/proyectos/nuevo',
 				'equipment' => '/equipos',
+
+				#Message
+				'message_confirm' => '/message/confirm',
 				
 				#Roles
 				'roles' => '/roles',
@@ -28,6 +31,7 @@
                 #Usuarios
 				'users' => '/usuarios',
 				'new_user' => '/usuarios/nuevo',
+				'get_user' => '/usuarios/get[/{id}]',
 
 				#Items
 				'type_item' => '/tipoitem',

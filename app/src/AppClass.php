@@ -3,6 +3,7 @@
     namespace Application;
 
     use Application\Routes;
+    use Application\Controller\MessageController as Message;
     
     class App
     {
@@ -10,12 +11,14 @@
         private static $instance = null;
         private static $router = null;
         private $routes = null;
+        private $message = null;
 
 
 		public function __construct()
 		{
 			$this->parameters = [];
 			$this->routes = Routes::getRoutes();
+            $this->message = new Message();
 		}
 
         public static function getInstance()
@@ -89,6 +92,11 @@
         public function set($parameter, $value)
         {
             $this->parameters[$parameter] = $value;
+        }
+
+        public function Message()
+        {
+            return $this->message;
         }
 
         public function config()
