@@ -26,6 +26,7 @@
                 #Usuarios
 				'users' => '/usuarios',
 				'new_user' => '/usuarios/nuevo',
+				'save_user' => '/usuarios/guardar',
 				'get_user' => '/usuarios/get[/{id}]',
 
 				#Items

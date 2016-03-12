@@ -35,9 +35,9 @@
 
         public function addForm()
         {
-            return  $this->render('usuarios/agregar.html.twig',[
+            return  $this->render('usuarios/usuarioForm.html.twig',[
                 'roles'=> RolController::listAll(),
-                'tiposDocumento'=> DocumentTypeController::listAll()
+                'tiposDocumento'=> $this->getParameter('document_types')
 
             ]);
         }

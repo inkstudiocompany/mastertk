@@ -5,21 +5,21 @@
 {% endblock form_title %}
 
 {% block form %}
+    <form id="usuario_form" name="usuario_form" method="POST" novalidate="novalidate">
+        <div class="form-group">
+            <label for="nombreCompleto">Nombre y Apellido</label>
+            <input name="nombreCompleto" type="text" id="nombreCompleto" placeholder="Nombre y Apellido" class="form-control" required />
+        </div>
 
-  <form id="agregar_usuario" name="agregar_usuario" method="POST">
-    <div class="form-group">
-      <label for="nombreCompleto">Nombre y Apellido</label>
-      <input name="nombreCompleto" type="text" id="nombreCompleto" placeholder="Nombre y Apellido" class="form-control" required />
-    </div>
-    <div class="form-group">
-      <label for="tipoDocumento">Tipo de Documento</label>
-      <select name="tipoDocumento" id="tipoDocumento" class="form-control">
-        <option value="">Ninguno</option>
-        {% for  tipoDocumento in tiposDocumento  %}
-          <option value="{{ tipoDocumento.idTipoDocumento }}">{{ tipoDocumento.nombreDocumento }}</option>
-        {% endfor %}
-      </select>
-    </div>
+        <div class="form-group">
+            <label for="tipoDocumento">Tipo de Documento</label>
+            <select name="tipoDocumento" id="tipoDocumento" class="form-control">
+                <option value="0">Ninguno</option>
+                {% for idTipoDocumento, tipoDocumento in tiposDocumento  %}
+                    <option value="{{ idTipoDocumento }}">{{ tipoDocumento }}</option>
+                {% endfor %}
+            </select>
+        </div>
     <div class="form-group">
       <label for="numDocumento">Nro. de Documento</label>
       <input name="numDocumento" type="text" id="numDocumento"  placeholder="Numero de Documento"  class="form-control" required/>

@@ -83,7 +83,18 @@
         */
         public function get($parameter)
         {
-            return $this->parameters[$parameter];
+            $param = $this->parameters[$parameter];
+
+            if ($this->isJson($param) === true) {
+                $param = json_decode($param, true);
+            }
+
+            return $param;
+        }
+
+        private function isJson($string)
+        {
+            return json_decode($string) !== NULL;
         }
 
         /**

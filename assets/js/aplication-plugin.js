@@ -62,4 +62,21 @@
 			}
 		});
 	}
+
+	$.fn.appValidate = function(options){
+        $.fn.confirm.defaults = {
+            rules: {},
+            messages: {}
+        };
+
+        var opts = $.extend( {}, $.fn.confirm.defaults, options );
+
+        $(this).validate({
+            debug: false,
+            errorClass: 'alert alert-danger',
+            errorElement: 'div',
+            rules: opts.rules,
+            messages: opts.messages
+        });
+	}
 })(jQuery);

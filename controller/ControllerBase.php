@@ -27,5 +27,9 @@
     		return $this->twig->render($template, $params);
     	}
 
-
+		public function getParameter($name)
+		{
+			global $app;
+			return $app->get($name);
+		}
 	}

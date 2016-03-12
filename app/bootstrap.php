@@ -127,10 +127,10 @@
 	});
 
 
-	# USUARIO#
-
+    /**
+     * Usuarios
+     */
 	$app::Router()->get($app->path('users'), function(){
-		//var_dump("En usuarios");
 		$usuariosController = new UserController();
 		echo $usuariosController->index();
 	});
@@ -140,7 +140,7 @@
 		echo $usuariosController->addForm();
 	});
 
-	$app::Router()->post($app->path('new_user'), function( Request $request, Response $response, $args){
+	$app::Router()->post($app->path('save_user'), function( Request $request, Response $response, $args){
             $parse = new RequestParse($request);
             $numDocumento = $parse->get('numDocumento');
             $nombreCompleto = $parse->get('nombreCompleto');
