@@ -17,7 +17,15 @@
 
         public function addForm()
         {
-            return  $this->render('roles/agregar.html.twig');
+            return  $this->render('roles/rolForm.html.twig');
+        }
+
+        public function editForm($id)
+        {
+            $rol = Rol::find($id);
+            return  $this->render('roles/rolForm.html.twig', [
+                'rol' => $rol
+            ]);
         }
 
         public static function listAll()
@@ -31,9 +39,28 @@
             return Rol::find($id);
         }
 
-        public  function createNew($nombre, $descripcion)
+        public static function Save($params)
         {
-            $rol= new Rol();
+            $id = false;
+            if(isset($params['id']) && !empty($params['id'])) {
+                $id = $params['id'];
+            }
+
+            $nombre = '';
+            if(isset($params['nombre']) && !empty($params['nombre'])) {
+                $nombre = $params['nombre'];
+            }
+
+            $descripcion = '';
+            if(isset($params['descripcion']) && !empty($params['descripcion'])) {
+                $descripcion = $params['descripcion'];
+            }
+
+            $rol = new Rol();
+            if($id !== false) {
+                $rol = self::getById($id);
+            }
+
             $rol -> nombreRol = $nombre;
             $rol -> descripcion= $descripcion;
             $rol -> save();

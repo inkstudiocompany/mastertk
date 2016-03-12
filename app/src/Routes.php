@@ -19,6 +19,7 @@
 				#Roles
 				'roles' => '/roles',
 				'new_rol' => '/roles/nuevo',
+				'save_rol' => '/roles/guardar',
                 'edit_rol' => '/roles/editar[/{id}]',
                 'delete_rol' => '/roles/borrar[/{id}]',
 

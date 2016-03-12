@@ -7,14 +7,15 @@
 
 {% block form %}
 
-  <form id="agregar_rol" name="agregar_rol" method="POST">
+  <form id="agregar_rol" name="agregar_rol" method="POST" action="{{ app.path('save_rol', [], true) }}" novalidate="novalidate">
+    <input type="hidden" value="{{ rol.idRol }}" name="id" id="id" />
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <input name="nombre" type="text" id="nombre" class="form-control" placeholder="Nombre" required />
+      <input name="nombre" type="text" id="nombre" class="form-control" placeholder="Nombre" required value="{{ rol.nombreRol }}" />
     </div>
     <div class="form-group">
       <label for="descripcion">Descripción</label>
-      <input name="descripcion" type="text" id="descripcion" class="form-control" placeholder="Descripción" />
+      <input name="descripcion" type="text" id="descripcion" class="form-control" placeholder="Descripción" value="{{ rol.descripcion }}" />
     </div>
 
 

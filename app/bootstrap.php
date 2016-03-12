@@ -94,23 +94,27 @@
 		echo $project->addForm();
 	});
 
-	$app::Router()->post($app->path('new_rol'), function(Request $request, Response $response, $args){
-		$parse = new RequestParse($request);
-		$nombre = $parse->get('nombre');
-        $descripcion = $parse->get('descripcion');
+	$app::Router()->post($app->path('save_rol'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request, $args);
 
-		$rolController = new RolController();
-        $rolController -> createNew($nombre, $descripcion);
+        $params = [
+            'id' => $parse->get('id'),
+            'nombre' => $parse->get('nombre'),
+            'descripcion' => $parse->get('descripcion')
+        ];
+
+		RolController::Save($params);
 
         return $response->withRedirect(App::getInstance()->path('roles'), 301);
 	});
 
-	$app::Router()->get($app->path('edit_rol'), function(){
-		$rol = new RolController();
-		echo $rol->addForm();
+	$app::Router()->get($app->path('edit_rol'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $rol = new RolController();
+		echo $rol->editForm($parse->get('id'));
 	});
 
-	$app::Router()->post($app->path('delete_rol'), function(Request $request, Response $response, $args){
+    $app::Router()->post($app->path('delete_rol'), function(Request $request, Response $response, $args){
 		$parse = new RequestParse($request, $args);
 		$dataResponse = [];
 

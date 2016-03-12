@@ -18,7 +18,7 @@
 
 		public function get($nombre = '')
 		{
-			$response = ''; 
+			$response = false;
 
 			if ($this->request->isPost() === true) {
 				if (isset($this->params[$nombre])) {
@@ -32,6 +32,10 @@
 
 			if ($this->request->isGet() === true) {
 				$response = $this->request->getParam($nombre);
+
+				if (isset($this->args[$nombre])) {
+					$response = $this->args[$nombre];
+				}
 			}
 			
 			return $response;
