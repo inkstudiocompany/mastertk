@@ -19,6 +19,12 @@
                 'edit_rol' => '/roles/editar[/{id}]',
                 'delete_rol' => '/roles/borrar[/{id}]',
 
+				#Equipos
+				'equipos' => '/equipos',
+				'new_equipo' => '/equipos/nuevo',
+                'edit_equipo' => '/equipos/editar[/{id}]',
+                'delete_equipo' => '/equipos/borrar[/{id}]',
+
                 #Usuarios
 				'users' => '/usuarios',
 				'new_user' => '/usuarios/nuevo',
