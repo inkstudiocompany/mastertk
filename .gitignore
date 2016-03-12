@@ -10,3 +10,4 @@ web/cache/*
 node_modules
 web/css
 web/js
+.idea/
