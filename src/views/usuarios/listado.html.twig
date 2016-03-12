@@ -10,32 +10,39 @@
 
   <!-- Table -->
   <table class="table">
-    <tr>
-      <td>Nombre y Apellido</td>
-      <td>Tipo de Documento</td>
-      <td>Nro. de Documento</td>
-      <td>Email</td>
-      <td>Usuario</td>
-      <td>Rol Principal</td>
-      <td>Proyectos Asignados</td>
-      <td>Acciones</td>
-     </tr>
+      <thead>
+          <tr>
+                <td class="text-center">Nombre y Apellido</td>
+                <td class="text-center">Tipo de Documento</td>
+                <td class="text-center">Nro. de Documento</td>
+                <td class="text-center">Email</td>
+                <td class="text-center">Usuario</td>
+                <td class="text-center">Rol Principal</td>
+                <td class="text-center">Proyectos Asignados</td>
+                <td class="text-center">Acciones</td>
+          </tr>
+      </thead>
+
     {% if usuarios is not empty %}
       {% for usuario  in usuarios %}
         <tr>
           <td nowrap="nowrap">{{ usuario.nombreCompleto }}</td>
-          <td nowrap="nowrap">{{ usuario.tipoDocumento.nombreDocumento }}</td>
+          <td nowrap="nowrap">{{ tiposDocumento[usuario.idTipoDocumento] }}</td>
           <td nowrap="nowrap">{{ usuario.numDocumento}}</td>
           <td nowrap="nowrap">{{ usuario.email }}</td>
           <td nowrap="nowrap">{{ usuario.usuario }}</td>
           <td nowrap="nowrap">{{ usuario.rolPrincipal.nombreRol }}</td>
           <td nowrap="nowrap"></td>
           <td nowrap="nowrap">
-            {# <div class="btn-group btn-group-xs" role="group"> #}
-            <button type="button" class="btn btn-sm btn-info">Detalles</button>
-            <button type="button" class="btn btn-sm btn-info">Editar</button>
-            <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
-            {# </div> #}
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="button" class="btn btn-sm btn-info">Detalles</button>
+              <button type="button" class="btn btn-sm btn-info"
+                      data-urledit="{{ app.path('edit_user', {'id': usuario.idUsuario }, true) }}" role-button="editar">Editar</button>
+              <button type="button" class="btn btn-sm btn-danger" role-button="eliminar"
+                      data-title="Eliminar Usuario" data-message="¿Seguro hermano?"
+                      data-urldelete="{{ app.path('delete_user', {'id': usuario.idUsuario }, true) }}">
+                  Eliminar <i class='glyphicon glyphicon-trash'></i></button>
+            </div>
           </td>
         </tr>
       {% endfor %}

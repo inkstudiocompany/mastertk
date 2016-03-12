@@ -32,4 +32,29 @@
 			global $app;
 			return $app->get($name);
 		}
+
+        /**
+         * hasParameter
+         *
+         * Valida que exista el parametro en las lista
+         *
+         * @param $parameters
+         * @param $name
+         * @return bool
+         */
+        public function hasParameter($parameters, $name)
+        {
+            return isset($parameters[$name]) === true
+                && empty($parameters[$name]) === false
+                && is_null($parameters[$name]) === false;
+        }
+
+        public function getInput($parameters, $name)
+        {
+            $response = false;
+            if(self::hasParameter($parameters, $name) === true) {
+                $response = $parameters[$name];
+            }
+            return $response;
+        }
 	}

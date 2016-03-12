@@ -17,21 +17,23 @@
 
         public function addForm()
         {
-            return  $this->render('roles/rolForm.html.twig');
+            return  $this->render('roles/rolForm.html.twig', [
+                'title' => 'Nuevo Rol'
+            ]);
         }
 
         public function editForm($id)
         {
             $rol = Rol::find($id);
             return  $this->render('roles/rolForm.html.twig', [
+                'title' => 'Editar Rol',
                 'rol' => $rol
             ]);
         }
 
         public static function listAll()
         {
-
-            return Rol::all();
+            return Rol::with(['Usuarios'])->get();
         }
 
         public static function getById($id)
@@ -41,20 +43,9 @@
 
         public static function Save($params)
         {
-            $id = false;
-            if(isset($params['id']) && !empty($params['id'])) {
-                $id = $params['id'];
-            }
-
-            $nombre = '';
-            if(isset($params['nombre']) && !empty($params['nombre'])) {
-                $nombre = $params['nombre'];
-            }
-
-            $descripcion = '';
-            if(isset($params['descripcion']) && !empty($params['descripcion'])) {
-                $descripcion = $params['descripcion'];
-            }
+            $id = self::getInput($params, 'id');
+            $nombre = self::getInput($params, 'nombre');
+            $descripcion = self::getInput($params, 'descripcion');
 
             $rol = new Rol();
             if($id !== false) {

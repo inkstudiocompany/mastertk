@@ -17,11 +17,13 @@
 		$(this).on('click', function(){
 			var e = $(this);
 			var url = e.attr('data-urldelete');
+            var title = e.attr('data-title');
+            var message = e.attr('data-message');
 
 			$('div[role="confirm"]').confirm(
 				{
-					title: 'Eliminar Rol',
-					message: '¿Desea confirmar esta acción?'
+					title: title,
+					message: message
 				}, function(){
 					$.ajax({
 						method: 'post',
@@ -65,6 +67,7 @@
 
 	$.fn.appValidate = function(options){
         $.fn.confirm.defaults = {
+            debug: false,
             rules: {},
             messages: {}
         };
@@ -72,7 +75,7 @@
         var opts = $.extend( {}, $.fn.confirm.defaults, options );
 
         $(this).validate({
-            debug: false,
+            debug: opts.debug,
             errorClass: 'alert alert-danger',
             errorElement: 'div',
             rules: opts.rules,

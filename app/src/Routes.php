@@ -26,6 +26,8 @@
                 #Usuarios
 				'users' => '/usuarios',
 				'new_user' => '/usuarios/nuevo',
+				'edit_user' => '/usuarios/editar[/{id}]',
+				'delete_user' => '/usuarios/borrar[/{id}]',
 				'save_user' => '/usuarios/guardar',
 				'get_user' => '/usuarios/get[/{id}]',
 

@@ -140,20 +140,42 @@
 		echo $usuariosController->addForm();
 	});
 
+    $app::Router()->get($app->path('edit_user'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $usuariosController = new UserController();
+        echo $usuariosController->editForm($parse->get('id'));
+    });
+
 	$app::Router()->post($app->path('save_user'), function( Request $request, Response $response, $args){
-            $parse = new RequestParse($request);
-            $numDocumento = $parse->get('numDocumento');
-            $nombreCompleto = $parse->get('nombreCompleto');
-            $email = $parse->get('email');
-            $usuario = $parse->get('usuario');
-            $password = $parse->get('password');
-			$idTipoDocumento = $parse->get('tipoDocumento');
-			$idRolPrincipal = $parse->get('rolPrincipal');
-			$usuariosController = new UserController();
-            $usuariosController -> createNew($numDocumento,$nombreCompleto,$email,$usuario,$password,$idTipoDocumento,$idRolPrincipal);
-            
-            echo $usuariosController->index();
+        $parse = new RequestParse($request, $args);
+
+        $params = [
+            'id' => $parse->get('id'),
+            'numDocumento' => $parse->get('numDocumento'),
+            'nombreCompleto' => $parse->get('nombreCompleto'),
+            'email' => $parse->get('email'),
+            'nombreUsuario' => $parse->get('usuario'),
+            'password' => $parse->get('password'),
+            'tipoDocumento' => $parse->get('tipoDocumento'),
+            'rolPrincipal' => $parse->get('rolPrincipal')
+        ];
+
+        UserController::Save($params);
+
+        return $response->withRedirect(App::getInstance()->path('users'), 301);
 	});
+
+    $app::Router()->post($app->path('delete_user'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $dataResponse = [];
+
+        if ($id = $parse->get('id')) {
+            $usuario = new UserController();
+            $dataResponse['status'] = (boolean) $usuario->delete($id);
+        }
+
+        return $response->withJson($dataResponse);
+    });
 
 	$app::Router()->get($app->path('get_user'), function(Request $request, Response $response, $args){
 		$parse = new RequestParse($request, $args);

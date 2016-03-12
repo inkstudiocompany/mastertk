@@ -8,23 +8,33 @@
     <a class="btn btn-primary right" href="{{ app.path('new_rol') }}" role="button">Nuevo</a>
   </div>
 
-  <!-- Table -->
-  <table class="table">
-    <tr>
-      <td class="">Nombre Rol</td>
-      <td class="">Descripción</td>
-      <td class="col-md-2">Acciones</td>
-    </tr>
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <td class="text-center">Nombre Rol</td>
+                <td class="text-center">Descripción</td>
+                <td class="text-center col-md-2">Acciones</td>
+            </tr>
+        </thead>
+
     {% if roles is not empty %}
       {% for rol  in roles %}
-      <tr>
-        <td nowrap="nowrap">{{ rol.nombreRol}}</td>
-        <td nowrap="nowrap">{{ rol.descripcion}}</td>
-        <td nowrap="nowrap">
-          <div class="btn-group btn-group-sm right" role="group">
-            <button type="button" class="btn btn-sm btn-info"
-              data-urledit="{{ app.path('edit_rol', {'id': rol.idRol }, true) }}" role-button="editar">Editar</button>
-            <button type="button" class="btn btn-sm btn-danger" data-urldelete="{{ app.path('delete_rol', {'id': rol.idRol }, true) }}" role-button="eliminar">Eliminar <i class='glyphicon glyphicon-trash'></i></button>
+          {% set isErasable = rol.relations.Usuarios.count() == 0 %}
+          <tr>
+              <td nowrap="nowrap">{{ rol.nombreRol}}</td>
+              <td nowrap="nowrap">{{ rol.descripcion}}</td>
+              <td nowrap="nowrap">
+                  <div class="btn-group btn-group-sm right" role="group">
+                      <button type="button" class="btn btn-sm btn-info"
+                        data-urledit="{{ app.path('edit_rol', {'id': rol.idRol }, true) }}" role-button="editar">Editar</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-urldelete="{{ app.path('delete_rol', {'id': rol.idRol }, true) }}"
+                            data-title="Eliminar Rol" data-message="¿Segurito, Segurito?"
+                            {% if isErasable == false %}
+                                disabled
+                            {% endif %}
+                            role-button="eliminar">
+                            Eliminar <i class='glyphicon glyphicon-trash'></i></button>
           </div>
         </td>
       </tr>
