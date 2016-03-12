@@ -5,7 +5,12 @@
   "main": "index.js",
   "dependencies": {
     "gulp-install": "^0.6.0",
-    "jquery-validation": "^1.15.0"
+    "jquery-validation": "^1.15.0",
+    "jquery-steps":"^1.1.0",
+    "jquery-datetimepicker":"^2.5.1",
+    "jquery-ui":"^1.10.2",
+    "bootstrap-3-typeahead":"^4.0",
+    "requirejs":"^2.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
