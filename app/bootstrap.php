@@ -257,6 +257,18 @@
 		return $response->withJson($dataResponse);
 	});
 
+	$app::Router()->get($app->path('find_user'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request, $args);
+		$dataResponse = [];
+		if ($query = $args["query"]) {
+			$dataResponse['usuarios'] = UserController::findUserByRolOrName($query);
+		}
+
+		return $response->withJson($dataResponse);
+	});
+
+
+
 
 	$app::Router()->run();
 ?>

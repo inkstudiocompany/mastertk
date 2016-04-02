@@ -36,6 +36,7 @@
 				'delete_user' => '/usuarios/borrar[/{id}]',
 				'save_user' => '/usuarios/guardar',
 				'get_user' => '/usuarios/get[/{id}]',
+			    'find_user' => '/usuarios/find[/{query}]',
 
 				#Items
 				'type_item' => '/tipoitem',

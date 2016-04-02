@@ -19,6 +19,17 @@
             return usuario::find($id);
         }
 
+        public static function findUserByRolOrName($filter)
+        {
+           $usuarios = usuario::with('rolPrincipal')
+               -> join('Rol', 'idRolPrincipal','=','idRol')
+               -> where('nombreCompleto','like','%'.$filter.'%')
+               -> orWhere('nombreRol','like','%'.$filter.'%')
+               -> get() ;
+
+            return $usuarios;
+        }
+
         public function index()
         {
             $usuarios = usuario::with('rolPrincipal')->get();

@@ -1,0 +1,30 @@
+<h3>Datos B&aacute;sicos</h3>
+<fieldset>
+    <div class="form-group">
+        <label for="nomProyecto">Nombre del Proyecto</label>
+        <input name="nomProyecto" id="nomProyecto" type="text"  class="form-control basic-data" placeholder="Nombre" required />
+    </div>
+    <div class="form-group">
+        <label for="objProyecto">Objetivo</label>
+        <textarea name="objProyecto" id="objProyecto" cols="100" rows="5" class="form-control basic-data" placeholder="Objetivo" ></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="duracion">Inicio Proyecto</label>
+        <div class="input-daterange input-group" id="duracion">
+            <input id="inicioProyecto" type="text" class="input-sm form-control basic-data" name="start" placeholder="dd/MM/yyyy" required />
+            <span class="input-group-addon">Hasta</span>
+            <input id="finProyecto" type="text" class="input-sm form-control basic-data" name="end" placeholder="dd/MM/yyyy" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="proyectoproductivo">Es Productivo ?</label>
+        <input type="checkbox" name="proyectoproductivo" value="1" id="proyectoproductivo"  />
+    </div>
+    <div class="form-group">
+        <label for="lider">Lider del Proyecto</label>
+        <input name="lider" id="lider" type="text"  class="form-control" placeholder="Lider"  />
+        <input type="hidden" name="idLider" id="idLider" class="basic-data" required/>
+    </div>
+</fieldset>

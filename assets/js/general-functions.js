@@ -1,11 +1,12 @@
 'use strict';
 /* Funcionalidades generales */
 
-jQuery.validator.addMethod("lettersonly", function(value, element) {
-  return this.optional(element) || /^([a-zA-Z]+\s)*[a-zA-Z]+$/.test(value);
-}, "Ingrese caracteres alfanumericos solamente"); 
 
-jQuery.validator.addMethod("numberslettersonly", function(value, element) {
+$.validator.addMethod("lettersonly", function(value, element) {
+  return this.optional(element) || /^([a-zA-Z]+\s)*[a-zA-Z]+$/.test(value);
+}, "Ingrese caracteres alfanumericos solamente");
+
+$.validator.addMethod("numberslettersonly", function(value, element) {
   return this.optional(element) || /^[a-zA-Z0-9 "!?.-]+$/.test(value);
 }, "Ingrese caracteres permitidos solamente (a-z ; A-Z; 0-9; ; !; ?; .; -)"); 
 
@@ -18,12 +19,6 @@ $(document).ready(function(){
 
 	$('button[role-button="eliminar"]').borrar();
 
-	$.datetimepicker.setLocale('es');
-
-	$( ".datepicker" ).datetimepicker({
-		timepicker:false,
-		format:'Y-m-d'
-	});
 
 });
 

@@ -1,0 +1,40 @@
+{
+  "name": "mastertk",
+  "version": "1.0.0",
+  "description": "Proyecto final de base de datos",
+  "main": "index.js",
+  "dependencies": {  
+    "jquery-validation": "^1.15.0",
+    "jquery-steps": "^1.1.0",
+    "jquery-ui": "^1.10.2",
+    "bootstrap3-typeahead":"^4.0.0",
+    "bootstrap3-datepicker":"^1.2.1",
+    "bootstrap-switch":"^3.3.0",
+    "jsPlumb":"^2.0"
+  },
+ 
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://inkstudiocompany:inkStudio1983@github.com/inkstudiocompany/mastertk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inkstudiocompany/mastertk/issues"
+  },
+  "homepage": "https://github.com/inkstudiocompany/mastertk#readme",
+  "moduleType": [
+    "amd"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

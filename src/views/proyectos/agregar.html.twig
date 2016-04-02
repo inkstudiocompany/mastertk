@@ -1,52 +1,22 @@
 {% extends 'common/forms.html.twig' %}
 
-
 {% block form_title %}
     Nuevo Proyecto
 {% endblock form_title %}
 
 {% block form %}
+
     <form id="agregar_proyecto" name="agregar_proyecto" method="POST">
-        <div class="form-group">
-            <label for="nomProyecto">Nombre del Proyecto</label>
-            <input name="nomProyecto" id="nomProyecto" type="text"  class="form-control" placeholder="Nombre" required />
-        </div>
-        <div class="form-group">
-            <label for="objProyecto">Objetivo</label>
-            <textarea name="objProyecto" id="objProyecto" cols="100" rows="5" class="form-control" placeholder="Objetivo" ></textarea>
-        </div>
-        <div class="form-group">
-            <label for="inicioProyecto">Inicio Proyecto</label>
-            <input name="inicioProyecto" type="text" id="inicioProyecto" class="form-control datepicker" placeholder="dd/MM/yyyy" required/>
-        </div>
-        <div class="form-group">
-            <label for="finProyecto">Fin Proyecto</label>
-            <input name="finProyecto" type="text" id="finProyecto"  class="form-control datepicker" placeholder="dd/MM/yyyy" required />
-        </div>
-        <div class="form-group">
-            <label for="proyectoproductivo">Es Productivo ?</label>
-            <input type="checkbox" name="proyectoproductivo" value="1" id="proyectoproductivo"  class="form-control" />
-        </div>
-        <div class="form-group">
-
-            <label for="idLider">Lider del Proyecto</label>
-            <select name="rol" id="rol" class="form-control" >
-                <option value="">- Seleccione Uno -</option>
-                {% for  rol in roles  %}
-                    <option value="{{ rol.idRol }}">{{ rol.nombreRol }}</option>
-                {% endfor %}
-            </select>
-            <label for="rol"></label>
-            <select name="idLider" id="idLider"  class="form-control" required>
-                <option value="">- Seleccione Uno -</option>
-            </select>
+        <div id="wizard">
+            {{ include ('proyectos/steps/datos-basicos.html')  }}
+            {{ include ('proyectos/steps/equipos.html')  }}
+            {{ include ('proyectos/steps/tipos-item.html')  }}
 
         </div>
-
-        <div class="btn-group right" role="group" aria-label="formActions">
+       {# <div class="btn-group right" role="group" aria-label="formActions">
             <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
             <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
+        </div>#}
     </form>
 
 {% endblock form %}
