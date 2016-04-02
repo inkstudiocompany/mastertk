@@ -88,7 +88,7 @@
 
 	$app::Router()->get($app->path('equipos'), function(){
 		$equipo = new TeamController();
-		echo $equipo->index();
+		echo $equipo->listado();
 	});
 
 	$app::Router()->get($app->path('new_equipo'), function(){

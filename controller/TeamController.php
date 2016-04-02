@@ -16,7 +16,11 @@
 	
 		public function listado()
 		{
-			$equipos = equipo::with('lider') -> get();
+			$equipos = equipo::with('Proyecto')
+			->join('UsuarioRolEquipo', 'Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
+			->join('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+			-> get();
+			
 			return $this->render('equipos/listado.html.twig', [
 				'equipos' => $equipos
 			]);

@@ -22,5 +22,9 @@
             public function equipoRol(){
                 return $this->hasMany('Model\ORM\UsuarioRolEquipo','idUsuario','idUsuario');
             }
-               
+            
+            public function usuarioEquipo(){
+                return $this ->hasMany('Model\ORM\UsuarioEquipo','idUsuario','idEquipo');
+            }
+
         }

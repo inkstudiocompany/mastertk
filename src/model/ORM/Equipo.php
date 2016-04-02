@@ -16,4 +16,6 @@ class Equipo extends EntityBase{
         return $this ->hasMany('Model\ORM\UsuarioRolEquipo','idEquipo','idEquipo');
     }
 
+
+
 }
