@@ -10,3 +10,6 @@ db_password = root
 
 [working]
 test = yes
+
+[document_types]
+document_types = '{"1" : "DNI", "2" : "Pasaporte"}'

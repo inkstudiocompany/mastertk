@@ -5,11 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "gulp-install": "^0.6.0",
-    "jquery-validation": "^1.15.0",
-    "jquery-steps":"^1.1.0",
-    "jquery-ui":"^1.10.5",
-    "browserify": "^13.0",
-    "browserify-shim": "^3.8.0"
+
   },
   "browser": {
     "jquery": "vendor/twbs/bootstrap/assets/js/jquery.js",
