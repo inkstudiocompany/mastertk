@@ -32,6 +32,7 @@
 				'users' => '/usuarios',
 				'new_user' => '/usuarios/nuevo',
 				'get_user' => '/usuarios/get[/{id}]',
+			    'find_user' => '/usuarios/find[/{query}]',
 
 				#Items
 				'type_item' => '/tipoitem',

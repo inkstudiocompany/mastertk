@@ -7,10 +7,31 @@
     "gulp-install": "^0.6.0",
     "jquery-validation": "^1.15.0",
     "jquery-steps":"^1.1.0",
-    "jquery-datetimepicker":"^2.5.1",
-    "jquery-ui":"^1.10.2",
-    "bootstrap-3-typeahead":"^4.0",
-    "requirejs":"^2.1"
+    "jquery-ui":"^1.10.5",
+    "browserify": "^13.0",
+    "browserify-shim": "^3.8.0"
+  },
+  "browser": {
+    "jquery": "vendor/twbs/bootstrap/assets/js/jquery.js",
+    "jquery-ui":"node_modules/jquery-ui/jquery-ui.js"
+  },
+  "browserify-shim": {
+    "jquery": "$",
+    "jquery-ui": {
+      "depends": [
+        "jquery"
+      ]
+    },
+    "jquery-validate": {
+      "depends": [
+        "jquery"
+      ]
+    }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "devDependencies": {
     "gulp": "^3.9.1",
