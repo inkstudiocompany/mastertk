@@ -26,12 +26,13 @@ $(document).ready(function (){
         headerTag: "h3",
         bodyTag: "fieldset",
         transitionEffect: "slideLeft",
+        showFinishButtonAlways: true,
         /* Events */
         onStepChanging: function (event, currentIndex, newIndex) { return true; },
         onStepChanged: function (event, currentIndex, priorIndex) { },
         onCanceled: function (event) { },
         onFinishing: function (event, currentIndex) { return true; },
-        onFinished: function (event, currentIndex) { },
+        onFinished: function (event, currentIndex) { agregarProyecto.submit();},
 
     /* Labels */
         labels: {
@@ -104,7 +105,7 @@ $(document).ready(function (){
     });
 
     agregarProyecto.find('.input-daterange').datepicker({
-        format: "mm/dd/yyyy",
+        format: "yyyy/mm/dd",
         language: "es",
         todayHighlight: true,
         autoclose: true
