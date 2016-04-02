@@ -38,9 +38,12 @@
 				'get_user' => '/usuarios/get[/{id}]',
 			    'find_user' => '/usuarios/find[/{query}]',
 
-				#Items
-				'type_item' => '/tipoitem',
-				'states' => '/estados',
+				#TipoItems
+			    'tipoitems' => '/tipoitems',
+			    'new_tipoitem' => '/tipoitems/nuevo',
+				'states_tipoitem' => '/tipoitems/estados',
+                'edit_tipoitem' => '/tipoitems/editar[/{id}]',
+                'delete_tipoitem' => '/tipoitems/borrar[/{id}]',
 
 				#Workflow
 				'workflow' => '/workflow',
