@@ -7,19 +7,19 @@
 
 <body>
 
-ABM de Usuarios<br />
-<form id="abm_usuario" name="abm_usuario" method="post" action="">
+ABM de Equipos<br />
+<form id="abm_equipo" name="abm_equipo" method="post" action="">
 <table width="788" height="75" border="1" cellpadding="0" cellspacing="0">
   <tr>
-    <td>Nombre Usuario</td>
-    <td>Roles Asignados</td>
-    <td>Proyectos Asignados</td>
+    <td>Nombre Equipo</td>
+    <td>Usuarios Asignados</td>
+    <td>Proyecto Asignado</td>
     <td>Acciones</td>
   </tr>
   <tr>
-    <td nowrap="nowrap"><?php $nombreCompleto; ?></td>
-    <td nowrap="nowrap"><?php $nombreRol; ?></td>
-    <td nowrap="nowrap"><?php $nombreProyecto; ?></td>
+    <td nowrap="nowrap"><?php $nombreEquipo; ?></td>
+    <td nowrap="nowrap"><?php $idUsuario; ?></td>
+    <td nowrap="nowrap"><?php $idProyecto; ?></td>
     <td nowrap="nowrap">...ver perfil ...  ...edit... ...delete....</td>
   </tr>
   <tr>
@@ -32,173 +32,79 @@ ABM de Usuarios<br />
 </form>
 <br />
 <br />
-Perfil de Usuario<br />
-<form id="ver_usuario" name="ver_usuario" method="post" action="">
+Detalle  del Equipo<br />
+<form id="ver_equipo" name="ver_equipo" method="post" action="">
   <table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
     <tr>
-      <td width="108" nowrap="nowrap">Nombre y Apellido</td>
-      <td width="649"><?php $nombreCompleto; ?></td>
+      <td width="108" nowrap="nowrap">Nombre de Equipo</td>
+      <td width="649"><?php $nombreEquipo; ?></td>
     </tr>
     <tr>
-      <td nowrap="nowrap">Tipo de Documento</td>
-      <td><?php $nombreDocumento; ?></td>
+      <td nowrap="nowrap">Proyecto Asignado</td>
+      <td><?php $idProyecto; ?></td>
     </tr>
     <tr>
-      <td nowrap="nowrap">Nro. de Documento</td>
-      <td><?php $numDocumento; ?></td>
-    </tr>
-    <tr>
-      <td>email</td>
-      <td><?php $email; ?></td>
-    </tr>
-    <tr>
-      <td>Usuario</td>
-      <td><?php $usuario; ?></td>
-    </tr>
-    <tr>
-      <td>Password</td>
-      <td><?php $password; ?></td>
-    </tr>
-    <tr>
-      <td>Rol Asignado</td>
-      <td><?php $nombreRol; ?></td>
-    </tr>
-    <tr>
-      <td nowrap="nowrap">Proyectos Asignados</td>
-      <td><?php $nombreProyecto; ?></td>
+      <td nowrap="nowrap">Usuarios Asignados</td>
+      <td><?php $idUsuario; ?></td>
     </tr>
   </table>
 </form>
  <br />
   <br />
-Editar Usuario<br />
-<form id="editar_usuario" name="editar_usuario" method="post" action="">
+Editar Equipo<br />
+<form id="editar_equipo" name="editar_equipo" method="post" action="">
   <table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
     <tr>
-      <td width="108" nowrap="nowrap">Nombre y Apellido</td>
-      <td width="649"><input name="usuario_nombreCompleto" type="text" id="usuario_nombreCompleto" size="100" maxlength="255" value="<?php $nombreCompleto; ?>"/></td>
+      <td width="108" nowrap="nowrap">Nombre del Equipo</td>
+      <td width="649"><input name="nombreEquipo" type="text" id="nombreEquipo" size="100" maxlength="255" value="<?php $nombreEquipo; ?>"/></td>
+      <td width="649">&nbsp;</td>
     </tr>
     <tr>
-      <td nowrap="nowrap">Tipo de Documento</td>
-      <td><input name="usuario_nombreDocumento" type="text" id="usuario_nombreDocumento" size="100" maxlength="255" value="<?php $nombreDocumento; ?>"/></td>
+      <td nowrap="nowrap">Proyecto Asignado</td>
+      <td><input name="idProyecto" type="text" id="idProyecto" size="100" maxlength="255" value="<?php $idProyecto; ?>"/></td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
-      <td nowrap="nowrap">Nro. de Documento</td>
-      <td><input name="usuario_numDocumento" type="text" id="usuario_numDocumento" size="100" maxlength="255" value="<?php $numDocumento; ?>"/></td>
-    </tr>
-    <tr>
-      <td>email</td>
-      <td><input name="usuario_email" type="text" id="usuario_email" size="100" maxlength="255" value="<?php $email; ?>"/></td>
-    </tr>
-    <tr>
-      <td>Usuario</td>
-      <td><input name="usuario_usuario" type="text" id="usuario_usuario" size="100" maxlength="255" value="<?php $usuario; ?>"/></td>
-    </tr>
-    <tr>
-      <td>Password</td>
-      <td><input name="usuario_password" type="text" id="usuario_password" size="100" maxlength="255" value="<?php $password; ?>"/></td>
-    </tr>
-    <tr>
-      <td>Rol Asignado</td>
-      <td><input name="rol_nombreRol" type="text" id="rol_nombreRol" size="100" maxlength="255" value="<?php $rol_nombreRol; ?>"/></td>
+      <td nowrap="nowrap">Usuarios Asignados</td>
+      <td><input name="idUsuario" type="text" id="idUsuario" size="100" maxlength="255" value="<?php $idUsuario; ?>"/></td>
+      <td><input type="submit" name="botonadeleteUsuario" id="botondeleteUsuario" value="Eliminar Usuario" /></td>
     </tr>
     <tr>
       <td>&nbsp;</td>
-      <td><p> <br />
-        <input type="submit" name="botonupdateUsuario" id="botonupdateUsuario" value="Update Usuario" />
+      <td><p> 
+        <input type="submit" name="botonaddUsuario" id="botonaddUsuario" value="Agregar Usuario" />
+      </p>
+        <p>          <br />
+          <input type="submit" name="botonupdateEquipo" id="botonupdateEquipo" value="Update Equipo" />
       </p></td>
+      <td>&nbsp;</td>
     </tr>
   </table>
 </form>
 
   <br />
   <br />
-Agregar Usuario  <br />
-<form id="agregar_usuario" name="agregar_usuario" method="post" action="">
+  Borrar Equipo
+  <form id="borrar_equipo" name="borrar_equipo" method="post" action="">
   <table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
     <tr>
-      <td width="108" nowrap="nowrap">Nombre y Apellido</td>
-      <td width="649"><input name="agregar_nombreCompleto" type="text" id="agregar_nombreCompleto" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td nowrap="nowrap">Tipo de Documento</td>
-      <td><select name="TipoDocumento">
+      <td width="108" nowrap="nowrap">Nombre del Equipo</td>
+      <td width="649"><select name="nombreEquipo">
         <option value="0">Ninguno</option>
       </select></td>
     </tr>
     <tr>
-      <td nowrap="nowrap">Nro. de Documento</td>
-      <td><input name="agregar_numDocumento" type="text" id="agregar_numDocumento" size="100" maxlength="255" /></td>
+      <td nowrap="nowrap">Proyecto Asignado</td>
+      <td><input name="idProyecto" type="text" id="idProyecto" size="100" maxlength="255" value="<?php $idProyecto; ?>"/></td>
     </tr>
     <tr>
-      <td>email</td>
-      <td><input name="agregar_email" type="text" id="agregar_email" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Usuario</td>
-      <td><input name="agregar_usuario" type="text" id="agregar_usuario" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Password</td>
-      <td><input name="agregar_password" type="text" id="agregar_password" size="100" maxlength="255" /></td>
-    </tr>
-    <tr>
-      <td>Rol Asignado</td>
-      <td><select name="nombreRol">
-        <option value="0">Ninguno</option>
-      </select></td>
-    </tr>
-    <tr>
-      <td>&nbsp;</td>
-      <td><p> <br />
-        <input type="submit" name="botonagregarUsuario" id="botonagregarUsuario" value="Agregar Usuario" />
-      </p></td>
-    </tr>
-  </table>
-</form>
- <br />
-  <br />
-  Borrar Usuario
-<form id="borrar_usuario" name="borrar_usuario" method="post" action="">
-  <table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
-    <tr>
-      <td width="108" nowrap="nowrap">Nombre y Apellido</td>
-      <td width="649"><select name="nombreCompleto">
-        <option value="0">Ninguno</option>
-      </select></td>
-    </tr>
-    <tr>
-      <td nowrap="nowrap">Tipo de Documento</td>
-      <td><?php $nombreDocumento; ?></td>
-    </tr>
-    <tr>
-      <td nowrap="nowrap">Nro. de Documento</td>
-      <td><?php $numeroDocumento; ?></td>
-    </tr>
-    <tr>
-      <td>email</td>
-      <td><?php $email; ?></td>
-    </tr>
-    <tr>
-      <td>Usuario</td>
-      <td><?php $usuario; ?></td>
-    </tr>
-    <tr>
-      <td>Password</td>
-      <td><?php $password; ?></td>
-    </tr>
-    <tr>
-      <td>Rol Asignado</td>
-      <td><?php $nombreRol; ?></td>
-    </tr>
-    <tr>
-      <td nowrap="nowrap">Proyectos Asignados</td>
-      <td><?php $nombreProyecto; ?></td>
+      <td nowrap="nowrap">Usuarios Asignados</td>
+      <td><input name="idUsuario" type="text" id="idUsuario" size="100" maxlength="255" value="<?php $idUsuario; ?>"/></td>
     </tr>
     <tr>
       <td nowrap="nowrap">&nbsp;</td>
       <td><br />
-      <input type="submit" name="botoneliminarUsuario" id="botoneliminarUsuario" value="Eliminar Usuario" /></td>
+      <input type="submit" name="botoneliminarEquipo" id="botoneliminarEquipo" value="Eliminar Equipo" /></td>
     </tr>
   </table>
 </form>
