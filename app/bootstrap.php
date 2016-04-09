@@ -17,6 +17,7 @@
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
 	use Application\Controller\TeamController;	
+	use Application\Controller\TipoItemController;	
 	use Application\Controller\RolController;
     use Application\Controller\UserController;
     use Application\Controller\RequestParse;
@@ -111,7 +112,7 @@
 
 	$app::Router()->get($app->path('equipos'), function(){
 		$equipo = new TeamController();
-		echo $equipo->index();
+		echo $equipo->listado();
 	});
 
 	$app::Router()->get($app->path('new_equipo'), function(){
@@ -291,6 +292,47 @@
 	});
 
 
+	# TIPOITEM#
+
+	$app::Router()->get($app->path('tipoitems'), function(){
+		$tipoitem = new TipoItemController();
+		echo $tipoitem->listado();
+	});
+
+	$app::Router()->get($app->path('new_tipoitem'), function(){
+		$tipoitem = new TipoItemController();
+		echo $tipoitem->addForm();
+	});
+
+
+	$app::Router()->post($app->path('new_tipoitem'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request);
+//		$nomEquipo = $parse->get('nomEquipo');
+//      $idProyecto = $parse->get('idProyecto');
+
+		$tipoitemController = new TipoItemController();
+//        $itemController -> createNew($nomProyecto, $idProyecto);
+
+        echo $tipoitemController->index();
+	});
+
+
+	$app::Router()->get($app->path('edit_tipoitem'), function(){
+		$tipoitem = new TipoItemController();
+		echo $tipoitem->addForm();
+	});
+
+	$app::Router()->post($app->path('delete_tipoitem'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request, $args);
+		$dataResponse = [];
+
+		if ($id = $parse->get('id')) {
+			$tipoitem = new TipoItemController();
+			$dataResponse['status'] = (boolean) $tipoitem->delete($id);
+		}
+		
+		return $response->withJson($dataResponse);
+	});
 
 
 	$app::Router()->run();

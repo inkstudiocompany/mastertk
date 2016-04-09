@@ -13,7 +13,7 @@
     <tr>
       <td>Nombre Proyecto</td>
       <td>Lider del Proyecto</td>
-      <td>Proyectos Productivo</td>
+      <td>Proyectos Productivos</td>
       <td class="col-md-2">Acciones</td>
     </tr>
     {% if proyectos is not empty %}
@@ -21,7 +21,12 @@
         <tr>
           <td>{{ proyecto.nomProyecto }}</td>
           <td>{{ proyecto.lider.nombreCompleto }}</td>
-          <td>{{ proyecto.productivo }}</td>
+          <td>{% if proyecto.productivoProyecto %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SI
+              {%  else %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO
+              {%  endif %}
+          </td>
           <td></td>
         </tr>
       {% endfor %}
