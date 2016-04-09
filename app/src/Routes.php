@@ -13,6 +13,11 @@
 				'new_project' => '/proyectos/nuevo',
 				'equipment' => '/equipos',
 
+				#Security
+				'login' => '/login',
+				'logout' => '/logout',
+				'auth' => '/authenticate[/{email}/{password}]',
+
 				#Message
 				'message_confirm' => '/message/confirm',
 				

@@ -14,7 +14,7 @@ var gulp = require('gulp'),
     batch = require('gulp-batch'),
     watch = require('gulp-watch');
 
-gulp.task('default', ['jslibs', 'javascript', 'fonts', 'csslibs', 'css', 'watch'], function(){
+gulp.task('default', ['images', 'jslibs', 'javascript', 'fonts', 'csslibs', 'css', 'watch'], function(){
   //gulp.start()
 });
 
@@ -48,6 +48,11 @@ var libsCss = [
 /*
 * Configuración de la tarea 'demo'
 */
+gulp.task('images', [], function () {
+    return gulp.src('assets/images/*.*')
+        .pipe(gulp.dest('web/images/'))
+});
+
 gulp.task('jslibs', [], function () {
     return gulp.src(libsJavascript)
       .pipe(gulp.dest('web/js/'))
@@ -78,6 +83,10 @@ gulp.task('fonts', [], function () {
 });
 
 gulp.task('watch', function () {
+    gulp.watch('assets/images/*.*', ['images'], function(){
+
+    });
+
     gulp.watch('assets/css/*.css', ['css'], function(){
           console.log('css done!');
     });
