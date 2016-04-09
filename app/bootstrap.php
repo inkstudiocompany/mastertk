@@ -1,5 +1,5 @@
 <?php
-	define ('BASE', realpath('./') . '/');
+    define ('BASE', realpath('./') . '/');
 
 	$url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
@@ -12,6 +12,8 @@
 	use \Psr\Http\Message\ResponseInterface as Response;
 	
 	use Application\App as App;
+    use Application\Controller\SecurityMiddleware;
+	use Application\Controller\SecurityController;
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
 	use Application\Controller\MyProjectController;
@@ -21,13 +23,34 @@
 	use Application\Controller\RolController;
     use Application\Controller\UserController;
     use Application\Controller\RequestParse;
-    
-	$app = App::getInstance();
 
-	$app::Router()->get('prueba', function(){
-		$home = new HomeController();
-		echo $home->index();
+    //SecurityController::securityStart();
+    $app = App::getInstance();
+
+	/** Security */
+    $app::Router()->add(new SecurityMiddleware($app));
+
+	$app::Router()->get($app->path('login'), function(){
+        $security = new SecurityController();
+		echo $security->index();
 	});
+
+    $app::Router()->get($app->path('logout'), function(Request $request, Response $response){
+        SecurityController::logout();
+        return $response->withRedirect('/');
+    });
+
+	$app::Router()->post($app->path('auth'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $email = $parse->get('email');
+        $password = $parse->get('password');
+
+		$security = new SecurityController();
+        $responseData = $security->authenticate($email, $password);
+
+        return $response->withJson($responseData);
+	});
+
 
 	$app::Router()->get($app->path('message_confirm'), function(Request $request, Response $response, $args){
 		$dataResponse = [];

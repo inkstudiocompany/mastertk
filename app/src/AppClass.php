@@ -2,9 +2,9 @@
 
     namespace Application;
 
-    use Application\Routes;
     use Application\Controller\MessageController as Message;
-    
+    use Application\Controller\SecurityController;
+
     class App
     {
         private $parameters = null;
@@ -12,20 +12,23 @@
         private static $router = null;
         private $routes = null;
         private $message = null;
+        public $user = null;
 
 
 		public function __construct()
 		{
-			$this->parameters = [];
+            SecurityController::securityStart();
+            $this->parameters = [];
 			$this->routes = Routes::getRoutes();
             $this->message = new Message();
+            $this->user = SecurityController::user();
 		}
 
         public static function getInstance()
         {
             if (null === static::$instance) {
-            $miclase = __CLASS__;
-            self::$instance = new $miclase;
+                $miclase = __CLASS__;
+                self::$instance = new $miclase;
             }
 
 
