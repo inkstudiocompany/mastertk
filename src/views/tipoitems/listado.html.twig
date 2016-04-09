@@ -1,0 +1,45 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    ABM TipoItems
+    <a class="btn btn-primary right" href="{{ app.path('new_tipoitem') }}" role="button">Nuevo</a>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <td class="">Nombre Tipo Item</td>
+      <td class="">Estados Posibles</td>
+      <td class="col-md-2">Acciones</td>
+    </tr>
+    {% if tipoitems is not empty %}
+      {% for tipoitem  in tipoitems %}
+      <tr>
+        <td nowrap="nowrap">{{ tipoitem.descripcion}}</td>
+        <td nowrap="nowrap">{{ tipoitem.nombreEstado}}</td>
+        <td nowrap="nowrap">
+          {# <div class="btn-group btn-group-xs" role="group"> #}
+            <button type="button" class="btn btn-sm btn-info">Detalles</button>
+            <button type="button" class="btn btn-sm btn-info" 
+              data-urledit="{{ app.path('edit_tipoitem', {'id': tipoitem.idTipoItem }, true) }}" role-button="editar">Editar</button>
+            <button type="button" class="btn btn-sm btn-danger" data-urldelete="{{ app.path('delete_tipoitem', {'id': tipoitem.idTipoItem }, true) }}" role-button="eliminar">Eliminar <i class='glyphicon glyphicon-trash'></i></button>
+          {# </div> #}
+        </td>
+      </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="3" class="alert alert-info text-center">
+          <strong>Ups!</strong>
+          No existen registros
+        </td>
+      </tr>
+    {% endif %}
+
+  </table>
+</div>
+
+{% endblock body %}

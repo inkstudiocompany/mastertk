@@ -1,0 +1,46 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    My Proyectos
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <td>Nombre Proyecto</td>
+      <td>Rol asignado</td>
+      <td>Lider del Proyecto</td>
+      <td class="col-md-2">Proyecto Productivo</td>
+    </tr>
+    {% if misproyectos is not empty %}
+      {% for myproyect in misproyectos %}
+        <tr>
+          <td>{{ myproyect.nomProyecto }}</td>
+          <td>{{ myproyect.nombreRol }}</td>
+          <td>{{ myproyect.nombreCompleto }}</td>
+          <td>{% if myproyect.productivoProyecto %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SI
+              {%  else %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO
+              {%  endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="4" class="alert alert-info text-center">
+          <strong>Ups!</strong>
+          No existen registros
+        </td>
+      </tr>
+    {% endif %}
+    <tr>
+      <td colspan="4"></td>
+    </tr>
+  </table>
+</div>
+
+{% endblock body %}

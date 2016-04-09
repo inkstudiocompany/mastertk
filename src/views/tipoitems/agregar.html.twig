@@ -1,0 +1,49 @@
+{% extends 'common/forms.html.twig' %}
+
+
+{% block form_title %}
+    Nuevo Equipo
+{% endblock form_title %}
+
+{% block form %}
+<form id="agregar_proyecto" name="agregar_proyecto" method="post" action="">
+<table width="765" height="48" border="2" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="108" nowrap="nowrap">Nombre del Proyecto</td>
+    <td width="649"><input name="agregar_nombreProyecto" type="text" id="agregar_nombreProyecto" size="100" maxlength="255" /></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top" nowrap="nowrap">Objetivo</td>
+    <td><textarea name="agregar_objProyecto" id="agregar_objProyecto" cols="100" rows="5"></textarea></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap">Inicio Proyecto</td>
+    <td><input name="agregar_inicioProyecto" type="text" id="agregar_inicioProyecto" value="calendario" size="15" /></td>
+  </tr>
+  <tr>
+    <td>Fin Proyecto</td>
+    <td><input name="agregar_finProyecto" type="text" id="agregar_finProyecto" value="calendario" size="15" /></td>
+  </tr>
+  <tr>
+    <td>Es Productivo ?</td>
+    <td><input type="checkbox" name="agregar_proyectoproductivo" id="agregar_proyectoproductivo" />
+      </td>
+  </tr>
+  <tr>
+    <td>Lider del Proyecto</td>
+    <td><select name="nombreCompleto">
+        <option value="0">Ninguno</option>
+      </select>... read nombreCompleto ...</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><p>
+      <br />
+      <input type="submit" name="botonagregarProyecto" id="botonagregarProyecto" value="Agregar Proyecto " />
+      </p></td>
+  </tr>
+</table>
+</form>
+
+
+{% endblock body %}

@@ -1,0 +1,44 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    My Tickets   ---- faltaaaa====
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <td>Nombre Proyecto</td>
+      <td>Lider del Proyecto</td>
+      <td>Proyectos Productivos</td>
+    </tr>
+    {% if proyectos is not empty %}
+      {% for proyecto in proyectos %}
+        <tr>
+          <td>{{ proyecto.nomProyecto }}</td>
+          <td>{{ proyecto.lider.nombreCompleto }}</td>
+          <td>{% if proyecto.productivoProyecto %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SI
+              {%  else %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO
+              {%  endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="4" class="alert alert-info text-center">
+          <strong>Ups!</strong>
+          No existen registros
+        </td>
+      </tr>
+    {% endif %}
+    <tr>
+      <td colspan="4"></td>
+    </tr>
+  </table>
+</div>
+
+{% endblock body %}
