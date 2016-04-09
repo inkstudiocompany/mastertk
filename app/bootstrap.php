@@ -14,6 +14,8 @@
 	use Application\App as App;
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
+	use Application\Controller\MyProjectController;
+	use Application\Controller\MyTicketController;
 	use Application\Controller\TeamController;	
 	use Application\Controller\TipoItemController;	
 	use Application\Controller\RolController;
@@ -51,8 +53,13 @@
 	});
 
 	$app::Router()->get($app->path('my_projects'), function(){
-		$home = new HomeController();
-		echo $home->index();
+		$myproject = new MyProjectController();
+		echo $myproject->proyects();
+	});
+
+	$app::Router()->get($app->path('my_tickets'), function(){
+		$myticket = new MyTicketController();
+		echo $myticket->tickets();
 	});
 
 	/**
@@ -82,7 +89,6 @@
 
             echo $project->index();
 	});
-
 
 
 	# EQUIPO#
