@@ -1,5 +1,6 @@
 app/config/parameters.ini
 /vendor/
+/bower/
 composer.lock
 /web/cache/
 web/cache/*
