@@ -1,6 +1,5 @@
 $(document).ready(function (){
     var agregarProyecto =$("form#agregar_proyecto");
-    agregarProyecto.teams =[];
     agregarProyecto.validate({
         rules: {
             nomProyecto: { lettersonly: true},
@@ -8,7 +7,11 @@ $(document).ready(function (){
             inicioProyecto: "required",
             finProyecto: "required",
             productivoProyecto: "required",
-            idLider: {required: true}
+            lider: {
+                required: function (element) {
+                    return $("form#agregar_proyecto").find("#idLider").val() === "";
+                }
+            }
 
 		},
         messages: {
@@ -17,93 +20,60 @@ $(document).ready(function (){
             start: "Debe ingresar el INICIO del Proyecto",
             end: "Debe ingresar el FIN del Proyecto",
             productivoProyecto: "Debe ingresar SI / NO, esta Productivo",
-            idLider:"Debe seleccionar un LIDER"
+            lider:"Debe seleccionar un LIDER"
         }
     });
 
 
-    agregarProyecto.find('#wizard').steps({
-        headerTag: "h3",
-        bodyTag: "fieldset",
-        transitionEffect: "slideLeft",
-        showFinishButtonAlways: true,
-        /* Events */
-        onStepChanging: function (event, currentIndex, newIndex) { return true; },
-        onStepChanged: function (event, currentIndex, priorIndex) { },
-        onCanceled: function (event) { },
-        onFinishing: function (event, currentIndex) { return true; },
-        onFinished: function (event, currentIndex) { agregarProyecto.submit();},
-
-    /* Labels */
-        labels: {
-            cancel: "Cancelar",
-            current: "Paso actual:",
-            pagination: "Paginacion",
-            finish: "Finalizar",
-            next: "Siguiente",
-            previous: "Anterior",
-            loading: "Cargando ..."
-        }
+    agregarProyecto.find('#wizard').bootstrapWizard({
+        nextSelector: '.button-next',
+        previousSelector: '.button-previous',
+        onTabClick: function (event, currentIndex, newIndex) { console.log(event, currentIndex, newIndex    )},
+        onNext: function (event, currentIndex, priorIndex) { console.log(event, currentIndex, priorIndex)     }
     });
 
-    var usuarioDS = function(query, process) {
-        var $items = [];
-        $items = [""];
-        $.ajax({
-            url: '/usuarios/find/'+query,
-            dataType: "json",
-            type: "GET",
-            success: function(data) {
-                var usuarios = data.usuarios;
-                $.map(usuarios, function(usuario){
-                    var group;
-                    group = {
-                        id: usuario.idUsuario,
-                        name: usuario.nombreCompleto +' - '+ usuario.nombreRol,
-                        toString: function () {
-                            return JSON.stringify(this);
-                            //return this.app;
-                        },
-                        toLowerCase: function () {
-                            return this.name.toLowerCase();
-                        },
-                        indexOf: function (string) {
-                            return String.prototype.indexOf.apply(this.name, arguments);
-                        },
-                        replace: function (string) {
-                            var value = '';
-                            value +=  this.name;
-                            console.log(this.name);
-                            if(typeof(this.rol) != 'undefined') {
-                                value += ' <span class="pull-right muted">';
-                                value += this.rol;
-                                value += '</span>';
-                            }
-                            return String.prototype.replace.apply('<div style="padding: 10px; font-size: 1.5em;">' + value + '</div>', arguments);
-                        }
-                    };
-                    $items.push(group);
-                });
+    agregarProyecto.find('#wizard').find('.button-finish').click(function () {
+        var validator = agregarProyecto.validate();
+        if(validator.form()){
+            var teams = agregarProyecto.find('#teamTable').bootstrapTable('getData');
+            teams.forEach(function( team ) {
+                $('<input>').attr({ type: 'hidden', name: 'nombreEquipo[]', value: team.nombre}).appendTo(agregarProyecto);
+            });
+            var itemTypes = agregarProyecto.find('#itemTypeTable').bootstrapTable('getData');
+            itemTypes.forEach(function( team ) {
+                $('<input>').attr({ type: 'hidden', name: 'tipoItem[]', value: team.nombre}).appendTo(agregarProyecto);
+            });
 
-                process($items);
-            }
-        });
-    };
+            agregarProyecto.submit();
+        }
+    });
 
     agregarProyecto.find("#lider" ).typeahead({
-        source: usuarioDS,
-        property: 'name',
-        hint: true,
-        highlight: true,
-        items: 10,
-        minLength: 3,
-        updater: function (item) {
-            var usuario = JSON.parse(item);
-            $('#idLider').val(usuario.id);
-            return usuario.name;
-        }
-    });
+       minLength: 3,
+       maxItem: 8,
+       maxItemPerGroup: 6,
+       order: "asc",
+       searchOnFocus: false,
+       display: ["name", "city", "division"],
+       correlativeTemplate: true,
+        mustSelectItem: true,
+       emptyTemplate: function (query) {
+            return '<span> No se encontraron registros </span>';
+        },
+       template: '<span>' +
+       '<span class="name">{{nombreCompleto}}</span>' +
+       '<span class="division"> ({{rol_principal.nombreRol}})</span>' +
+       '</span>',
 
+       source: {
+           users:["/usuarios/all" , "data.usuarios"]
+           },
+       callback: {
+           onClickBefore: function (node, form, item, event) {
+                    $('#idLider').val(item.idUsuario);
+                }
+       }
+    });
     agregarProyecto.find('.input-daterange').datepicker({
         format: "yyyy/mm/dd",
         language: "es",
@@ -118,21 +88,119 @@ $(document).ready(function (){
     });
 
     /*Equipos*/
+    agregarProyecto.find('#teamTable').bootstrapTable({
+        pagination:true,
+        pageSize:5
+    });
 
- /*   agregarProyecto.find('#teamTable').bootstrapTable({
-        data: agregarProyecto.teams
+
+
+
+    agregarProyecto.find('#addTeam.btn-primary').click(function() {
+        var messages= {
+                nombreVacio: "Debe ingresar un nombre de Equipo",
+                nombreExistente: "Ya existe un equipo con el mismo nombre"
+            },
+            nombreEquipo =agregarProyecto.find('#nombreEquipo').val(),
+            teams = agregarProyecto.find('#teamTable').bootstrapTable('getData'),
+            alert= agregarProyecto.find('#new-team .error-msg');
+        if($.trim( nombreEquipo ) === '' ){
+            alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreVacio).show();
+            setTimeout(function () {
+                alert.hide();
+            }, 3000);
+            return;
+        }else{
+            var exist = teams.find(function(element, index, array) {
+                return element.nombre === nombreEquipo;
+            });
+            if(exist){
+                alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreExistente).show();
+                setTimeout(function () {
+                    alert.hide();
+                }, 3000);
+                return;
+            }
+        }
+        alert.hide();
+        agregarProyecto.find('#nombreEquipo').val('');
+        agregarProyecto.find('#teamTable').bootstrapTable('append', { nombre:nombreEquipo});
+
     });
-*/
-    agregarProyecto.find("#teamLeader" ).typeahead({
-        source: usuarioDS,
-        property: 'name',
-        items: 10,
-        minLength: 3
-        /*updater: function (item) {
-            var item = JSON.parse(item);
-            $('#idLider').val(item.id);
-            return item.name;
-        }*/
+    /*Eventos*/
+
+    window.teamEventFormatter= function(value, row, index) {
+        return [
+            '<div id="toolbarTeams" class="btn-group">',
+            '<button type="button" class="remove-team btn btn-default">',
+            '<i class="glyphicon glyphicon-trash"></i>',
+            '</button>',
+            '</div>'
+        ].join('');
+    };
+
+    window.itemTypeEventFormatter= function(value, row, index) {
+        return [
+            '<div id="toolbarItemType" class="btn-group">',
+            '<button type="button" class="remove-item-type btn btn-default">',
+            '<i class="glyphicon glyphicon-trash"></i>',
+            '</button>',
+            '</div>'
+        ].join('');
+    };
+
+    window.actionEvents = {
+        'click .remove-team': function (e, value, row) {
+            agregarProyecto.find('#teamTable').bootstrapTable('remove', {
+                field: 'nombre',
+                values: [row.nombre]
+            });
+        },
+        'click .remove-item-type': function (e, value, row) {
+            agregarProyecto.find('#itemTypeTable').bootstrapTable('remove', {
+                field: 'nombre',
+                values: [row.nombre]
+            });
+        }
+    };
+    /*TiposDeItem*/
+    agregarProyecto.find('#itemTypeTable').bootstrapTable({
+        pagination:true,
+        pageSize:5
     });
+
+
+    agregarProyecto.find('#addItemType.btn-primary').click(function() {
+        var messages= {
+                nombreVacio: "Debe ingresar un nombre para el tipo de Item",
+                nombreExistente: "Ya existe un tipo de item con el mismo nombre"
+            },
+            nombre =agregarProyecto.find('#nombreTipoItem').val(),
+            types = agregarProyecto.find('#itemTypeTable').bootstrapTable('getData'),
+            alert= agregarProyecto.find('#new-item-type .error-msg');
+        if($.trim( nombre ) === '' ){
+            alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreVacio).show();
+            setTimeout(function () {
+                alert.hide();
+            }, 3000);
+            return;
+        }else{
+            var exist = types.find(function(element, index, array) {
+                return types.nombre === nombre;
+            });
+            if(exist){
+                alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreExistente).show();
+                setTimeout(function () {
+                    alert.hide();
+                }, 3000);
+                return;
+            }
+        }
+        alert.hide();
+        agregarProyecto.find('#nombreTipoItem').val('');
+        agregarProyecto.find('#itemTypeTable').bootstrapTable('append', { nombre:nombre});
+
+    });
+    agregarProyecto.find('.error-msg').hide();
 });
 

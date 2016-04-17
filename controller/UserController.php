@@ -45,6 +45,12 @@
             return usuario::all();
         }
 
+        public static function listWithRolAll()
+        {
+            $usuarios = usuario::with('rolPrincipal')-> get() ;
+            return $usuarios;
+        }
+
         public function addForm()
         {
             return  $this->render('usuarios/usuarioForm.html.twig',[

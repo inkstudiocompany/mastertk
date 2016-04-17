@@ -6,17 +6,50 @@
 
 {% block form %}
 
-    <form id="agregar_proyecto" name="agregar_proyecto" method="POST">
+    <form id="agregar_proyecto" name="agregar_proyecto" method="POST" autocomplete="off">
         <div id="wizard">
-            {{ include ('proyectos/steps/datos-basicos.html')  }}
-            {{ include ('proyectos/steps/equipos.html')  }}
-            {{ include ('proyectos/steps/tipos-item.html')  }}
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <ul class="nav-justified">
+                            <li><a href="#tab1" data-toggle="tab">Datos B&aacute;sicos</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Equipos</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Tipos de Item</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane" id="tab1">
+                    {{ include ('proyectos/steps/datos-basicos.html')  }}
+                </div>
+                <div class="tab-pane" id="tab2">
+                    {{ include ('proyectos/steps/equipos.html')  }}
+                </div>
+                <div class="tab-pane" id="tab3">
+                    {{ include ('proyectos/steps/tipos-item.html')  }}
+                </div>
+            </div>
 
+
+
+
+
+{#        <div style="float:right">
+            <input type='button' class='btn button-next' name='next' value='Siguiente' />
         </div>
-       {# <div class="btn-group right" role="group" aria-label="formActions">
-            <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+        <div style="float:left">
+            <input type='button' class='btn button-previous' name='previous' value='Anterior' />
+        </div>
         </div>#}
+            <nav>
+                <ul class="pager">
+                    <li class="previous button-previous"><a href="#"><span aria-hidden="true" class="glyphicon glyphicon-hand-left"></span> Anterior</a></li>
+                    <li class="finish button-finish"><a href="#">Guardar <span aria-hidden="true" class="glyphicon glyphicon-floppy-saved"></span></a></li>
+                    <li class="next button-next"><a href="#">Siguiente <span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span></a></li>
+                </ul>
+            </nav>
+        </div>
     </form>
 
 {% endblock form %}

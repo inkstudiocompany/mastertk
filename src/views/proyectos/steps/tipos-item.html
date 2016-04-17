@@ -1,3 +1,48 @@
-<h3>Tipos de Item</h3>
-<fieldset>
-</fieldset>
+
+<div class="panel">
+    <div class="panel-body">
+        <table id="itemTypeTable"
+               class="table table-hover">
+            <thead>
+                <tr>
+                    <th data-field="nombre"
+                        data-valign="middle">Nombre Equipo</th>
+                    <th data-field="action"
+                        data-align="center"
+                        data-width="18%"
+                        data-formatter="itemTypeEventFormatter"
+                        data-events="actionEvents">Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+<div class="panel" id="new-item-type">
+    <!--  <div class="panel-heading">
+          Nuevo Equipo
+      </div>-->
+
+    <div class="panel-body">
+        <div class="col-lg-10">
+            <label for="nombreTipoItem"> Nuevo Tipo de Item </label>
+            <div class="input-group">
+                <input name="nombreTipoItem"  id="nombreTipoItem" type="text" class="form-control add-team" placeholder="Tipo Item ..."  />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" id="addItemType">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar
+                    </button>
+                </span>
+            </div>
+            <div class="error-msg alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+
+                Enter a valid email address
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

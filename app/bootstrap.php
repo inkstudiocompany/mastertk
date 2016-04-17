@@ -8,7 +8,9 @@
 	require BASE . 'app/src/config.php';
 	require BASE . 'app/src/capsule.php';
 
-	use \Psr\Http\Message\ServerRequestInterface as Request;
+use Model\ORM\Equipo;
+use Model\ORM\TipoItem;
+use \Psr\Http\Message\ServerRequestInterface as Request;
 	use \Psr\Http\Message\ResponseInterface as Response;
 	
 	use Application\App as App;
@@ -18,6 +20,7 @@
 	use Application\Controller\RolController;
     use Application\Controller\UserController;
     use Application\Controller\RequestParse;
+	use Illuminate\Database\Eloquent;
     
 	$app = App::getInstance();
 
@@ -68,18 +71,34 @@
 	});
 
 	$app::Router()->post($app->path('new_project'), function( Request $request, Response $response, $args){
-            $parse = new RequestParse($request);
-            $nomProyecto = $parse->get('nomProyecto');
-            $objProyecto = $parse->get('objProyecto');
-            $inicioProyecto = $parse->get('inicioProyecto');
-            $finProyecto = $parse->get('finProyecto');
-            $productivoProyecto = $parse->get('proyectoproductivo');
-			$idLider = $parse->get('idLider');
 
-			$project = new ProjectController();
-            $project -> createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider);
+		$parse = new RequestParse($request);
+		$nomProyecto = $parse->get('nomProyecto');
+		$objProyecto = $parse->get('objProyecto');
+		$inicioProyecto = $parse->get('start');
+		$finProyecto = $parse->get('end');
+		$productivoProyecto = $parse->get('proyectoproductivo');
+		$idLider = $parse->get('idLider');
+		$equiposNombre = $parse->get('nombreEquipo');
+		$nombreTiposItem = $parse->get('tipoItem');
+		$equipos = new Eloquent\Collection();
+		$tiposItem = new Eloquent\Collection();
+		foreach($equiposNombre as $nombre){
+			$equipo = new Equipo();
+			$equipo->nombreEquipo = $nombre;
+			$equipos ->add($equipo);
+		}
 
-            echo $project->index();
+		foreach($nombreTiposItem as $nombre){
+			$tipoItem = new TipoItem();
+			$tipoItem -> descripcion= $nombre;
+			$tiposItem -> add($tipoItem);
+		}
+
+		$project = new ProjectController();
+		$project -> createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider, $equipos, $tiposItem);
+
+		echo $project->listado();
 	});
 
 
@@ -102,7 +121,7 @@
         $idProyecto = $parse->get('idProyecto');
 
 		$teamController = new TeamController();
-        $teamController -> createNew($nomProyecto, $idProyecto);
+        $teamController -> createNew($nomEquipo, $idProyecto);
 
         echo $teamController->index();
 	});
@@ -267,7 +286,15 @@
 		return $response->withJson($dataResponse);
 	});
 
-
+	$app::Router()->get($app->path('all_users'), function(Request $request, Response $response, $args){
+		echo json_encode(array(
+			"status" => true,
+			"error"  => null,
+			"data"   => array(
+				"usuarios" => UserController::listWithRolAll()
+			)
+		));
+	});
 
 
 	$app::Router()->run();

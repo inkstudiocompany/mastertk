@@ -1,12 +1,11 @@
-<h3>Datos B&aacute;sicos</h3>
-<fieldset>
+
     <div class="form-group">
         <label for="nomProyecto">Nombre del Proyecto</label>
         <input name="nomProyecto" id="nomProyecto" type="text"  class="form-control basic-data" placeholder="Nombre" required />
     </div>
     <div class="form-group">
         <label for="objProyecto">Objetivo</label>
-        <textarea name="objProyecto" id="objProyecto" cols="100" rows="5" class="form-control basic-data" placeholder="Objetivo" ></textarea>
+        <input type="text" name="objProyecto" id="objProyecto" class="form-control basic-data" placeholder="Objetivo" />
     </div>
 
     <div class="form-group">
@@ -24,7 +23,8 @@
     </div>
     <div class="form-group">
         <label for="lider">Lider del Proyecto</label>
-        <input name="lider" id="lider" type="text"  class="form-control" placeholder="Lider"  />
+        <div class="typeahead-container">
+            <input name="lider" id="lider" type="search" autocomplete="off" class="form-control" placeholder="Lider"  />
+        </div>
         <input type="hidden" name="idLider" id="idLider" class="basic-data" required/>
     </div>
-</fieldset>

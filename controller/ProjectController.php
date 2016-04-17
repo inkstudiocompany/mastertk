@@ -3,7 +3,9 @@
 	namespace Application\Controller;
 
 	use Application\Controller\ControllerBase;
+
 	use Model\ORM\Proyecto as proyecto;
+
 
 	class ProjectController extends ControllerBase
 	{
@@ -25,16 +27,17 @@
 				'roles'=> RolController::listAll()]);
 		}
 
-        public function createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto = 0,$idLider){
-            $proyecto= new proyecto();
+        public function createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto = 0,$idLider, $equipos, $tiposItem){
+            $proyecto= new Proyecto();
             $proyecto -> nomProyecto = $nomProyecto;
             $proyecto -> objProyecto = $objProyecto;
             $proyecto -> inicioProyecto = $inicioProyecto;
             $proyecto -> finProyecto = $finProyecto;
             $proyecto -> productivoProyecto = $productivoProyecto;
             $proyecto -> lider() -> associate($idLider);
-            $proyecto-> save();
-            return $proyecto;
+			$proyecto->save();
+			$proyecto -> equipos() -> saveMany ($equipos);
+			$proyecto -> tipoItem() -> saveMany($tiposItem);
         }
 
 	}

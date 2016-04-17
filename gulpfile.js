@@ -29,10 +29,12 @@ var libsJavascript = [
 */
   'bower/jquery-validation/dist/jquery.validate.min.js',
   'bower/bootstrap3-datepicker/js/bootstrap-datepicker.js',
-    'bower/bootstrap3-datepicker/js/locales/bootstrap-datepicker.es.js',
-  'bower/jquery-steps/build/jquery.steps.min.js',
-  'bower/bootstrap3-typeahead/bootstrap3-typeahead.min.js',
+  'bower/bootstrap3-datepicker/js/locales/bootstrap-datepicker.es.js',
+  'bower/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js',
+  'bower/jquery-typeahead/dist/jquery.typeahead.min.js',
   'bower/bootstrap-switch/dist/js/bootstrap-switch.min.js',
+  'bower/bootstrap-table/dist/bootstrap-table.min.js',
+  'bower/bootstrap-table/dist/locale/bootstrap-table-es-AR.min.js',
   'vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
   'vendor/twbs/bootstrap/assets/js/jquery.js'
 ];
@@ -42,7 +44,9 @@ var libsCss = [
     'node_modules/jquery-datetimepicker/jquery.datetimepicker.css',
     'bower/bootstrap3-datepicker/css/datepicker.css',
     'bower/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
-    'bower/jquery-steps/demo/css/jquery.steps.css'
+    'bower/bootstrap-table/dist/bootstrap-table.min.css',
+    'bower/twitter-bootstrap-wizard/bootstrap/css/bootstrap-theme.min.css',
+    'bower/jquery-typeahead/dist/jquery.typeahead.min.css'
 ];
 
 /*

@@ -1,89 +1,48 @@
-<h3>Equipos</h3>
-<fieldset>
-    <div id="toolbarTeams" class="btn-group">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addTeam">
-            <i class="glyphicon glyphicon-plus"></i>
-        </button>
-        <button type="button" class="btn btn-default">
-            <i class="glyphicon glyphicon-trash"></i>
-        </button>
+
+    <div class="panel">
+        <div class="panel-body">
+        <table id="teamTable"
+               class="table table-hover">
+            <thead>
+                <tr>
+                    <th data-field="nombre"
+                        data-valign="middle">Nombre Equipo</th>
+                    <th data-field="action"
+                        data-align="center"
+                        data-width="18%"
+                        data-formatter="teamEventFormatter"
+                        data-events="actionEvents">Acciones</th>
+                </tr>
+            </thead>
+        </table>
+        </div>
     </div>
-    <table id="teamTable"
-           class="table"
-           data-click-to-select="true"
-           data-single-select="true"
-           data-toolbar="#toolbarTeams">
-        <thead>
-            <tr>
-                <th data-field="state" data-checkbox="true"></th>
-                <th data-field="nombre">Nombre Equipo</th>
-                <th data-field="lider">Lider</th>
-                <th data-field="action"
-                data-align="center"
-                data-formatter="actionFormatter"
-                data-events="actionEvents">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="4" class="alert alert-info text-center">
-                    No existen Equipos
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</fieldset>
 
 
-<div class="modal fade" id="addTeam" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Adicionar Equipos</h4>
-            </div>
-            <div class="modal-body">
-                <ul class="nav nav-pills">
-                    <li class="active"><a data-toggle="pill" href="#teamBasicData">Datos B&aacute;sicos</a></li>
-                    <li><a data-toggle="pill" href="#teamMembers">Integrantes</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div id="teamBasicData" class="tab-pane fade in active">
-                        <br/>
-                        <div class="form-group">
-                            <label for="nombreEquipo">Nombre del Equipo</label>
-                            <input name="nombreEquipo" id="nombreEquipo" type="text" class="form-control" placeholder="Nombre" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="teamLeader">Lider del equipo</label>
-                            <input name="teamLeader" id="teamLeader" type="text" class="form-control" placeholder="Lider" required />
-                        </div>
-                    </div>
-                    <div id="teamMembers" class="tab-pane fade">
-                        <br/>
-                        <div class="btn-group">
-                            <button type="button" data-toggle="collapse" data-target="#newRol">
-                                <i class="glyphicon glyphicon-plus"></i>
-                            </button>
-                        </div>
-                        <div class="form-group collapse" id="newRol" >
-                            <label for="rol">Rol Principal</label>
-                            <select name="rol" id="rol" class="form-control" >
-                                <option value="">- Seleccione Uno -</option>
-                                {% for  rol in roles  %}
-                                <option value="{{ rol.idRol }}">{{ rol.nombreRol }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+    <div class="panel" id="new-team">
+      <!--  <div class="panel-heading">
+            Nuevo Equipo
+        </div>-->
 
-                    </div>
+        <div class="panel-body">
+            <div class="col-lg-10">
+                <label for="nombreEquipo"> Nuevo Equipo </label>
+                <div class="input-group">
+                    <input name="nombreEquipo"  id="nombreEquipo" type="text" class="form-control add-team" placeholder="Nombre de Equipo ..."  />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button" id="addTeam">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar
+                    </button>
+                </span>
+                </div>
+                <div class="error-msg alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+
+                    Enter a valid email address
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" >Agregar</button>
-            </div>
         </div>
-
     </div>
-</div>
+
+
+
