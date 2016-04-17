@@ -6,6 +6,11 @@
 		//This is a example for a new method plugin		
 	}
 
+    /**
+     * editar
+     *
+     * Edita un item de una lista.
+     */
 	$.fn.editar = function() {
 		$(this).on('click', function(){
 			var e = $(this);
@@ -14,6 +19,11 @@
 		});
 	}
 
+    /**
+     * borrar
+     *
+     * Elimina un item de una lista.
+     */
 	$.fn.borrar = function() {
 		$(this).on('click', function(){
 			var e = $(this);
@@ -40,6 +50,14 @@
 		});
 	}
 
+    /**
+     * confirm
+     *
+     * Crea modal con mensaje de confirmación para ejecutar una acción.
+     *
+     * @param options
+     * @param callback
+     */
 	$.fn.confirm = function(options, callback) {
 		$.fn.confirm.defaults = {
 		    title: 'Confirm',
@@ -66,11 +84,19 @@
 		});
 	}
 
+	/**
+	 * appValidate
+     *
+     * Genera mensaje con alertas de validación a un formulario
+     *
+	 * @param options
+     */
 	$.fn.appValidate = function(options){
         $.fn.confirm.defaults = {
             debug: false,
             rules: {},
-            messages: {}
+            messages: {},
+            errorElement: 'div'
         };
 
         var opts = $.extend( {}, $.fn.confirm.defaults, options );
@@ -78,9 +104,32 @@
         $(this).validate({
             debug: opts.debug,
             errorClass: 'alert alert-danger',
-            errorElement: 'div',
+            errorElement: opts.errorElement,
             rules: opts.rules,
             messages: opts.messages
         });
 	}
+
+    /**
+     * login
+     *
+     * Envía los datos del formulario para la autenticación de usuario.
+     */
+    $.fn.login = function(form) {
+        var email = $($(form).find('#email')).val();
+        var password = $($(form).find('#password')).val();
+
+        $.ajax({
+            method: 'post',
+            async: false,
+            url: 'authenticate/' + email  + '/' + password,
+            success: function(response){
+                $('.preloader').toggleClass('show hide');
+                if (true === response.authenticated) {
+                    window.location.href = '/';
+                }
+                window.location.href = '/login';
+            }
+        })
+    }
 })(jQuery);

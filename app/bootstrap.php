@@ -1,5 +1,5 @@
 <?php
-	define ('BASE', realpath('./') . '/');
+    define ('BASE', realpath('./') . '/');
 
 	$url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
@@ -14,20 +14,45 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 	use \Psr\Http\Message\ResponseInterface as Response;
 	
 	use Application\App as App;
+    use Application\Controller\SecurityMiddleware;
+	use Application\Controller\SecurityController;
 	use Application\Controller\HomeController;
 	use Application\Controller\ProjectController;
-	use Application\Controller\TeamController;	
+	use Application\Controller\MyProjectController;
+	use Application\Controller\MyTicketController;
+	use Application\Controller\TeamController;
+	use Application\Controller\TipoItemController;
 	use Application\Controller\RolController;
     use Application\Controller\UserController;
     use Application\Controller\RequestParse;
-	use Illuminate\Database\Eloquent;
-    
-	$app = App::getInstance();
+    use Illuminate\Database\Eloquent;
+//SecurityController::securityStart();
+    $app = App::getInstance();
 
-	$app::Router()->get('prueba', function(){
-		$home = new HomeController();
-		echo $home->index();
+	/** Security */
+    $app::Router()->add(new SecurityMiddleware($app));
+
+	$app::Router()->get($app->path('login'), function(){
+        $security = new SecurityController();
+		echo $security->index();
 	});
+
+    $app::Router()->get($app->path('logout'), function(Request $request, Response $response){
+        SecurityController::logout();
+        return $response->withRedirect('/');
+    });
+
+	$app::Router()->post($app->path('auth'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $email = $parse->get('email');
+        $password = $parse->get('password');
+
+		$security = new SecurityController();
+        $responseData = $security->authenticate($email, $password);
+
+        return $response->withJson($responseData);
+	});
+
 
 	$app::Router()->get($app->path('message_confirm'), function(Request $request, Response $response, $args){
 		$dataResponse = [];
@@ -53,8 +78,13 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 	});
 
 	$app::Router()->get($app->path('my_projects'), function(){
-		$home = new HomeController();
-		echo $home->index();
+		$myproject = new MyProjectController();
+		echo $myproject->proyects();
+	});
+
+	$app::Router()->get($app->path('my_tickets'), function(){
+		$myticket = new MyTicketController();
+		echo $myticket->tickets();
 	});
 
 	/**
@@ -102,12 +132,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 	});
 
 
-
 	# EQUIPO#
 
 	$app::Router()->get($app->path('equipos'), function(){
 		$equipo = new TeamController();
-		echo $equipo->index();
+		echo $equipo->listado();
 	});
 
 	$app::Router()->get($app->path('new_equipo'), function(){
@@ -294,6 +323,48 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 				"usuarios" => UserController::listWithRolAll()
 			)
 		));
+	});
+
+	# TIPOITEM#
+
+	$app::Router()->get($app->path('tipoitems'), function(){
+		$tipoitem = new TipoItemController();
+		echo $tipoitem->listado();
+	});
+
+	$app::Router()->get($app->path('new_tipoitem'), function(){
+		$tipoitem = new TipoItemController();
+		echo $tipoitem->addForm();
+	});
+
+
+	$app::Router()->post($app->path('new_tipoitem'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request);
+//		$nomEquipo = $parse->get('nomEquipo');
+//      $idProyecto = $parse->get('idProyecto');
+
+		$tipoitemController = new TipoItemController();
+//        $itemController -> createNew($nomProyecto, $idProyecto);
+
+        echo $tipoitemController->index();
+	});
+
+
+	$app::Router()->get($app->path('edit_tipoitem'), function(){
+		$tipoitem = new TipoItemController();
+		echo $tipoitem->addForm();
+	});
+
+	$app::Router()->post($app->path('delete_tipoitem'), function(Request $request, Response $response, $args){
+		$parse = new RequestParse($request, $args);
+		$dataResponse = [];
+
+		if ($id = $parse->get('id')) {
+			$tipoitem = new TipoItemController();
+			$dataResponse['status'] = (boolean) $tipoitem->delete($id);
+		}
+
+		return $response->withJson($dataResponse);
 	});
 
 

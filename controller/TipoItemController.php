@@ -3,29 +3,30 @@
 	namespace Application\Controller;
 
 	use Application\Controller\ControllerBase;
-	use Model\ORM\Equipo as equipo;
+	use Model\ORM\TipoItem as tipoitem;
 
-	class TeamController extends ControllerBase
+	class TipoItemController extends ControllerBase
 	{
 		public function index()
 		{
-			return $this->render('equipos/listado.html.twig',[
-		           'equipos' => self::listAll()
+			return $this->render('tipoitems/listado.html.twig',[
+		           'tipoitems' => self::listAll()
 				]);
 		}
 	
+
 		public function listado()
 		{
-			$equipos = equipo::with('Proyecto')
-			->join('UsuarioRolEquipo', 'Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
-			->join('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+			$tipoitems = tipoitem::with('estados')
+			->join('Estado', 'Estado.idTipoItem', '=', 'TipoItem.idTipoItem')
 			-> get();
 			
-			return $this->render('equipos/listado.html.twig', [
-				'equipos' => $equipos
+			return $this->render('tipoitems/listado.html.twig', [
+				'tipoitems' => $tipoitems
 			]);
 		}
 
+/*
    		public function addForm()
 		{
 			return  $this->render('equipos/agregar.html.twig');
@@ -44,16 +45,17 @@
             $equipo -> save();
             return $proyecto;
         }
-
+*/
         public static function listAll()
         {
-            return Equipo::all();
+            return TipoItem::all();
         }
+
 
         public function delete($id = 0) 
         {
-            $rol = Equipo::find($id);
-            return $equipo->delete();
+            $tipoitem = TipoItem::find($id);
+            return $tipoitem->delete();
         }
 
 	}

@@ -1,0 +1,22 @@
+{% extends 'common/forms.html.twig' %}
+
+{% block form_title %}
+    Nuevo Proyecto
+{% endblock form_title %}
+
+{% block form %}
+
+    <form id="agregar_proyecto" name="agregar_proyecto" method="POST">
+        <div id="wizard">
+            {{ include ('proyectos/steps/datos-basicos.html')  }}
+            {{ include ('proyectos/steps/equipos.html')  }}
+            {{ include ('proyectos/steps/tipos-item.html')  }}
+
+        </div>
+       {# <div class="btn-group right" role="group" aria-label="formActions">
+            <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>#}
+    </form>
+
+{% endblock form %}

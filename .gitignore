@@ -11,4 +11,6 @@ web/cache/*
 node_modules
 web/css
 web/js
+web/images
 .idea/
+bower/

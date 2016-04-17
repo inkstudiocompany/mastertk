@@ -4,30 +4,29 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    ABM Proyectos
-    <a class="btn btn-primary right" href="{{ app.path('new_project') }}" role="button">Nuevo</a>
+    My Proyectos
   </div>
 
   <!-- Table -->
   <table class="table">
     <tr>
       <td>Nombre Proyecto</td>
+      <td>Rol asignado</td>
       <td>Lider del Proyecto</td>
-      <td>Proyectos Productivos</td>
-      <td class="col-md-2">Acciones</td>
+      <td class="col-md-2">Proyecto Productivo</td>
     </tr>
-    {% if proyectos is not empty %}
-      {% for proyecto in proyectos %}
+    {% if misproyectos is not empty %}
+      {% for myproyect in misproyectos %}
         <tr>
-          <td>{{ proyecto.nomProyecto }}</td>
-          <td>{{ proyecto.lider.nombreCompleto }}</td>
-          <td>{% if proyecto.productivoProyecto %}
+          <td>{{ myproyect.nomProyecto }}</td>
+          <td>{{ myproyect.nombreRol }}</td>
+          <td>{{ myproyect.nombreCompleto }}</td>
+          <td>{% if myproyect.productivoProyecto %}
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SI
               {%  else %}
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO
               {%  endif %}
           </td>
-          <td></td>
         </tr>
       {% endfor %}
     {% else %}

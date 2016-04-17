@@ -13,6 +13,11 @@
 				'new_project' => '/proyectos/nuevo',
 				'equipment' => '/equipos',
 
+				#Security
+				'login' => '/login',
+				'logout' => '/logout',
+				'auth' => '/authenticate[/{email}/{password}]',
+
 				#Message
 				'message_confirm' => '/message/confirm',
 				
@@ -39,9 +44,12 @@
 			    'find_user' => '/usuarios/find[/{query}]',
 			    'all_users' => '/usuarios/all',
 
-				#Items
-				'type_item' => '/tipoitem',
-				'states' => '/estados',
+				#TipoItems
+			    'tipoitems' => '/tipoitems',
+			    'new_tipoitem' => '/tipoitems/nuevo',
+				'states_tipoitem' => '/tipoitems/estados',
+                'edit_tipoitem' => '/tipoitems/editar[/{id}]',
+                'delete_tipoitem' => '/tipoitems/borrar[/{id}]',
 
 				#Workflow
 				'workflow' => '/workflow',

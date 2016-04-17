@@ -45,7 +45,7 @@
         public function hasParameter($parameters, $name)
         {
             return isset($parameters[$name]) === true
-                && empty($parameters[$name]) === false
+                //&& empty($parameters[$name]) === false
                 && is_null($parameters[$name]) === false;
         }
 

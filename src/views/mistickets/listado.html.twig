@@ -4,8 +4,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    ABM Proyectos
-    <a class="btn btn-primary right" href="{{ app.path('new_project') }}" role="button">Nuevo</a>
+    My Tickets   ---- faltaaaa====
   </div>
 
   <!-- Table -->
@@ -14,7 +13,6 @@
       <td>Nombre Proyecto</td>
       <td>Lider del Proyecto</td>
       <td>Proyectos Productivos</td>
-      <td class="col-md-2">Acciones</td>
     </tr>
     {% if proyectos is not empty %}
       {% for proyecto in proyectos %}
@@ -27,7 +25,6 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO
               {%  endif %}
           </td>
-          <td></td>
         </tr>
       {% endfor %}
     {% else %}

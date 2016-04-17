@@ -20,6 +20,7 @@
 			return $this->render('proyectos/listado.html.twig', [
 				'proyectos' => $proyectos
 			]);
+
 		}
 		public function addForm()
 		{
