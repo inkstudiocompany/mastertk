@@ -8,9 +8,9 @@
 	require BASE . 'app/src/config.php';
 	require BASE . 'app/src/capsule.php';
 
-use Model\ORM\Equipo;
-use Model\ORM\TipoItem;
-use \Psr\Http\Message\ServerRequestInterface as Request;
+	use Model\ORM\Equipo;
+	use Model\ORM\TipoItem;
+	use \Psr\Http\Message\ServerRequestInterface as Request;
 	use \Psr\Http\Message\ResponseInterface as Response;
 	
 	use Application\App as App;
@@ -26,11 +26,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
     use Application\Controller\UserController;
     use Application\Controller\RequestParse;
     use Illuminate\Database\Eloquent;
-//SecurityController::securityStart();
+	SecurityController::securityStart();
     $app = App::getInstance();
 
 	/** Security */
-    $app::Router()->add(new SecurityMiddleware($app));
+    //$app::Router()->add(new SecurityMiddleware($app));
 
 	$app::Router()->get($app->path('login'), function(){
         $security = new SecurityController();
@@ -129,6 +129,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 		$project -> createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider, $equipos, $tiposItem);
 
 		echo $project->listado();
+	});
+
+	$app::Router()->get($app->path('edit_project'), function( Request $request, Response $response, $args){
+		$project = new ProjectController();
+		echo $project -> editForm($args['id']);
 	});
 
 
