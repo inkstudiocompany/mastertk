@@ -119,17 +119,32 @@
         var email = $($(form).find('#email')).val();
         var password = $($(form).find('#password')).val();
 
+        $.fn.cleanErrorLog();
+
         $.ajax({
             method: 'post',
-            async: false,
+            async: true,
             url: 'authenticate/' + email  + '/' + password,
             success: function(response){
                 $('.preloader').toggleClass('show hide');
                 if (true === response.authenticated) {
                     window.location.href = '/';
+                } else if (false === response.authenticated) {
+                    $.fn.errorLog('Datos de login incorrectos.');
+                    return false;
                 }
                 window.location.href = '/login';
             }
         })
+    }
+
+    $.fn.cleanErrorLog = function() {
+        $('#login_errors label').html('');
+        $('#login_errors').fadeOut();
+    }
+
+    $.fn.errorLog = function(stringError) {
+        $('#login_errors label').html(stringError);
+        $('#login_errors').fadeIn();
     }
 })(jQuery);

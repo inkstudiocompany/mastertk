@@ -34,7 +34,8 @@
     });
 
 
-    $app::Router()->get($app->path('edit_tipoitem'), function(){
+    $app::Router()->get($app->path('edit_tipoitem'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
         $tipoitem = new TipoItemController();
         echo $tipoitem->addForm();
     });

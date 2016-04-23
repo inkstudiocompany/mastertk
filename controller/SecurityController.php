@@ -34,7 +34,7 @@
             if (false === $email || false === $password) {
                 $response['authenticated'] = false;
             }
-
+            return usuario::auth($email, $password)->toSql();
             $usuario = usuario::auth($email, $password)->get()->first();
 
             if (false != $usuario) {
