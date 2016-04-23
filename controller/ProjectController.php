@@ -39,4 +39,12 @@
 			$proyecto -> tipoItem() -> saveMany($tiposItem);
         }
 
+		public function editForm($id)
+		{
+			$proyecto = proyecto::with('lider') -> find($id);
+			return $this->render('proyectos/editar.html.twig', [
+				'proyecto' => $proyecto
+			]);
+		}
+
 	}

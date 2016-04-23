@@ -1,30 +1,31 @@
 
     <div class="form-group">
         <label for="nomProyecto">Nombre del Proyecto</label>
-        <input name="nomProyecto" id="nomProyecto" type="text"  class="form-control basic-data" placeholder="Nombre" required />
+        <input name="nomProyecto" id="nomProyecto" type="text"  class="form-control basic-data" placeholder="Nombre" value="{{proyecto.nomProyecto}}" required />
     </div>
     <div class="form-group">
         <label for="objProyecto">Objetivo</label>
-        <input type="text" name="objProyecto" id="objProyecto" class="form-control basic-data" placeholder="Objetivo" />
+        <input type="text" name="objProyecto" id="objProyecto" class="form-control basic-data" value="{{proyecto.objProyecto}}" placeholder="Objetivo" />
     </div>
 
     <div class="form-group">
         <label for="duracion">Inicio Proyecto</label>
         <div class="input-daterange input-group" id="duracion">
-            <input id="inicioProyecto" type="text" class="input-sm form-control basic-data" name="start" placeholder="dd/MM/yyyy" required />
+            <input id="inicioProyecto" type="text" class="input-sm form-control basic-data" value="{{proyecto.inicioProyecto}}" name="start" placeholder="dd/MM/yyyy" required />
             <span class="input-group-addon">Hasta</span>
-            <input id="finProyecto" type="text" class="input-sm form-control basic-data" name="end" placeholder="dd/MM/yyyy" required />
+            <input id="finProyecto" type="text" class="input-sm form-control basic-data" value="{{proyecto.finProyecto}}" name="end" placeholder="dd/MM/yyyy" required />
         </div>
     </div>
 
     <div class="form-group">
         <label for="proyectoproductivo">Es Productivo ?</label>
-        <input type="checkbox" name="proyectoproductivo" value="1" id="proyectoproductivo"  />
+        <input type="checkbox" name="proyectoproductivo" value="1" id="proyectoproductivo" {{proyecto.productivoProyecto? 'checked': ''}} />
     </div>
     <div class="form-group">
         <label for="lider">Lider del Proyecto</label>
         <div class="typeahead-container">
-            <input name="lider" id="lider" type="search" autocomplete="off" class="form-control" placeholder="Lider"  />
+            <input name="lider" id="lider" type="search" autocomplete="off" class="form-control" placeholder="Lider"  value="{{proyecto.lider.nombreCompleto}}" />
         </div>
-        <input type="hidden" name="idLider" id="idLider" class="basic-data" required/>
+        <input type="hidden" name="idLider" id="idLider" class="basic-data" value="{{proyecto.idLider}}" required/>
+        <input type="hidden" name="idProyecto" id="idProyecto" class="basic-data" value="{{proyecto.idProyecto}}" required/>
     </div>
