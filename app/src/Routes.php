@@ -53,6 +53,10 @@
 
 				#Workflow
 				'workflow' => '/workflow',
+
+				#Proyectos
+				'edit_project' => '/proyectos/editar[/{id}]',
+
 			];
 
 		public static function getRoutes()

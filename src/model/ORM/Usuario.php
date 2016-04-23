@@ -29,7 +29,9 @@
 
 		public function scopeAuth($query, $email, $password)
 		{
-			return $query->whereEmail($email)->wherePassword($password);
+            return $query->whereRaw(
+                '(email = \'' . $email . '\' OR usuario = \'' . $email . '\') AND password = \'' . $password . '\''
+            );
 		}
 	}
 
