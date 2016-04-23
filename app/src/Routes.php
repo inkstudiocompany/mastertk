@@ -56,6 +56,7 @@
 
 				#Proyectos
 				'edit_project' => '/proyectos/editar[/{id}]',
+				'save_project' => '/proyectos/guardar'
 
 			];
 

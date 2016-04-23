@@ -5,8 +5,16 @@
 	use Model\ORM\Proyecto as proyecto;
 
 
+
 	class ProjectController extends ControllerBase
 	{
+
+
+		private static function getById($id)
+		{
+			return proyecto::find($id);
+		}
+
 		public function index()
 		{
 			return $this->render('proyectos/proyectos.html.twig');
@@ -45,6 +53,28 @@
 			return $this->render('proyectos/editar.html.twig', [
 				'proyecto' => $proyecto
 			]);
+		}
+
+		public static function save($params)
+		{
+			$idProyecto = self::getInput($params,'idProyecto');
+			$idLider = self::getInput($params,'idLider');
+			$proyecto = new proyecto();
+			if(!empty($idProyecto)){
+				$proyecto = self::getById($idProyecto);
+			}
+			$proyecto -> nomProyecto = self::getInput($params,'nomProyecto');
+			$proyecto -> objProyecto= self::getInput($params,'objProyecto');
+			$proyecto -> inicioProyecto= self::getInput($params,'inicioProyecto');
+			$proyecto -> finProyecto= self::getInput($params,'finProyecto');
+			$proyecto -> productivoProyecto = self::getInput($params,'productivoProyecto');
+			$proyecto -> lider() -> associate($idLider);
+			$proyecto->save();
+			if(is_null($idProyecto)){
+				$proyecto -> equipos() -> saveMany ($params['equipos']);
+				$proyecto -> tipoItem() -> saveMany($params['tiposItem']);
+			}
+			return $proyecto;
 		}
 
 	}

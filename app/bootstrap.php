@@ -100,15 +100,13 @@
 		echo $project->addForm();
 	});
 
-	$app::Router()->post($app->path('new_project'), function( Request $request, Response $response, $args){
+	$app::Router()->get($app->path('edit_project'), function( Request $request, Response $response, $args){
+		$project = new ProjectController();
+		echo $project -> editForm($args['id']);
+	});
 
+	$app::Router()->post($app->path('save_project'), function( Request $request, Response $response, $args){
 		$parse = new RequestParse($request);
-		$nomProyecto = $parse->get('nomProyecto');
-		$objProyecto = $parse->get('objProyecto');
-		$inicioProyecto = $parse->get('start');
-		$finProyecto = $parse->get('end');
-		$productivoProyecto = $parse->get('proyectoproductivo');
-		$idLider = $parse->get('idLider');
 		$equiposNombre = $parse->get('nombreEquipo');
 		$nombreTiposItem = $parse->get('tipoItem');
 		$equipos = new Eloquent\Collection();
@@ -124,17 +122,22 @@
 			$tipoItem -> descripcion= $nombre;
 			$tiposItem -> add($tipoItem);
 		}
+		$params = [
+			"idProyecto" => $parse->get('idProyecto'),
+			"nomProyecto" => $parse->get('nomProyecto'),
+			"objProyecto" => $parse->get('objProyecto'),
+			"inicioProyecto" => $parse->get('start'),
+			"finProyecto" => $parse->get('end'),
+			"productivoProyecto" => $parse->get('proyectoproductivo'),
+			"idLider" => $parse->get('idLider'),
+			"equipos" =>$equipos,
+			"tiposItem"=>$tiposItem
+		];
+		ProjectController::save($params);
+		echo (new ProjectController()) -> listado();
 
-		$project = new ProjectController();
-		$project -> createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto,$idLider, $equipos, $tiposItem);
-
-		echo $project->listado();
 	});
 
-	$app::Router()->get($app->path('edit_project'), function( Request $request, Response $response, $args){
-		$project = new ProjectController();
-		echo $project -> editForm($args['id']);
-	});
 
 
 	# EQUIPO#

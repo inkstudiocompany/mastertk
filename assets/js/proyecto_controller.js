@@ -1,5 +1,8 @@
 $(document).ready(function (){
+
+
     var agregarProyecto =$("form#agregar_proyecto");
+
     agregarProyecto.validate({
         rules: {
             nomProyecto: { numberslettersonly: true},
@@ -58,15 +61,15 @@ $(document).ready(function (){
         }
     });
 
+
     agregarProyecto.find("#lider" ).typeahead({
        minLength: 3,
        maxItem: 8,
        maxItemPerGroup: 6,
        order: "asc",
-       searchOnFocus: false,
        display: ["name", "city", "division"],
        correlativeTemplate: true,
-        mustSelectItem: true,
+       cache:true,
        emptyTemplate: function (query) {
             return '<span> No se encontraron registros </span>';
         },
@@ -74,9 +77,9 @@ $(document).ready(function (){
        '<span class="name">{{nombreCompleto}}</span>' +
        '<span class="division"> ({{rol_principal.nombreRol}})</span>' +
        '</span>',
-
-       source: {
-           users:["/usuarios/all" , "data.usuarios"]
+        source: {
+           users: ['/usuarios/all','data.usuarios']
+           // data: agregarProyecto.usuarios
            },
        callback: {
            onClickBefore: function (node, form, item, event) {
@@ -98,13 +101,35 @@ $(document).ready(function (){
     });
 
     /*Equipos*/
+
     agregarProyecto.find('#teamTable').bootstrapTable({
         pagination:true,
-        pageSize:5
+        pageSize:5,
+        columns: [{
+            field: 'nombre',
+            valign:'middle',
+            halign:'center',
+            title: 'Nombre Equipo'
+        },{
+            title: 'Acciones',
+            class:'col-md-2',
+            align:'center',
+            formatter: function(value, row, index) {
+                return [
+                    '<button type="button" class="btn btn-sm btn-danger remove-team" role-button="eliminar">',
+                    'Eliminar<i class="glyphicon glyphicon-trash"></i></button>'
+                ].join('');
+            },
+            events:{
+                'click .remove-team': function (e, value, row) {
+                    agregarProyecto.find('#teamTable').bootstrapTable('remove', {
+                        field: 'nombre',
+                        values: [row.nombre]
+                    });
+                }}
+
+        }]
     });
-
-
-
 
     agregarProyecto.find('#addTeam.btn-primary').click(function() {
         var messages= {
@@ -137,47 +162,40 @@ $(document).ready(function (){
         agregarProyecto.find('#teamTable').bootstrapTable('append', { nombre:nombreEquipo});
 
     });
-    /*Eventos*/
 
-    window.teamEventFormatter= function(value, row, index) {
-        return [
-            '<div id="toolbarTeams" class="btn-group">',
-            '<button type="button" class="remove-team btn btn-default">',
-            '<i class="glyphicon glyphicon-trash"></i>',
-            '</button>',
-            '</div>'
-        ].join('');
-    };
-
-    window.itemTypeEventFormatter= function(value, row, index) {
-        return [
-            '<div id="toolbarItemType" class="btn-group">',
-            '<button type="button" class="remove-item-type btn btn-default">',
-            '<i class="glyphicon glyphicon-trash"></i>',
-            '</button>',
-            '</div>'
-        ].join('');
-    };
-
-    window.actionEvents = {
-        'click .remove-team': function (e, value, row) {
-            agregarProyecto.find('#teamTable').bootstrapTable('remove', {
-                field: 'nombre',
-                values: [row.nombre]
-            });
-        },
-        'click .remove-item-type': function (e, value, row) {
-            agregarProyecto.find('#itemTypeTable').bootstrapTable('remove', {
-                field: 'nombre',
-                values: [row.nombre]
-            });
-        }
-    };
     /*TiposDeItem*/
+
     agregarProyecto.find('#itemTypeTable').bootstrapTable({
         pagination:true,
-        pageSize:5
+        pageSize:5,
+        columns: [{
+            field: 'nombre',
+            valign:'middle',
+            halign:'center',
+            title: 'Nombre Item'
+        },{
+            title: 'Acciones',
+            class:'col-md-2',
+            align:'center',
+            formatter: function(value, row, index) {
+                return [
+                    '<button type="button" class="btn btn-sm btn-danger remove-item-type" role-button="eliminar">',
+                    'Eliminar<i class="glyphicon glyphicon-trash"></i></button>'
+                ].join('');
+            },
+            events:{
+                'click .remove-item-type': function (e, value, row) {
+                    agregarProyecto.find('#itemTypeTable').bootstrapTable('remove', {
+                        field: 'nombre',
+                        values: [row.nombre]
+                    });
+                }
+            }
+
+        }]
     });
+
+
 
 
     agregarProyecto.find('#addItemType.btn-primary').click(function() {

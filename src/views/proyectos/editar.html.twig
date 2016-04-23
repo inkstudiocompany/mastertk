@@ -6,8 +6,8 @@
 {% endblock form_title %}
 
 {% block form %}
-  <form id="agregar_proyecto" name="editar_rol" method="post" action="">
-    {{ include ('proyectos/steps/datos-basicos.html')  }}
+    <form id="agregar_proyecto" name="agregar_proyecto" method="POST" autocomplete="off" action="/proyectos/guardar">
+     {{ include ('proyectos/steps/datos-basicos.html')  }}
 
       <br/>
       <div class="btn-group right" role="group" aria-label="formActions">
