@@ -12,7 +12,7 @@
         public static function securityStart()
         {
             session_name(self::$session);
-            session_start();
+            @session_start();
         }
 
         public static function logout()
