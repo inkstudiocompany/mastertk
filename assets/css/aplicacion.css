@@ -129,3 +129,17 @@ table.table{ font-size: 12px; }
 	width: 60px !important;
 	position: absolute;
 }
+
+#login_errors{
+    margin-top: 10px;
+    text-align: center;
+    height: 0px;
+    padding: 0 !important;
+    background: none; border: none;
+}
+
+#login_errors label{
+    font-size: 1em;
+    font-weight: normal;
+    font-style: italic;
+}

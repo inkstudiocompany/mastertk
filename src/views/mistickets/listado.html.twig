@@ -4,39 +4,40 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    My Tickets   ---- faltaaaa====
+    My Tickets
   </div>
 
   <!-- Table -->
   <table class="table">
     <tr>
-      <td>Nombre Proyecto</td>
-      <td>Lider del Proyecto</td>
-      <td>Proyectos Productivos</td>
+      <td>Ticket</td>
+      <td>Estado</td>
+      <td>Descripcion</td>
+      <td>Descripcion Item</td>
+      <td>Prioridad</td>
+      <td>Fecha de Creacion</td>
     </tr>
-    {% if proyectos is not empty %}
-      {% for proyecto in proyectos %}
+    {% if mistickets is not empty %}
+      {% for tickets in mistickets %}
         <tr>
-          <td>{{ proyecto.nomProyecto }}</td>
-          <td>{{ proyecto.lider.nombreCompleto }}</td>
-          <td>{% if proyecto.productivoProyecto %}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SI
-              {%  else %}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO
-              {%  endif %}
-          </td>
+          <td>{{ tickets.tituloItem }}</td>
+          <td>{{ tickets.nombreEstado }}</td>
+          <td>{{ tickets.descItem }}</td>
+          <td>{{ tickets.descripcion }}</td>
+          <td>{{ tickets.prioridad }}</td>
+          <td>{{ tickets.fechacreacion }}</td>          
         </tr>
       {% endfor %}
     {% else %}
       <tr>
-        <td colspan="4" class="alert alert-info text-center">
+        <td colspan="6" class="alert alert-info text-center">
           <strong>Ups!</strong>
           No existen registros
         </td>
       </tr>
     {% endif %}
     <tr>
-      <td colspan="4"></td>
+      <td colspan="6"></td>
     </tr>
   </table>
 </div>

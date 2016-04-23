@@ -3,12 +3,12 @@
 
     class MyTicket extends EntityBase
 	{
-        protected $table = 'Proyecto';
+        protected $table = 'Item';
 		
-	    protected $primaryKey = 'idProyecto';
+	    protected $primaryKey = 'idItem';
 		
         public function tickets(){
-            return $this ->hasMany('Model\ORM\MyTicket','idProyecto','idProyecto' );
+            return $this ->hasMany('Model\ORM\MyTicket','idUsuario','idItem','idProyecto' );
 
         }
         
