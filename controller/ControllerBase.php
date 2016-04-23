@@ -2,12 +2,15 @@
 	
 	namespace Application\Controller;
 
+	use Application\App;
+
 	abstract class ControllerBase
 	{
 
-		protected static $instance = null;
-		protected $twig = null;
-		protected $loader = null;
+		protected static $instance  = null;
+		protected $twig             = null;
+		protected $loader           = null;
+		protected $container        = null;
 
 		public function __construct()
 		{
@@ -17,9 +20,13 @@
 		    	'debug' => true,
 			));
 			$this->twig->addExtension(new \Twig_Extension_Debug());
+
+			global $app;
+			/** @var App container */
+			$this->container = $app;
 		}
 
-    	public function render($template, $params = Array())
+		public function render($template, $params = Array())
     	{
     		global $app;
     		$params['app'] = $app;

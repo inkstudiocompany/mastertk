@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 	$('button[role-button="eliminar"]').borrar();
 
-
+    $('button[role-button="detalle"]').detalle();
 });
 
 
