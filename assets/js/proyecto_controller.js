@@ -2,8 +2,8 @@ $(document).ready(function (){
     var agregarProyecto =$("form#agregar_proyecto");
     agregarProyecto.validate({
         rules: {
-            nomProyecto: { lettersonly: true},
-            objProyecto: { lettersonly: true},
+            nomProyecto: { numberslettersonly: true},
+            objProyecto: { numberslettersonly: true},
             inicioProyecto: "required",
             finProyecto: "required",
             productivoProyecto: "required",
@@ -28,8 +28,18 @@ $(document).ready(function (){
     agregarProyecto.find('#wizard').bootstrapWizard({
         nextSelector: '.button-next',
         previousSelector: '.button-previous',
-        onTabClick: function (event, currentIndex, newIndex) { console.log(event, currentIndex, newIndex    )},
-        onNext: function (event, currentIndex, priorIndex) { console.log(event, currentIndex, priorIndex)     }
+        onTabClick: function (event, newIndex, currentIndex) {
+            if(currentIndex ===0){
+                var validator = agregarProyecto.validate();
+                return validator.form();
+            }
+        },
+        onNext: function (event, currentIndex, priorIndex) {
+            if(priorIndex ===1){
+                var validator = agregarProyecto.validate();
+                return validator.form();
+            }
+        }
     });
 
     agregarProyecto.find('#wizard').find('.button-finish').click(function () {

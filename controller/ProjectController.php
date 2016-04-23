@@ -2,8 +2,6 @@
 
 	namespace Application\Controller;
 
-	use Application\Controller\ControllerBase;
-
 	use Model\ORM\Proyecto as proyecto;
 
 
