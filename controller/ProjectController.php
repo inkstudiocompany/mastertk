@@ -77,4 +77,13 @@
 			return $proyecto;
 		}
 
+		public function editTeamForm($id)
+		{
+			$proyecto = proyecto::with('lider') -> find($id);
+			return $this->render('proyectos/editar-equipos.html.twig', [
+				'proyecto' => $proyecto
+			]);
+
+		}
+
 	}
