@@ -92,7 +92,7 @@
             $rolPrincipal = self::getInput($params, 'rolPrincipal');
 
             $usuario = new usuario();
-            if ($id !== false) {
+            if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $usuario = self::getById($id);
             }
 
