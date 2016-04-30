@@ -23,3 +23,16 @@
 
 	    echo $response;
     });
+
+		$app::Router()->get($app->path('edit_ticket'), function(Request $request, Response $response, $args){
+			$parse = new RequestParse($request, $args);
+
+			$ticketController = new TicketController();
+			$response = $ticketController->editForm($parse->get('id'));
+
+			if (true === $response instanceof \Slim\Http\Response) {
+				return $response;
+			}
+
+			echo $response;
+		});

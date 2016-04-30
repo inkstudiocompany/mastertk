@@ -28,12 +28,12 @@
       'edit_rol'        => '/roles/editar[/{id}]',
       'delete_rol'      => '/roles/borrar[/{id}]',
 
-				#Equipos
-				'equipos' => '/equipos',
-				'new_equipo' => '/equipos/nuevo',
-                'edit_equipo' => '/equipos/editar[/{id}]',
-                'delete_equipo' => '/equipos/borrar[/{id}]',
-				'rename_equipo' => '/equipos/renombrar',
+			#Equipos
+			'equipos'         => '/equipos',
+			'new_equipo'      => '/equipos/nuevo',
+      'edit_equipo'     => '/equipos/editar[/{id}]',
+      'delete_equipo'   => '/equipos/borrar[/{id}]',
+			'rename_equipo'   => '/equipos/renombrar',
 
       #Usuarios
 			'users'           => '/usuarios',
@@ -53,18 +53,20 @@
       'delete_tipoitem' => '/tipoitems/borrar[/{id}]',
 
 			#Items
-			'item_detail'     => '/ticket[/{id}]',
+			'item_detail'     => '/ticket/detalle[/{id}]',
+			'edit_ticket'     => '/ticket/editar[/{id}]',
+
 
 			#Workflow
 			'workflow'        => '/workflow',
 
-				#Proyectos
-				'edit_project' => '/proyectos/editar[/{id}]',
-				'edit_project_teams' => '/proyectos/equipos[/{id}]',
-				'list_project_teams' => '/proyectos/equipos-listar[/{id}]',
-				'edit_project_item_types' => '/proyectos/tipo-item[/{id}]',
-				'edit_project_workflow' => '/proyectos/workflow[/{id}]',
-				'save_project' => '/proyectos/guardar'
+			#Proyectos
+			'edit_project'              => '/proyectos/editar[/{id}]',
+			'edit_project_teams'        => '/proyectos/equipos[/{id}]',
+			'list_project_teams'        => '/proyectos/equipos-listar[/{id}]',
+			'edit_project_item_types'   => '/proyectos/tipo-item[/{id}]',
+			'edit_project_workflow'     => '/proyectos/workflow[/{id}]',
+			'save_project'              => '/proyectos/guardar'
 
 
 			];
