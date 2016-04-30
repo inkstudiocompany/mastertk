@@ -21,6 +21,14 @@
 			return $estados;
 		}
 
+		public static function getByProject($id)
+		{
+			$tipoitems = tipoitem::with('estados')
+				-> where ('idProyecto','=',$id)
+				-> get();
+			return $tipoitems;
+		}
+
 		public function index()
 		{
 			return $this->render('tipoitems/listado.html.twig',[

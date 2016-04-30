@@ -57,6 +57,7 @@
 
 		public static function save($params)
 		{
+
 			$idProyecto = self::getInput($params,'idProyecto');
 			$idLider = self::getInput($params,'idLider');
 			$proyecto = new proyecto();
@@ -70,9 +71,13 @@
 			$proyecto -> productivoProyecto = self::getInput($params,'productivoProyecto');
 			$proyecto -> lider() -> associate($idLider);
 			$proyecto->save();
-			if(is_null($idProyecto)){
+
+			if(empty($idProyecto)){
 				$proyecto -> equipos() -> saveMany ($params['equipos']);
 				$proyecto -> tipoItem() -> saveMany($params['tiposItem']);
+				$proyecto -> tipoItem -> each(function($tipoItem){
+					$tipoItem -> estados() -> saveMany( TipoItemController::getIntialsStates());
+				});
 			}
 			return $proyecto;
 		}
@@ -82,6 +87,17 @@
 			$proyecto = proyecto::with('lider') -> find($id);
 			return $this->render('proyectos/editar-equipos.html.twig', [
 				'proyecto' => $proyecto
+			]);
+
+		}
+
+		public function editItemTypeForm($id)
+		{
+			$proyecto = self::getById($id);
+			$tiposItem = TipoItemController::getByProject($id);
+			return $this->render('proyectos/editar-tipos-item.html.twig', [
+				'proyecto' => $proyecto,
+				'tiposItem' =>$tiposItem
 			]);
 
 		}
