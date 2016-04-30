@@ -13,3 +13,6 @@ test = yes
 
 [document_types]
 document_types = '{"1" : "DNI", "2" : "Pasaporte"}'
+
+[priority]
+priority = '{"1" : "ALTA", "2" : "MEDIA", "3" : "BAJA" }'

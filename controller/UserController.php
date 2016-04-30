@@ -96,11 +96,11 @@
                 $usuario = self::getById($id);
             }
 
-            $usuario -> idTipoDocumento = $tipoDocumento;
-            $usuario -> numDocumento = $numDocumento;
-            $usuario -> nombreCompleto = $nombreCompleto;
-            $usuario -> email = $email;
-            $usuario -> usuario = $nombreUsuario;
+            $usuario -> idTipoDocumento   = $tipoDocumento;
+            $usuario -> numDocumento      = $numDocumento;
+            $usuario -> nombreCompleto    = $nombreCompleto;
+            $usuario -> email             = $email;
+            $usuario -> usuario           = $nombreUsuario;
 
             if ($password !== false) {
                 $usuario->password = $password;
