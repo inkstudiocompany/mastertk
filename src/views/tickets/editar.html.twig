@@ -26,8 +26,6 @@
       <h1>#{{ ticket.idItem }} - {{ ticket.tituloItem }}</h1>
     </div>
     <div class="col-md-2">
-      <button class="btn btn-default btn-xs right"
-        data-urlsave="{{ app.path('save_ticket', {}, true) }}" data-form="edit_ticket" role-button="guardar">Guardar</button>
     </div>
   </div>
 
@@ -112,51 +110,50 @@
             </a>
           </div>
         </div>
-      </form>
 
-      <div class="row">
-        <hr />
-        <div class="col-md-1">
-          <h5>Descripción:</h5>
+        <div class="row">
+          <hr />
+          <div class="col-md-1">
+            <h5>Descripción:</h5>
+          </div>
+
+          <div class="col-md-11">
+            {{ ticket.descItem }}
+          </div>
         </div>
 
-        <div class="col-md-11">
-          {{ ticket.descItem }}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12"></div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="nav nav-tabs" id="detailTabs">
-            <li role="presentation" class="active">
-              <a href="#comments">Comentarios</a>
-            </li>
-            <li role="presentation">
-              <a href="#history">Historial</a>
-            </li>
-          </ul>
+        <div class="row">
+          <div class="col-md-12"></div>
         </div>
 
-        <div class="col-md-12">
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="comments">
-              <div class="col-md-12 details-panel">
-                {% include 'tickets/comments.html.twig' with { 'comments': ticket.transiciones } %}
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="nav nav-tabs" id="detailTabs">
+              <li role="presentation" class="active">
+                <a href="#comments">Comentarios</a>
+              </li>
+              <li role="presentation">
+                <a href="#history">Historial</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-12">
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="comments">
+                <div class="col-md-12 details-panel">
+                  {% include 'tickets/comments.html.twig' with { 'comments': ticket.comentarios } %}
+                </div>
               </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="history">
-              <div class="col-md-12 details-panel">
-                {% include 'tickets/history.html.twig' with { 'transiciones': ticket.transiciones } %}
+              <div role="tabpanel" class="tab-pane fade" id="history">
+                <div class="col-md-12 details-panel">
+                  {% include 'tickets/history.html.twig' with { 'transiciones': ticket.transiciones } %}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
+      </form>
     </div>
   </div>
 </div>

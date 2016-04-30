@@ -1,7 +1,19 @@
 {% if transiciones is not empty %}
   {% for history in transiciones %}
-    <div class="row">
+    <div class="col-md-12 usercomments">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <small>{{ history.fechahora }}</small> {{ history.usuario.nombreCompleto }}:
+        </div>
 
+        {% set datalog = history.data | replace({ '{':'', '}': ''}) | split(',') %}
+
+        <div class="panel-body">
+          {% for item in datalog %}
+            <label><strong>{{ item | replace({'"': '', ':': '</strong>'}) | raw }}</label>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   {% endfor %}
 {% else %}

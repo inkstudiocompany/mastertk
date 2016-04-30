@@ -30,10 +30,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 			$parse = new RequestParse($request, $args);
 
 			$params = [
-					'id'        => $parse->get('id'),
-					'tipoitem'  => $parse->get('tipoitem'),
-					'estado'    => $parse->get('estado'),
-					'prioridad' => $parse->get('prioridad'),
+					'id'          => $parse->get('id'),
+					'tipoitem'    => $parse->get('tipoitem'),
+					'estado'      => $parse->get('estado'),
+					'prioridad'   => $parse->get('prioridad'),
+					'comentario'  => $parse->get('comentario'),
 			];
 
 			TicketController::Save($params);

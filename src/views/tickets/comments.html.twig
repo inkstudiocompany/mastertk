@@ -1,21 +1,29 @@
-{% if comments is not empty %}
-  {% for comment in comments %}
-    <div class="row">
-
-    </div>
-  {% endfor %}
-{% endif %}
-
-<form class="form-horizontal">
   <div class="form-group">
     <div class="col-md-12">
-      <textarea class="form-control" rows="3"></textarea>
+      <textarea class="form-control" rows="3" id="comentario" name="comentario"></textarea>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-12">
-      <button type="submit" class="btn btn-default right">Guardar</button>
+      <button class="btn btn-default right"
+              data-urlsave="{{ app.path('save_ticket', {}, true) }}" data-form="edit_ticket" role-button="guardar">Guardar</button>
     </div>
   </div>
-</form>
+
+  <br /><br />
+
+  {% if comments is not empty %}
+    {% for comment in comments %}
+      <div class="col-md-12 usercomments">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <small>{{ comment.fechahora }}</small> {{ comment.usuario.nombreCompleto }} says:
+          </div>
+          <div class="panel-body">
+          {{ comment.comentario }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}

@@ -27,93 +27,95 @@
   <div class="panel panel-default">
     <div class="panel-body">
 
-      <div class="row">
-        <div class="col-md-3">
-          <strong class="col-md-5">Tipo</strong>
-          {{ ticket.tipoItem.descripcion }}
+      <form id="edit_ticket" name="edit_ticket" method="post" action="">
+        <input name="id" id="id" value="{{ ticket.idItem }}" type="hidden" />
+        <div class="row">
+          <div class="col-md-3">
+            <strong class="col-md-5">Tipo</strong>
+            {{ ticket.tipoItem.descripcion }}
+          </div>
+
+          <div class="col-md-3">
+            <strong class="col-md-5">Estado</strong>
+            {{ ticket.estado.nombreEstado }}
+          </div>
+
+          <div class="col-md-3">
+            <strong class="col-md-5">Asignado a</strong>
+            {{ ticket.asignado.usuario.nombreCompleto }}
+          </div>
+
+          <div class="col-md-3">
+            <strong class="col-md-5">Fecha</strong>
+            {{ ticket.fechacreacion | date("d/m/Y") }}
+          </div>
         </div>
 
-        <div class="col-md-3">
-          <strong class="col-md-5">Estado</strong>
-          {{ ticket.estado.nombreEstado }}
+        <div class="row">
+          <div class="col-md-3">
+            <strong class="col-md-5">Prioridad</strong>
+            {{ ticket.prioridad }}
+          </div>
+
+          <div class="col-md-3">
+
+          </div>
+
+          <div class="col-md-3">
+
+          </div>
+
+          <div class="col-md-3">
+            <strong class="col-md-5">Proyecto</strong>
+            <a href="{{ app.path('edit_project', {'id': ticket.proyecto.idProyecto }, true) }}">
+              {{ ticket.proyecto.nomProyecto }}
+            </a>
+          </div>
         </div>
 
-        <div class="col-md-3">
-          <strong class="col-md-5">Asignado a</strong>
-          {{ ticket.asignado.usuario.nombreCompleto }}
+        <div class="row">
+          <hr />
+          <div class="col-md-1">
+            <h5>Descripción:</h5>
+          </div>
+
+          <div class="col-md-11">
+            {{ ticket.descItem }}
+          </div>
         </div>
 
-        <div class="col-md-3">
-          <strong class="col-md-5">Fecha</strong>
-          {{ ticket.fechacreacion | date("d/m/Y") }}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-3">
-          <strong class="col-md-5">Prioridad</strong>
-          {{ ticket.prioridad }}
+        <div class="row">
+          <div class="col-md-12"></div>
         </div>
 
-        <div class="col-md-3">
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="nav nav-tabs" id="detailTabs">
+              <li role="presentation" class="active">
+                <a href="#comments">Comentarios</a>
+              </li>
+              <li role="presentation">
+                <a href="#history">Historial</a>
+              </li>
+            </ul>
+          </div>
 
-        </div>
-
-        <div class="col-md-3">
-
-        </div>
-
-        <div class="col-md-3">
-          <strong class="col-md-5">Proyecto</strong>
-          <a href="{{ app.path('edit_project', {'id': ticket.proyecto.idProyecto }, true) }}">
-            {{ ticket.proyecto.nomProyecto }}
-          </a>
-        </div>
-      </div>
-
-      <div class="row">
-        <hr />
-        <div class="col-md-1">
-          <h5>Descripción:</h5>
-        </div>
-
-        <div class="col-md-11">
-          {{ ticket.descItem }}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12"></div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="nav nav-tabs" id="detailTabs">
-            <li role="presentation" class="active">
-              <a href="#comments">Comentarios</a>
-            </li>
-            <li role="presentation">
-              <a href="#history">Historial</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="col-md-12">
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="comments">
-              <div class="col-md-12 details-panel">
-                {% include 'tickets/comments.html.twig' with { 'comments': ticket.transiciones } %}
+          <div class="col-md-12">
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="comments">
+                <div class="col-md-12 details-panel">
+                  {% include 'tickets/comments.html.twig' with { 'comments': ticket.comentarios } %}
+                </div>
               </div>
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="history">
-              <div class="col-md-12 details-panel">
-                {% include 'tickets/history.html.twig' with { 'transiciones': ticket.transiciones } %}
+              <div role="tabpanel" class="tab-pane fade" id="history">
+                <div class="col-md-12 details-panel">
+                  {% include 'tickets/history.html.twig' with { 'transiciones': ticket.transiciones } %}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
+      </form>
     </div>
   </div>
 </div>
