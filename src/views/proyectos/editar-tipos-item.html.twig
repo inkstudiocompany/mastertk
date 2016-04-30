@@ -30,8 +30,60 @@
             </table>
         </div>
     </div>
+
     <input type="hidden" name="idProyecto" id="idProyecto" class="basic-data" value="{{proyecto.idProyecto}}" required/>
-   <!--
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6" >
+                {% if tiposItem is not empty %}
+                    <ul class="list-group">
+                        <li  class="list-group-item active" > Tipo Item
+                           {# <span class="badge">Estados</span>#}
+                        </li>
+                        {% for tipoItem in tiposItem %}
+                            <li  class="list-group-item">
+                                <a href="#" class="btn-sm"  title="Cambiar Nombre">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+                                {{ tipoItem.descripcion }}
+                                <a href="#" class=" badge btn-sm"  title="Cambiar Workflow">
+                                        <i class="glyphicon glyphicon-random"></i>
+                                </a>
+                                <a href="#" class=" badge btn-sm"  title="Ver Estados">
+                                    <i class="glyphicon glyphicon-tasks"></i>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-sm-6" >
+                {% if tiposItem is not empty %}
+                    {% for tipoItem in tiposItem %}
+                        <div class=" estados list-group {{ tipoItem.idTipoItem }}" hidden >
+                            <a  class="list-group-item active panel-info">
+                                 Posibles estados para {{ tipoItem.descripcion  }}
+                            </a>
+                            {% if tipoItem.estados is not empty %}
+                                {% for estado in tipoItem.estados %}
+                                    <a  class="list-group-item">
+                                        {#<span class="badge">{{ tipoItem.estados | length }}</span>#}
+                                        {{ estado.nombreEstado }}
+                                    </a>
+                                {% endfor %}
+                            {% else %}
+                                <a  class="list-group-item">
+                                    No se han registrado estados
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!--
     <div class="modal fade" id="edit-team-name" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
