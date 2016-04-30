@@ -24,21 +24,33 @@
 
     $app::Router()->post($app->path('new_tipoitem'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request);
-    //		$nomEquipo = $parse->get('nomEquipo');
-    //      $idProyecto = $parse->get('idProyecto');
-
         $tipoitemController = new TipoItemController();
-    //        $itemController -> createNew($nomProyecto, $idProyecto);
-
         echo $tipoitemController->index();
     });
 
 
     $app::Router()->get($app->path('edit_tipoitem'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request, $args);
-        $tipoitem = new TipoItemController();
-        echo $tipoitem->addForm();
+        $tipoitemController = new TipoItemController();
+        echo $tipoitemController->edit_tipoitem($parse->get('id'));
     });
+
+
+/*
+    $app::Router()->post($app->path('save_tipoitem'), function( Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+
+        $params = [
+            'id' => $parse->get('id'),
+            'idProyecto' => $parse->get('idProyecto'),
+            'descripcion' => $parse->get('descripcion')
+        ];
+
+        TipoItemController::Save($params);
+
+        return $response->withRedirect(App::getInstance()->path('users'), 301);
+    });
+
 
     $app::Router()->post($app->path('delete_tipoitem'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request, $args);
@@ -51,3 +63,5 @@
 
         return $response->withJson($dataResponse);
     });
+
+    */

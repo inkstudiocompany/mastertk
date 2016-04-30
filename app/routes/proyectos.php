@@ -1,15 +1,16 @@
 <?php
 
-use Application\Controller\TeamController;
-use Application\Controller\TipoItemController;
-use Model\ORM\Equipo;
-    use Model\ORM\TipoItem;
-    use \Psr\Http\Message\ServerRequestInterface as Request;
-    use \Psr\Http\Message\ResponseInterface as Response;
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
-    use Application\Controller\ProjectController;
-    use Application\Controller\RequestParse;
-    use Illuminate\Database\Eloquent;
+use Application\App as App;
+use Application\Controller\ProjectController;
+use Application\Controller\RequestParse;
+use Illuminate\Database\Eloquent;
+//use Application\Controller\TeamController;
+//use Application\Controller\TipoItemController;
+//use Model\ORM\Equipo;
+//use Model\ORM\TipoItem;
 
     /**
      * Proyectos Routes
@@ -81,7 +82,3 @@ use Model\ORM\Equipo;
         $parse = new RequestParse($request,$args);
         echo (new  ProjectController()) -> editItemTypeForm($parse -> get('id'));
     });
-
-
-
-

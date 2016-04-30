@@ -48,12 +48,25 @@
 			]);
 		}
 
+        public function edit_tipoitem($id)
+        {
+			$tipoitems = tipoitem::with('estados')
+			->join('Estado', 'Estado.idTipoItem', '=', 'TipoItem.idTipoItem')
+			-> get();
+			
+            return  $this->render('tipoitems/tipoitemsForm.html.twig',[
+                'title' => 'Editar Item'
+            ]);
+        }
+
 /*
    		public function addForm()
 		{
-			return  $this->render('equipos/agregar.html.twig');
+			return  $this->render('tipoitems/agregar.html.twig');
 		}
+*/
 
+/*
         public function createNew($nombreEquipo,$idProyecto,$idUsuario){
             $equipo = new equipo();
             $equipo -> nomEquipo = $nombreEquipo;
