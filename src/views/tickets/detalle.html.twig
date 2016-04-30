@@ -29,29 +29,29 @@
 
       <div class="row">
         <div class="col-md-3">
-          <strong>Tipo</strong>
+          <strong class="col-md-5">Tipo</strong>
           {{ ticket.tipoItem.descripcion }}
         </div>
 
         <div class="col-md-3">
-          <strong>Estado</strong>
+          <strong class="col-md-5">Estado</strong>
           {{ ticket.estado.nombreEstado }}
         </div>
 
         <div class="col-md-3">
-          <strong>Asignado a</strong>
+          <strong class="col-md-5">Asignado a</strong>
           {{ ticket.asignado.usuario.nombreCompleto }}
         </div>
 
         <div class="col-md-3">
-          <strong>Fecha</strong>
+          <strong class="col-md-5">Fecha</strong>
           {{ ticket.fechacreacion | date("d/m/Y") }}
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-3">
-          <strong>Prioridad</strong>
+          <strong class="col-md-5">Prioridad</strong>
           {{ ticket.prioridad }}
         </div>
 
@@ -64,7 +64,7 @@
         </div>
 
         <div class="col-md-3">
-          <strong>Proyecto</strong>
+          <strong class="col-md-5">Proyecto</strong>
           <a href="{{ app.path('edit_project', {'id': ticket.proyecto.idProyecto }, true) }}">
             {{ ticket.proyecto.nomProyecto }}
           </a>

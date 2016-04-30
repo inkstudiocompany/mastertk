@@ -12,6 +12,11 @@
 	margin: -6px auto;
 }
 
+.form-group.autoinline .form-control{
+    display: inline;
+    width: auto;
+}
+
 .center {
 	position: relative;
 	float: inherit;

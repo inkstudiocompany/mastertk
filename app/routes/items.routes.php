@@ -1,6 +1,7 @@
 <?php
 
-		use Application\Controller\TicketController;
+use Application\App;
+use Application\Controller\TicketController;
 use Model\ORM\Item;
 use \Psr\Http\Message\ServerRequestInterface as Request;
     use \Psr\Http\Message\ResponseInterface as Response;
@@ -38,7 +39,6 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 			TicketController::Save($params);
 
 			$path = App::getInstance()->path('my_tickets');
-			var_dump($path); die();
 			if (false !== $params['id'] || true !== is_null($params['id']) || true !== empty($params['id'])) {
 				$path = App::getInstance()->path('item_detail', ['id' => $params['id']]);
 			}
