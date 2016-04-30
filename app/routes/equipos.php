@@ -5,6 +5,7 @@
 
     use Application\App as App;
     use Application\Controller\TeamController;
+    use Application\Controller\ProjectController;
     use Application\Controller\RequestParse;
     use Illuminate\Database\Eloquent;
 
@@ -18,19 +19,22 @@
     });
 
     $app::Router()->get($app->path('new_equipo'), function(){
-        $team = new TeamController();
-        echo $team->addForm();
+        $equipo = new TeamController();
+        echo $equipo->addForm();
     });
 
-    $app::Router()->post($app->path('new_equipo'), function(Request $request, Response $response, $args){
-        $parse = new RequestParse($request);
-        $nomEquipo = $parse->get('nomEquipo');
-        $idProyecto = $parse->get('idProyecto');
+    $app::Router()->post($app->path('save_equipo'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
 
-        $teamController = new TeamController();
-        $teamController -> createNew($nomEquipo, $idProyecto);
+        $params = [
+            'id' => $parse->get('id'),
+            'idProyecto' => $parse->get('idProyecto'),
+            'nombreEquipo' => $parse->get('nombre'),
+        ];
 
-        echo $teamController->index();
+        TeamController::Save($params);
+
+        return $response->withRedirect(App::getInstance()->path('equipos'), 301);
     });
 
     $app::Router()->get($app->path('edit_equipo'), function(){
@@ -84,5 +88,4 @@ $app::Router()->post($app->path('new_team'), function( Request $request, Respons
 
         echo $equiposController->index();
 });
-
 */

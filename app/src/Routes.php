@@ -25,14 +25,15 @@
 			'roles'           => '/roles',
 			'new_rol'         => '/roles/nuevo',
 			'save_rol'        => '/roles/guardar',
-	    'edit_rol'        => '/roles/editar[/{id}]',
-	    'delete_rol'      => '/roles/borrar[/{id}]',
+	    	'edit_rol'        => '/roles/editar[/{id}]',
+	    	'delete_rol'      => '/roles/borrar[/{id}]',
 
 			#Equipos
 			'equipos'         => '/equipos',
 			'new_equipo'      => '/equipos/nuevo',
-      'edit_equipo'     => '/equipos/editar[/{id}]',
-      'delete_equipo'   => '/equipos/borrar[/{id}]',
+			'save_equipo'     => '/equipos/guardar',
+      		'edit_equipo'     => '/equipos/editar[/{id}]',
+      		'delete_equipo'   => '/equipos/borrar[/{id}]',
 			'rename_equipo'   => '/equipos/renombrar',
 
 			#Usuarios

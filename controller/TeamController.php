@@ -11,7 +11,7 @@
 		public static function getByProject($idProject)
 		{
 			$equipos = equipo::with('lider') -> where('idProyecto','=',$idProject) ->get();
-			return$equipos;
+			return $equipos;
 		}
 
 		private static function getById($id)
@@ -40,12 +40,12 @@
 			]);
 		}
 
-   		public function addForm()
+/*   		public function addForm()
 		{
 			return  $this->render('equipos/agregar.html.twig');
 		}
-
-        public function createNew($nombreEquipo,$idProyecto,$idUsuario){
+*/
+/*      public function createNew($nombreEquipo,$idProyecto,$idUsuario){
             $equipo = new equipo();
             $equipo -> nomEquipo = $nombreEquipo;
             
@@ -57,6 +57,14 @@
             
             $equipo -> save();
             return $proyecto;
+        }
+*/
+       public function addForm()
+        {
+            return  $this->render('equipos/teamForm.html.twig', [
+                'title' => 'Nuevo Equipo'
+            ]);
+
         }
 
         public static function listAll()
@@ -70,6 +78,21 @@
             return $equipo->delete();
         }
 
+        public static function Save($params)
+        {
+            $id = self::getInput($params, 'id');
+            $idProyecto = self::getInput($params, 'idProyecto');
+            $nombre = self::getInput($params, 'nombreEquipo');
+
+            $equipo = new Equipo();
+            if (false === empty($id) && $id !== false && (int) $id > 0) {
+                $equipo = self::getById($id);
+            }
+
+            $equipo -> nombreEquipo = $nombre;
+            $equipo -> save();
+            return $equipo;
+        }
 
 		public function rename($nomEquipo, $idEquipo)
 		{

@@ -82,7 +82,3 @@ use Illuminate\Database\Eloquent;
         $parse = new RequestParse($request,$args);
         echo (new  ProjectController()) -> editItemTypeForm($parse -> get('id'));
     });
-
-
-
-
