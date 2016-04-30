@@ -1,0 +1,33 @@
+{% extends 'common/forms.html.twig' %}
+
+
+{% block form_title %}
+    {{ title }}
+{% endblock form_title %}
+
+{% block form %}
+
+  <form id="agregar_equipo" name="agregar_equipo" method="POST" action="{{ app.path('save_equipo', [], true) }}" novalidate="novalidate">
+    <input type="hidden" value="{{ equipo.idEquipo }}" name="id" id="id" />
+    <div class="form-group">
+      <label for="nombre">Nombre del Equipo</label>
+      <input name="nombre" type="text" id="nombre" class="form-control" placeholder="Nombre" required value="{{ equipo.nombreEquipo }}" />
+    </div>
+
+{{ dump(project)}}
+    <div class="form-group">
+        <label for="idProyecto">Proyecto Asignado</label>
+        <select name="idProyecto" id="idProyecto" class="form-control" required>
+            <option value="">- Seleccione Uno -</option>
+            {% for proyecto in proyectos  %}
+                <option value="{{ proyecto.idProyecto }}" selected>{{ proyecto.nombreProyecto }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="btn-group right" role="group" aria-label="formActions">
+      <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+{% endblock form %}
