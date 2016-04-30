@@ -2,16 +2,21 @@
 
 namespace Model\ORM;
 
-class Item extends EntityBase{
+class Comentario extends EntityBase{
     
-  protected $table = "Item";
+  protected $table = "Comentario";
 
-  protected $primaryKey = 'idItem';
+  protected $primaryKey = 'idComentario';
 
-	public function proyecto()
+	public function item()
 	{
-		return $this->belongsTo('Model\ORM\Proyecto','idProyecto','idProyecto');
+		return $this->belongsTo('Model\ORM\Item','idItem','idItem');
   }
+
+	public function usuario()
+	{
+		return $this->hasOne('Model\ORM\Usuario','idUsuario','idUsuario');
+	}
 
   public function tipoItem()
   {
@@ -32,11 +37,6 @@ class Item extends EntityBase{
   {
 	  return $this->hasMany('Model\ORM\TransicionItem','idItem','idItem');
   }
-
-	public function comentarios()
-	{
-		return $this->hasMany('Model\ORM\Comentario', 'idItem', 'idItem');
-	}
         
 	public function scopeDetalle($query, $id)
 	{

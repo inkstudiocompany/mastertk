@@ -2,8 +2,11 @@
 
 	namespace Application\Controller;
 
+	use Application\App;
+	use Model\ORM\Comentario;
 	use Model\ORM\Item;
 	use Model\ORM\TipoItem;
+	use Model\ORM\TransicionItem;
 	use Slim\Http\Response;
 
 	class TicketController extends ControllerBase
@@ -15,7 +18,7 @@
 
 		public function detalle($idTicket)
 		{
-			$response = Item::with('proyecto', 'asignado.usuario', 'estado', 'tipoItem', 'transiciones')->find($idTicket);
+			$response = Item::with('proyecto', 'asignado.usuario', 'estado', 'tipoItem', 'transiciones', 'comentarios.usuario')->find($idTicket);
 
 			if (true === is_null($response)) {
 				$response = new Response();
@@ -33,17 +36,64 @@
 			$tipoitem   = self::getInput($params, 'tipoitem');
 			$estado     = self::getInput($params, 'estado');
 			$prioridad  = self::getInput($params, 'prioridad');
+			$comentario = self::getInput($params, 'comentario');
+
+			$ticketUpdate = true;
+			$dataLog = [];
 
 			$item = new Item();
+			$dataLog['accion'] = 'Ticket nuevo';
 			if($id !== false) {
-				$item = self::getById($id);
+				$ticketUpdate         = false;
+				$item                 = self::getById($id);
+				$dataLog['accion']    = 'Nuevo Comentario';
+				$dataLog['ticket']['idTicket']  = $id;
 			}
 
-			$item -> idItem       = $tipoitem;
-			$item -> estadoActual = $estado;
-			$item -> prioridad    = $prioridad;
+			if (false !== $tipoitem) {
+				$item -> idTipoItem   = $tipoitem;
+				$ticketUpdate         = true;
+				$dataLog['ticket']['idTipoItem']  = $tipoitem;
+			}
 
-			$item -> save();
+			if (false !== $estado) {
+				$item -> estadoActual     = $estado;
+				$ticketUpdate             = true;
+				$dataLog['ticket']['estadoActual']  = $estado;
+			}
+
+			if (false !== $prioridad) {
+				$item -> prioridad    = $prioridad;
+				$ticketUpdate         = true;
+				$dataLog['ticket']['prioridad'] = $prioridad;
+			}
+
+			if (true === $ticketUpdate) {
+				$dataLog['accion']    = 'Ticket actualizado';
+				$item -> save();
+			}
+
+			if (false !== $comentario && false === empty($comentario)) {
+				$comment = new Comentario();
+
+				$comment -> idItem      = $item -> idItem;
+				$comment -> idUsuario   = App::getInstance()->user->id();
+				$comment -> fechahora   = date('Y-m-d H:i:s', time());
+				$comment -> comentario  = $comentario;
+
+				$item -> comentarios() -> save($comment);
+
+				$dataLog['comentario']  = $comentario;
+			}
+
+			$transicion = new TransicionItem();
+			$transicion -> idItem      = $item -> idItem;
+			$transicion -> idUsuario   = App::getInstance()->user->id();
+			$transicion -> fechahora   = date('Y-m-d H:i:s', time());
+			$transicion -> data        = json_encode($dataLog, JSON_FORCE_OBJECT);
+
+			$item -> transiciones() -> save($transicion);
+
 			return $item;
 		}
 
@@ -54,7 +104,8 @@
 					'asignado.usuario',
 					//'estado',
 					//'tipoItem',
-					'transiciones'
+					'transiciones',
+					'comentarios.usuario'
 			)->find($idTicket);
 
 			if (true === is_null($response)) {

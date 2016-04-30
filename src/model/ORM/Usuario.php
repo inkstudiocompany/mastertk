@@ -6,11 +6,6 @@
 		protected $table = "Usuario";
 		protected $primaryKey = "idUsuario";
 
-
-		/*public function tipoDocumento(){
-			return $this->belongsTo('Model\ORM\TipoDocumento','idTipoDocumento','idTipoDocumento');
-		}*/
-
 		public function rolPrincipal(){
 			return $this->belongsTo('Model\ORM\Rol','idRolPrincipal','idRol');
 		}
@@ -25,6 +20,10 @@
 
 		public function usuarioEquipo(){
 			return $this ->hasMany('Model\ORM\UsuarioEquipo','idUsuario','idEquipo');
+		}
+
+		public function transiciones() {
+			return $this->hasMany('Model\ORM\TransicionItem', 'idUsuario', 'idUsuario');
 		}
 
 		public function scopeAuth($query, $email, $password)
