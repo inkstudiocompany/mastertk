@@ -1,3 +1,7 @@
+.container{
+    padding-bottom: 50px;
+}
+
 .right {
 	float: right;
 	margin: -6px auto;
@@ -142,4 +146,19 @@ table.table{ font-size: 12px; }
     font-size: 1em;
     font-weight: normal;
     font-style: italic;
+}
+
+.details-panel h1{
+    font-size: 1.5em; color: #2980b9;
+}
+.details-panel #detailTabs{
+    margin-top: 50px;
+}
+
+.details-panel .tab-pane .details-panel{ border: 1px solid transparent;
+    border-top: none;
+    border-color: #ddd;
+    border-radius: 0px 0px 4px 4px;
+    padding: 20px 15px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.05);
 }

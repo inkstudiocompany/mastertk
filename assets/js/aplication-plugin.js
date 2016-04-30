@@ -51,6 +51,19 @@
 	}
 
     /**
+     * detalle
+     *
+     * Va al detalle de algún elemento.
+     */
+    $.fn.detalle = function() {
+        $(this).on('click', function(){
+            var e = $(this);
+            var url = e.data('urldetail');
+            window.document.location.href = url;
+        });
+    }
+
+    /**
      * confirm
      *
      * Crea modal con mensaje de confirmación para ejecutar una acción.

@@ -9,35 +9,48 @@
 
   <!-- Table -->
   <table class="table">
-    <tr>
-      <td>Ticket</td>
-      <td>Estado</td>
-      <td>Descripcion</td>
-      <td>Descripcion Item</td>
-      <td>Prioridad</td>
-      <td>Fecha de Creacion</td>
-    </tr>
+    <thead>
+      <tr>
+        <td class="text-center">Ticket</td>
+        <td class="text-center">Estado</td>
+        <td class="text-center">Descripcion</td>
+        <td class="text-center">Descripcion Item</td>
+        <td class="text-center">Prioridad</td>
+        <td class="text-center">Fecha de Creacion</td>
+        <td class="text-center col-md-1">Acciones</td>
+      </tr>
+    </thead>
+
     {% if mistickets is not empty %}
       {% for tickets in mistickets %}
         <tr>
-          <td>{{ tickets.tituloItem }}</td>
-          <td>{{ tickets.nombreEstado }}</td>
-          <td>{{ tickets.descItem }}</td>
-          <td>{{ tickets.descripcion }}</td>
-          <td>{{ tickets.prioridad }}</td>
-          <td>{{ tickets.fechacreacion }}</td>          
+          <td nowrap="nowrap">{{ tickets.tituloItem }}</td>
+          <td nowrap="nowrap">{{ tickets.nombreEstado }}</td>
+          <td nowrap="nowrap">{{ tickets.descItem }}</td>
+          <td nowrap="nowrap">{{ tickets.descripcion }}</td>
+          <td nowrap="nowrap">{{ tickets.prioridad }}</td>
+          <td nowrap="nowrap">{{ tickets.fechacreacion }}</td>
+          <td nowrap="nowrap text-center">
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="button" class="btn btn-sm btn-info"
+                data-urldetail="{{ app.path('item_detail', {'id': tickets.idItem }, true) }}" role-button="detalle">
+                  ver ticket
+                <i class="glyphicon glyphicon-eye-open"></i>
+              </button>
+            </div>
+          </td>
         </tr>
       {% endfor %}
     {% else %}
       <tr>
-        <td colspan="6" class="alert alert-info text-center">
+        <td colspan="7" class="alert alert-info text-center">
           <strong>Ups!</strong>
           No existen registros
         </td>
       </tr>
     {% endif %}
     <tr>
-      <td colspan="6"></td>
+      <td colspan="7"></td>
     </tr>
   </table>
 </div>

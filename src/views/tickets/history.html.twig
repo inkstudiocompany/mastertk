@@ -1,0 +1,11 @@
+{% if transiciones is not empty %}
+  {% for history in transiciones %}
+    <div class="row">
+
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="row col-md-12">
+    No existen cambios en el historial del item
+  </div>
+{% endif %}

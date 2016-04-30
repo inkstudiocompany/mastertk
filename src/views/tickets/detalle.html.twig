@@ -1,0 +1,116 @@
+{% extends 'common/base.html.twig' %}
+
+{% block custom_javascript %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#detailTabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+    });
+  </script>
+{% endblock  %}
+
+{% block body %}
+
+<div class="details-panel">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>#{{ ticket.idItem }} - {{ ticket.tituloItem }}</h1>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Tipo</strong>
+          {{ ticket.tipoItem.descripcion }}
+        </div>
+
+        <div class="col-md-3">
+          <strong>Estado</strong>
+          {{ ticket.estado.nombreEstado }}
+        </div>
+
+        <div class="col-md-3">
+          <strong>Asignado a</strong>
+          {{ ticket.asignado.usuario.nombreCompleto }}
+        </div>
+
+        <div class="col-md-3">
+          <strong>Fecha</strong>
+          {{ ticket.fechacreacion | date("d/m/Y") }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <strong>Prioridad</strong>
+          {{ ticket.prioridad }}
+        </div>
+
+        <div class="col-md-3">
+
+        </div>
+
+        <div class="col-md-3">
+
+        </div>
+
+        <div class="col-md-3">
+          <strong>Proyecto</strong>
+          <a href="{{ app.path('edit_project', {'id': ticket.proyecto.idProyecto }, true) }}">
+            {{ ticket.proyecto.nomProyecto }}
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <hr />
+        <div class="col-md-1">
+          <h5>Descripción:</h5>
+        </div>
+
+        <div class="col-md-11">
+          {{ ticket.descItem }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs" id="detailTabs">
+            <li role="presentation" class="active">
+              <a href="#comments">Comentarios</a>
+            </li>
+            <li role="presentation">
+              <a href="#history">Historial</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-12">
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="comments">
+              <div class="col-md-12 details-panel">
+                {% include 'tickets/comments.html.twig' with { 'comments': ticket.transiciones } %}
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="history">
+              <div class="col-md-12 details-panel">
+                {% include 'tickets/history.html.twig' with { 'transiciones': ticket.transiciones } %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock body %}
