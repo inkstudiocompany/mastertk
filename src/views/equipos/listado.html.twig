@@ -18,7 +18,7 @@
     </tr>
     {% if equipos is not empty %}
       {% for equipo  in equipos %}
-      {% set isErasable = rol.relations.Usuarios.count() == 0 %}
+      {% set isErasable = equipo.usuarioRolEquipo.count() == 0 %}
       <tr>
         <td nowrap="nowrap">{{ equipo.nombreEquipo}}</td>
         <td nowrap="nowrap">{{ equipo.nombreCompleto}}</td>
