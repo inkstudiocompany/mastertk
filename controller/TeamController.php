@@ -31,6 +31,8 @@
 			$equipos = equipo::with('Proyecto')
 			->leftjoin('UsuarioRolEquipo', 'Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
 			->leftjoin('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+			->leftjoin('Rol', 'Rol.idRol', '=', 'UsuarioRolEquipo.idRol')
+			->select ('Equipo.*', 'Usuario.nombreCompleto', 'Rol.nombreRol')
 			-> get();
 			
 			return $this->render('equipos/listado.html.twig', [
@@ -64,9 +66,10 @@
 
         public function delete($id = 0) 
         {
-            $rol = Equipo::find($id);
+            $equipo = Equipo::find($id);
             return $equipo->delete();
         }
+
 
 		public function rename($nomEquipo, $idEquipo)
 		{

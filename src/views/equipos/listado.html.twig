@@ -14,6 +14,7 @@
       <td class="">Nombre Equipo</td>
       <td class="">Usuarios Asignados</td>
       <td class="">Proyecto Asignado</td>
+      <td class="">ROL Asignado</td>      
       <td class="col-md-2">Acciones</td>
     </tr>
     {% if equipos is not empty %}
@@ -23,6 +24,7 @@
         <td nowrap="nowrap">{{ equipo.nombreEquipo}}</td>
         <td nowrap="nowrap">{{ equipo.nombreCompleto}}</td>
         <td nowrap="nowrap">{{ equipo.Proyecto.nomProyecto}}</td>        
+        <td nowrap="nowrap">{{ equipo.nombreRol}}</td>                
         <td nowrap="nowrap">
           <div class="btn-group btn-group-sm right" role="group">
             <button type="button" class="btn btn-sm btn-info">Detalles</button>
