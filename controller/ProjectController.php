@@ -95,6 +95,7 @@
 		{
 			$proyecto = self::getById($id);
 			$tiposItem = TipoItemController::getByProject($id);
+			//echo $tiposItem;
 			return $this->render('proyectos/editar-tipos-item.html.twig', [
 				'proyecto' => $proyecto,
 				'tiposItem' =>$tiposItem
