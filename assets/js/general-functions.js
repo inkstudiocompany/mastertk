@@ -15,6 +15,8 @@ $(document).ready(function(){
 		window.history.go(-1);
 	});
 
+    $('button[role-button="guardar"]').guardar();
+
 	$('button[role-button="editar"]').editar();
 
 	$('button[role-button="eliminar"]').borrar();

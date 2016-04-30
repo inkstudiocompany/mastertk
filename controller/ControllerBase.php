@@ -49,14 +49,14 @@
          * @param $name
          * @return bool
          */
-        public function hasParameter($parameters, $name)
+    public function hasParameter($parameters, $name)
         {
             return isset($parameters[$name]) === true
                 //&& empty($parameters[$name]) === false
                 && is_null($parameters[$name]) === false;
         }
 
-        public function getInput($parameters, $name)
+        public static function getInput($parameters, $name)
         {
             $response = false;
             if(self::hasParameter($parameters, $name) === true) {

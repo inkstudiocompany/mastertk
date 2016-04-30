@@ -11,6 +11,22 @@
      *
      * Edita un item de una lista.
      */
+    $.fn.guardar = function() {
+        $(this).on('click', function(){
+            var e = $(this);
+            var url = e.data('urlsave');
+            var form = $('#' + e.data('form'));
+
+            form.attr('action', url);
+            form.submit();
+        });
+    }
+
+    /**
+     * editar
+     *
+     * Edita un item de una lista.
+     */
 	$.fn.editar = function() {
 		$(this).on('click', function(){
 			var e = $(this);
@@ -159,5 +175,37 @@
     $.fn.errorLog = function(stringError) {
         $('#login_errors label').html(stringError);
         $('#login_errors').fadeIn();
+    }
+
+    /** Relacion Ajax **/
+    $.fn.relation = function(options, callback) {
+        $.fn.relation.defaults = {
+            data        : false,
+            relation    : 'relacion',
+            key         : 'id',
+            value       : 'nombre',
+        };
+
+        var opts = $.extend( {}, $.fn.relation.defaults, options );
+
+        var select     = $(this);
+        var reference   = $(this).attr('data-reference');
+
+        $('#' + reference).on('change', function(){
+            var val = $(this).val();
+            var optionHTML = '';
+            opts.data.forEach(function(element, index, array){
+                if (parseInt(element.id) === parseInt(val)) {
+                    optionHTML = '';
+                    if (true === element.hasOwnProperty(opts.relation)) {
+                        var data_relation = element[opts.relation];
+                        data_relation.forEach(function(option, index, array){
+                            optionHTML += '<option value="' + option[opts.key] + '">' + option[opts.value] + '</option>';
+                        });
+                    }
+                    select.html(optionHTML);
+                }
+            });
+        });
     }
 })(jQuery);

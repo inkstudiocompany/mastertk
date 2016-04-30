@@ -7,4 +7,6 @@ $(document).ready(function (){
             nombreDocumento: "No se permiten caracteres especiales"
         }
     });
+
+    console.log('here');
 })
