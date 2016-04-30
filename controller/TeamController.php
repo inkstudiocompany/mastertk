@@ -5,8 +5,20 @@
 	use Application\Controller\ControllerBase;
 	use Model\ORM\Equipo as equipo;
 
+
 	class TeamController extends ControllerBase
 	{
+		public static function getByProject($idProject)
+		{
+			$equipos = equipo::with('lider') -> where('idProyecto','=',$idProject) ->get();
+			return$equipos;
+		}
+
+		private static function getById($id)
+		{
+			return equipo::find($id);
+		}
+
 		public function index()
 		{
 			return $this->render('equipos/listado.html.twig',[
@@ -55,5 +67,16 @@
             $rol = Equipo::find($id);
             return $equipo->delete();
         }
+
+		public function rename($nomEquipo, $idEquipo)
+		{
+			$result = false;
+			$equipo = self::getById($idEquipo);
+			if(!is_null($equipo)){
+				$equipo -> nombreEquipo = $nomEquipo;
+				$result = $equipo -> save();
+			}
+			return $result;
+		}
 
 	}

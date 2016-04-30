@@ -2,6 +2,7 @@ $(document).ready(function (){
 
 
     var agregarProyecto =$("form#agregar_proyecto");
+    var editTeamForm =  $("div#team-edition");
 
     agregarProyecto.validate({
         rules: {
@@ -26,7 +27,6 @@ $(document).ready(function (){
             lider:"Debe seleccionar un LIDER"
         }
     });
-
 
     agregarProyecto.find('#wizard').bootstrapWizard({
         nextSelector: '.button-next',
@@ -61,7 +61,6 @@ $(document).ready(function (){
         }
     });
 
-
     agregarProyecto.find("#lider" ).typeahead({
        minLength: 3,
        maxItem: 8,
@@ -87,6 +86,7 @@ $(document).ready(function (){
                 }
        }
     });
+
     agregarProyecto.find('.input-daterange').datepicker({
         format: "yyyy/mm/dd",
         language: "es",
@@ -136,10 +136,10 @@ $(document).ready(function (){
                 nombreVacio: "Debe ingresar un nombre de Equipo",
                 nombreExistente: "Ya existe un equipo con el mismo nombre"
             },
-            nombreEquipo =agregarProyecto.find('#nombreEquipo').val(),
+            nombreEquipo =$.trim( agregarProyecto.find('#nombreEquipo').val()),
             teams = agregarProyecto.find('#teamTable').bootstrapTable('getData'),
             alert= agregarProyecto.find('#new-team .error-msg');
-        if($.trim( nombreEquipo ) === '' ){
+        if(nombreEquipo  === '' ){
             alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreVacio).show();
             setTimeout(function () {
                 alert.hide();
@@ -195,9 +195,6 @@ $(document).ready(function (){
         }]
     });
 
-
-
-
     agregarProyecto.find('#addItemType.btn-primary').click(function() {
         var messages= {
                 nombreVacio: "Debe ingresar un nombre para el tipo de Item",
@@ -229,6 +226,165 @@ $(document).ready(function (){
         agregarProyecto.find('#itemTypeTable').bootstrapTable('append', { nombre:nombre});
 
     });
+
     agregarProyecto.find('.error-msg').hide();
+
+    /*Edicion de Equipos*/
+
+    editTeamForm.ajaxUpdate = function(url, method,team ,callback, error ){
+        $.ajax({
+            url: url,
+            type: method,
+            data:  team,
+            success: callback ,
+            error:  error
+        });
+
+    };
+
+    editTeamForm.find('#teamTable').bootstrapTable({
+        pagination:true,
+        pageSize:5,
+        method: 'get',
+        url: '/proyectos/equipos-listar/'+editTeamForm.find('#idProyecto').val(),
+        columns: [{
+            field: 'nombreEquipo',
+            valign:'middle',
+            halign:'center',
+            class:'col-md-5',
+            title: 'Nombre Equipo',
+            formatter: function(value, row, index) {
+                return [
+                    '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-name"',
+                    'data-id="', row.idEquipo,'" data-nombre= "', value,'"  title="Cambiar Nombre">',
+                    '<i class="glyphicon glyphicon-pencil"></i></a>  ',
+                    value
+
+                ].join('');
+            }
+
+        },{
+            field: 'lider.nombreCompleto',
+            valign:'middle',
+            halign:'center',
+            title: 'Lider',
+            formatter: function(value, row, index) {
+                if(value){
+                    return [
+                        '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-lider"',
+                        'data-id="', row.idEquipo,'" data-lider= "', value,'"  title="Cambiar Lider">',
+                        '<i class="glyphicon glyphicon-king"></i></a>  ',
+                        value
+
+                    ].join('');
+
+                }else{
+                    return [
+                        '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-lider"',
+                        'data-id="', row.idEquipo,'" data-lider= ""  title="Seleccionar Lider">',
+                        '<i class="glyphicon glyphicon-tower"></i>Seleccionar lider</a> '
+
+                    ].join('');
+                }
+            }
+        },{
+            title: 'Acciones',
+            class:'col-md-3',
+            align:'center',
+            formatter: function(value, row, index) {
+                return [
+                    '<button type="button" class="btn btn-sm btn-info team-members" >',
+                    'Integrantes<i class="glyphicon glyphicon-user"></i></button>',
+                    '<button type="button" class="btn btn-sm btn-danger remove-team" role-button="delete">',
+                    'Eliminar<i class="glyphicon glyphicon-trash"></i></button>'
+                ].join('');
+            },
+            events:{
+                'click .remove-team': function (e, value, row) {
+                    editar.find('#teamTable').bootstrapTable('remove', {
+                        field: 'nombre',
+                        values: [row.nombre]
+                    });
+                },
+                'click .team-members': function (e, value, row) {
+                    console.log( row.idEquipo);
+                }
+            }
+        }]
+    });
+
+    editTeamForm.find('#addTeam.btn-primary').click(function() {
+        var messages= {
+                nombreVacio: "Debe ingresar un nombre de Equipo",
+                nombreExistente: "Ya existe un equipo con el mismo nombre"
+            },
+            nombreEquipo =editTeamForm.find('#nombreEquipo').val(),
+            teams = editTeamForm.find('#teamTable').bootstrapTable('getData'),
+            alert= editTeamForm.find('#new-team .error-msg');
+        if($.trim( nombreEquipo ) === '' ){
+            alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreVacio).show();
+            setTimeout(function () {
+                alert.hide();
+            }, 3000);
+            return;
+        }else{
+            var exist = teams.find(function(element, index, array) {
+                return element.nombreEquipo === nombreEquipo;
+            });
+            if(exist){
+                alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreExistente).show();
+                setTimeout(function () {
+                    alert.hide();
+                }, 3000);
+                return;
+            }
+        }
+        alert.hide();    });
+
+    editTeamForm.find('#edit-team-name').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            modal = $(this);
+
+        modal.find('#nombre').val(button.data('nombre'));
+        modal.find('#nombreOriginal').val(button.data('nombre'));
+        modal.find('#idEquipo').val(button.data('id'));
+
+
+    });
+
+    editTeamForm.find('#edit-team-name').find('.btn-primary').click(function(){
+        var  messages= {
+                nombreVacio: "Debe ingresar un nombre de Equipo",
+                nombreExistente: "Ya existe un equipo con el mismo nombre" },
+            modal = editTeamForm.find('#edit-team-name'),
+            alert= modal.find('.error-msg'),
+            teams = editTeamForm.find('#teamTable').bootstrapTable('getData'),
+            team = { nombreEquipo:  modal.find('#nombre').val(),
+                idEquipo:  modal.find('#idEquipo').val()
+            };
+        alert.hide();
+        if(modal.find('#nombre').val() == modal.find('#nombreOriginal').val()){
+            modal.modal('hide');
+            return null;
+        }
+        if(team.nombreEquipo  === '' ){
+            alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreVacio).show(0).delay(5000).hide(0);
+            return null;
+        }else{
+            var exist = teams.find(function(element, index, array) {
+                return ((element.nombreEquipo === team.nombreEquipo) && (element.idEquipo != team.idEquipo));
+            });
+            if(exist){
+                alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreExistente).show(0).delay(5000).hide(0);
+                return null;
+            }
+        }
+        editTeamForm.ajaxUpdate('/equipos/renombrar','POST',team,function(){
+            console.log();
+            editTeamForm.find('#teamTable').bootstrapTable('refresh');
+            modal.modal('hide');
+        });
+
+    });
 });
 

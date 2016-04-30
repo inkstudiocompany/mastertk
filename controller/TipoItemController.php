@@ -3,10 +3,24 @@
 	namespace Application\Controller;
 
 	use Application\Controller\ControllerBase;
+	use Illuminate\Database\Eloquent\Collection;
+	use Model\ORM\Estado;
 	use Model\ORM\TipoItem as tipoitem;
 
 	class TipoItemController extends ControllerBase
 	{
+		public static function getIntialsStates()
+		{
+			$estados = new Collection();
+			$estadoInicial = new Estado();
+			$estadoInicial -> nombreEstado ="Abierto";
+			$estadoFinal = new Estado();
+			$estadoFinal -> nombreEstado ="Cerrado";
+			$estados ->add($estadoInicial);
+			$estados ->add($estadoFinal);
+			return $estados;
+		}
+
 		public function index()
 		{
 			return $this->render('tipoitems/listado.html.twig',[

@@ -1,12 +1,93 @@
-{% extends 'common/forms.html.twig' %}
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+    <div class="panel panel-default" id="team-edition">
+        <div class="panel-heading">
+            Edici&oacute;n de Equipos
+
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <table class="table"
+                       data-toggle="table"
+                       data-card-view="true">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Proyecto</th>
+                            <th>Lider</th>
+                            <th>Inicio</th>
+                            <th>Fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ proyecto.nomProyecto }}</td>
+                            <td>{{ proyecto.lider.nombreCompleto}}</td>
+                            <td>{{ proyecto.inicioProyecto }}</td>
+                            <td>{{ proyecto.finProyecto }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            <input type="hidden" name="idProyecto" id="idProyecto" class="basic-data" value="{{proyecto.idProyecto}}" required/>
+        {{ include ('proyectos/steps/equipos.html')  }}
 
 
-{% block form_title %}
-    Editar Equipos
-{% endblock form_title %}
 
-{% block form %}
-    <div id="team-edition">
-    {{ include ('proyectos/steps/equipos.html')  }}
+        <div class="modal fade" id="edit-team-name" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="modal-title">Editar Nombre de Equipo</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nombreEquipo"> Nuevo Nombre</label>
+                            <input name="nombre"  id="nombre" type="text" class="form-control add-team" placeholder="Nombre de Equipo ..."  />
+                            <input type="hidden" name="idEquipo" id="idEquipo" />
+                            <input type="hidden" name="nombreOriginal" id="nombreOriginal" />
+                            <div class="error-msg alert-danger" role="alert" hidden>
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                Enter a valid email address
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" role="group" aria-label="formActions">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="edit-team-lider" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="modal-title">Editar Nombre de Equipo</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nombreEquipo"> Nuevo Nombre</label>
+                            <input name="nombre"  id="nombre" type="text" class="form-control add-team" placeholder="Nombre de Equipo ..."  />
+                            <input type="hidden" name="idEquipo" id="idEquipo" />
+                            <input type="hidden" name="nombreOriginal" id="nombreOriginal" />
+                            <div class="error-msg alert-danger" role="alert" hidden>
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                Enter a valid email address
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" role="group" aria-label="formActions">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-{% endblock form %}
+{% endblock body %}
