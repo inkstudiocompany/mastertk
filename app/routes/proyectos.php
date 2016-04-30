@@ -38,15 +38,14 @@ use Model\ORM\Equipo;
         $equipos = new Eloquent\Collection();
         $tiposItem = new Eloquent\Collection();
 
-        foreach($equiposNombre as $nombre){
+        foreach($equiposNombre as $equipoNombre){
             $equipo = new Equipo();
-            $equipo->nombreEquipo = $nombre;
+            $equipo->nombreEquipo = $equipoNombre;
             $equipos ->add($equipo);
         }
 
         foreach($nombreTiposItem as $nombre){
             $tipoItem = new TipoItem();
-            $tipoItem -> estados -> add(TipoItemController::getIntialsStates());
             $tipoItem -> descripcion= $nombre;
             $tiposItem -> add($tipoItem);
         }
@@ -76,6 +75,12 @@ use Model\ORM\Equipo;
         echo json_encode($equipos);
     });
 
+
+
+    $app::Router()->get($app->path('edit_project_item_types'), function( Request $request, Response $response, $args){
+        $parse = new RequestParse($request,$args);
+        echo (new  ProjectController()) -> editItemTypeForm($parse -> get('id'));
+    });
 
 
 

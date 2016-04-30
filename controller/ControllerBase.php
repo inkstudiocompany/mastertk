@@ -56,7 +56,7 @@
                 && is_null($parameters[$name]) === false;
         }
 
-        public function getInput($parameters, $name)
+        public static function getInput($parameters, $name)
         {
             $response = false;
             if(self::hasParameter($parameters, $name) === true) {
