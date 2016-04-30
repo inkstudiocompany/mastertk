@@ -3,6 +3,7 @@
     use \Psr\Http\Message\ServerRequestInterface as Request;
     use \Psr\Http\Message\ResponseInterface as Response;
 
+    use Application\App as App;
     use Application\Controller\TeamController;
     use Application\Controller\RequestParse;
     use Illuminate\Database\Eloquent;

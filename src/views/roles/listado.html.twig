@@ -29,7 +29,7 @@
                       <button type="button" class="btn btn-sm btn-info"
                         data-urledit="{{ app.path('edit_rol', {'id': rol.idRol }, true) }}" role-button="editar">Editar</button>
                         <button type="button" class="btn btn-sm btn-danger" data-urldelete="{{ app.path('delete_rol', {'id': rol.idRol }, true) }}"
-                            data-title="Eliminar Rol" data-message="¿Segurito, Segurito?"
+                            data-title="Eliminar Rol" data-message="¿Seguro hermano? Ud. va a eliminar el ROL '{{rol.nombreRol}}'"
                             {% if isErasable == false %}
                                 disabled
                             {% endif %}
