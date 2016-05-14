@@ -145,18 +145,23 @@
      * Envía los datos del formulario para la autenticación de usuario.
      */
     $.fn.login = function(form) {
-        var email = $($(form).find('#email')).val();
-        var password = $($(form).find('#password')).val();
+        var email       = $($(form).find('#email')).val();
+        var password    = $($(form).find('#password')).val();
+        var rememberme  = $($(form).find('#rememberme')).is(':checked');
 
         $.fn.cleanErrorLog();
 
         $.ajax({
-            method: 'post',
-            async: true,
-            url: 'authenticate/' + email  + '/' + password,
-            success: function(response){
+            method  : 'post',
+            async   : true,
+            url     : 'authenticate/' + email  + '/' + password,
+            data    : 'rememberme=' + rememberme,
+            success : function(response){
                 $('.preloader').toggleClass('show hide');
                 if (true === response.authenticated) {
+                    if (false !== response.rememberme) {
+                        $.fn.createCookie('Rememberme', response.rememberme, 30);
+                    }
                     window.location.href = '/';
                 } else if (false === response.authenticated) {
                     $.fn.errorLog('Datos de login incorrectos.');

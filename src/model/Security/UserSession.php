@@ -10,10 +10,10 @@
 
         public function __construct($usuario)
         {
-            $this->id = $usuario->idUsuario;
-            $this->usuario = $usuario->usuario;
-            $this->nombre = $usuario->nombreCompleto;
-            $this->email = $usuario->email;
+            $this->id       = $usuario->idUsuario;
+            $this->usuario  = $usuario->usuario;
+            $this->nombre   = $usuario->nombreCompleto;
+            $this->email    = $usuario->email;
         }
 
         public function id()

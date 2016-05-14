@@ -36,5 +36,12 @@
                 '(email = \'' . $email . '\' OR usuario = \'' . $email . '\') AND password = \'' . $password . '\''
             );
 		}
+
+        public function scopeAccessTockenAuth($query, $access_tocken)
+        {
+            return $query->whereRaw(
+                'accessToken = \'' . $access_tocken . '\''
+            );
+        }
 	}
 
