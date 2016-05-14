@@ -181,6 +181,7 @@
     $.fn.relation = function(options, callback) {
         $.fn.relation.defaults = {
             data        : false,
+            url         : false,
             relation    : 'relacion',
             key         : 'id',
             value       : 'nombre',
@@ -194,18 +195,37 @@
         $('#' + reference).on('change', function(){
             var val = $(this).val();
             var optionHTML = '';
-            opts.data.forEach(function(element, index, array){
-                if (parseInt(element.id) === parseInt(val)) {
-                    optionHTML = '';
-                    if (true === element.hasOwnProperty(opts.relation)) {
-                        var data_relation = element[opts.relation];
-                        data_relation.forEach(function(option, index, array){
-                            optionHTML += '<option value="' + option[opts.key] + '">' + option[opts.value] + '</option>';
-                        });
+
+            if (false !== opts.data) {
+                opts.data.forEach(function(element, index, array){
+                    if (parseInt(element.id) === parseInt(val)) {
+                        optionHTML = '';
+                        if (true === element.hasOwnProperty(opts.relation)) {
+                            var data_relation = element[opts.relation];
+                            data_relation.forEach(function(option, index, array){
+                                optionHTML += '<option value="' + option[opts.key] + '">' + option[opts.value] + '</option>';
+                            });
+                        }
+                        select.html(optionHTML);
                     }
-                    select.html(optionHTML);
-                }
-            });
+                });
+            }
+
+            if (false !== opts.url) {
+                $.ajax({
+                    method  : 'post',
+                    url     : opts.url,
+                    data    : 'id=' + $(this).val(),
+                    success : function(response) {
+                        var jsonData = eval('(' + response + ')');
+                        optionHTML = '';
+                        jsonData.forEach(function(element, index, array){
+                            optionHTML += '<option value="' + element[opts.key] + '">' + element[opts.value] + '</option>';
+                        });
+                        select.html(optionHTML);
+                    }
+                });
+            }
         });
     }
 })(jQuery);

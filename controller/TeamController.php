@@ -105,4 +105,12 @@
 			return $result;
 		}
 
+        public function UsersByState($idEstado)
+        {
+            $response = false;
+
+
+
+            return $response;
+        }
 	}

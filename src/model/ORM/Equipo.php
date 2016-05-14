@@ -18,5 +18,4 @@
         public function lider(){
             return $this->belongsTo('Model\ORM\Usuario','idLider','idUsuario');
         }
-
     }

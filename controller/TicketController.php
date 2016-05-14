@@ -4,11 +4,13 @@
 
 	use Application\App;
 	use Model\ORM\Comentario;
-	use Model\ORM\Item;
+    use Model\ORM\EquipoAtencion;
+    use Model\ORM\Item;
 	use Model\ORM\TipoItem;
 	use Model\ORM\TransicionItem;
     use Model\ORM\Estado;
-	use Slim\Http\Response;
+    use Model\ORM\Usuario;
+    use Slim\Http\Response;
 
 	class TicketController extends ControllerBase
 	{
@@ -47,6 +49,7 @@
 			$id         = self::getInput($params, 'id');
 			$tipoitem   = self::getInput($params, 'tipoitem');
 			$estado     = self::getInput($params, 'estado');
+            $asignado   = self::getInput($params, 'asignado');
 			$prioridad  = self::getInput($params, 'prioridad');
 			$comentario = self::getInput($params, 'comentario');
 
@@ -73,6 +76,12 @@
 				$ticketUpdate             = true;
                 $dataLog['ticket']['Estado']  = Estado::find($estado)->nombreEstado;
 			}
+
+            if (false !== $asignado) {
+                $item -> responsable    = $asignado;
+                $ticketUpdate           = true;
+                $dataLog['ticket']['Asignado a']  = Usuario::find($asignado)->nombreCompleto;
+            }
 
 			if (false !== $prioridad) {
 				$item -> prioridad    = $prioridad;
@@ -112,8 +121,7 @@
 		public function editForm($idTicket)
 		{
 			$response = Item::with([
-					//'proyecto',
-					'asignado.usuario',
+					'asignado',
 					'tipoItem',
                     'transiciones' => function($query){
                         $query->orderBy('TransicionItem.fechahora' ,'Desc');
@@ -136,12 +144,14 @@
 
             $states            = [];
             $states['workflow'] = [];
+            $idEstado = 0;
             foreach ($estadoActual As $key => $estado)
             {
                 $states['workflow'][] = [
                     'id'      => $estado->idEstado,
                     'nombre'  => $estado->nombreEstado,
                 ];
+                $idEstado = $estado->idEstado;
             }
             foreach ($workflow As $key => $estado)
             {
@@ -153,7 +163,9 @@
 
             $tipoItems = TipoItem::tipoItemsProyecto($response->proyecto->idProyecto)->get();
 
-			$data_relations = [];
+            $usuarios_atencion = $this->usersByState($idEstado);
+
+            $data_relations = [];
 			$data_relations['tipo_items'] = [];
 			foreach ($tipoItems As $tipoitem)
 			{
@@ -175,7 +187,14 @@
 			return $this->render('tickets/editar.html.twig', [
 					'ticket'      => $response,
 					'relaciones'  => '',
-                    'workflow'    => $states['workflow']
+                    'workflow'    => $states['workflow'],
+                    'equipo'      => $usuarios_atencion
 			]);
 		}
+
+        public function usersByState($idEstado)
+        {
+            $equipoAtencion = new EquipoAtencion();
+            return $equipoAtencion->usersByState($idEstado)->get();
+        }
 	}
