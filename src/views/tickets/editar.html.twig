@@ -55,7 +55,7 @@
               <select id="estado" name="estado" data-reference="tipoitem" class="form-control input-sm">
                 {% for tipo in relaciones.tipo_items  %}
                   {% if tipo.id|number_format == ticket.idTipoItem|number_format %}
-                    {% for estado in tipo.estados %}
+                    {% for estado in workflow %}
                       <option value="{{ estado.id }}"
                         {% if estado.id == ticket.estadoActual %}
                           selected

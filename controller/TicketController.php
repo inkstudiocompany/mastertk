@@ -18,7 +18,10 @@
 
 		public function detalle($idTicket)
 		{
-			$response = Item::with('proyecto', 'asignado.usuario', 'estado', 'tipoItem', 'transiciones', 'comentarios.usuario')->find($idTicket);
+
+            $response = Item::with(
+                'proyecto', 'asignado.usuario', 'estado',
+                'tipoItem', 'transiciones.usuario', 'comentarios.usuario')->find($idTicket);
 
 			if (true === is_null($response)) {
 				$response = new Response();
@@ -113,10 +116,30 @@
 				return $response->withRedirect($this->container->path('my_tickets', true));
 			}
 
-			$tipoItems = TipoItem::tipoItemsProyecto($response->proyecto->idProyecto)->get();
+            $Item = new Item();
+            $estadoActual = $Item->estadoActual($idTicket)->get();
+            $workflow = $Item->workFlow($idTicket)->get();
+
+            $states            = [];
+            $states['workflow'] = [];
+            foreach ($estadoActual As $key => $estado)
+            {
+                $states['workflow'][] = [
+                    'id'      => $estado->idEstado,
+                    'nombre'  => $estado->nombreEstado,
+                ];
+            }
+            foreach ($workflow As $key => $estado)
+            {
+                $states['workflow'][] = [
+                    'id'      => $estado->idEstado,
+                    'nombre'  => $estado->nombreEstado,
+                ];
+            }
+
+            $tipoItems = TipoItem::tipoItemsProyecto($response->proyecto->idProyecto)->get();
 
 			$data_relations = [];
-
 			$data_relations['tipo_items'] = [];
 			foreach ($tipoItems As $tipoitem)
 			{
@@ -124,6 +147,7 @@
 				$data['id']             = $tipoitem->idTipoItem;
 				$data['descripcion']    = $tipoitem->descripcion;
 				$data['estados']        = [];
+
 				foreach ($tipoitem->estados()->get() As $key => $estado)
 				{
 					$data['estados'][$key] = [
@@ -137,6 +161,7 @@
 			return $this->render('tickets/editar.html.twig', [
 					'ticket'      => $response,
 					'relaciones'  => $data_relations,
+                    'workflow'    => $states['workflow']
 			]);
 		}
 	}

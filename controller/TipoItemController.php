@@ -2,7 +2,6 @@
 
 	namespace Application\Controller;
 
-	use Application\Controller\ControllerBase;
 	use Illuminate\Database\Eloquent\Collection;
 	use Model\ORM\Estado;
 	use Model\ORM\TipoItem as tipoitem;

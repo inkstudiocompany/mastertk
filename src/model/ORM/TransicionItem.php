@@ -9,10 +9,10 @@ class TransicionItem extends EntityBase{
     protected $primaryKey = 'idTransicionItem';
 
     public function item(){
-    	$this->belongsTo('Model\ORM\Item','idItem','idItem');
+    	return $this->belongsTo('Model\ORM\Item','idItem','idItem');
     }
     
     public function usuario(){
-        $this->belongsTo('Model\ORM\Usuario','idiUsuario','idUsuario');
+        return $this->hasOne('Model\ORM\Usuario','idUsuario','idUsuario');
     }
 }

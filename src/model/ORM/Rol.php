@@ -5,7 +5,6 @@
     {
             
 	    protected $table = "Rol";
-			
         protected $primaryKey = 'idRol';
 
 		public function usuarios(){
