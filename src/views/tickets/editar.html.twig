@@ -37,15 +37,7 @@
           <div class="col-md-3">
             <div class="form-group autoinline">
               <strong class="col-md-5">Tipo</strong>
-              <select id="tipoitem" name="tipoitem" class="form-control input-sm">
-                {% for tipo in relaciones.tipo_items  %}
-                  <option value="{{ tipo.id }}"
-                      {% if tipo.id|number_format == ticket.idTipoItem|number_format %}
-                        selected
-                      {% endif %}
-                  >{{ tipo.descripcion }}</option>
-                {% endfor %}
-              </select>
+              {{ ticket.tipoItem.descripcion }}
             </div>
           </div>
 
@@ -53,16 +45,12 @@
             <div class="form-group autoinline">
               <strong class="col-md-5">Estado</strong>
               <select id="estado" name="estado" data-reference="tipoitem" class="form-control input-sm">
-                {% for tipo in relaciones.tipo_items  %}
-                  {% if tipo.id|number_format == ticket.idTipoItem|number_format %}
-                    {% for estado in workflow %}
-                      <option value="{{ estado.id }}"
-                        {% if estado.id == ticket.estadoActual %}
-                          selected
-                        {% endif %}
-                    >{{ estado.nombre }}</option>
-                    {% endfor %}
-                  {% endif %}
+                {% for estado in workflow %}
+                  <option value="{{ estado.id }}"
+                    {% if estado.id == ticket.estadoActual %}
+                      selected
+                    {% endif %}
+                >{{ estado.nombre }}</option>
                 {% endfor %}
               </select>
             </div>

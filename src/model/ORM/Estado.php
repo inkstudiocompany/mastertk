@@ -10,5 +10,4 @@ class Estado extends EntityBase{
     public function tipoItem(){
         return $this->belongsTo('Model\ORM\TipoItem', 'idTipoItem', 'idTipoItem');
     }
-	
 }

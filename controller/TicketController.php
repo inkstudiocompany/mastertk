@@ -7,6 +7,7 @@
 	use Model\ORM\Item;
 	use Model\ORM\TipoItem;
 	use Model\ORM\TransicionItem;
+    use Model\ORM\Estado;
 	use Slim\Http\Response;
 
 	class TicketController extends ControllerBase
@@ -19,9 +20,17 @@
 		public function detalle($idTicket)
 		{
 
-            $response = Item::with(
-                'proyecto', 'asignado.usuario', 'estado',
-                'tipoItem', 'transiciones.usuario', 'comentarios.usuario')->find($idTicket);
+            $response = Item::with([
+                    'proyecto', 'asignado.usuario', 'estado',
+                    'tipoItem',
+                    'transiciones' => function($query){
+                        $query->orderBy('TransicionItem.fechahora' ,'Desc');
+                    },
+                    'transiciones.usuario',
+                    'comentarios' => function($query){
+                        $query->orderBy('Comentario.fechahora', 'Desc');
+                    },
+                    'comentarios.usuario'])->find($idTicket);
 
 			if (true === is_null($response)) {
 				$response = new Response();
@@ -50,19 +59,19 @@
 				$ticketUpdate         = false;
 				$item                 = self::getById($id);
 				$dataLog['accion']    = 'Nuevo Comentario';
-				$dataLog['ticket']['idTicket']  = $id;
+				$dataLog['Detalles:']['']  = '';
 			}
 
 			if (false !== $tipoitem) {
 				$item -> idTipoItem   = $tipoitem;
 				$ticketUpdate         = true;
-				$dataLog['ticket']['idTipoItem']  = $tipoitem;
+				$dataLog['ticket']['Tipo Item']  = TipoItem::find($tipoitem)->descripcion;
 			}
 
 			if (false !== $estado) {
 				$item -> estadoActual     = $estado;
 				$ticketUpdate             = true;
-				$dataLog['ticket']['estadoActual']  = $estado;
+                $dataLog['ticket']['Estado']  = Estado::find($estado)->nombreEstado;
 			}
 
 			if (false !== $prioridad) {
@@ -102,16 +111,21 @@
 
 		public function editForm($idTicket)
 		{
-			$response = Item::with(
+			$response = Item::with([
 					//'proyecto',
 					'asignado.usuario',
-					//'estado',
-					//'tipoItem',
-					'transiciones',
-					'comentarios.usuario'
-			)->find($idTicket);
+					'tipoItem',
+                    'transiciones' => function($query){
+                        $query->orderBy('TransicionItem.fechahora' ,'Desc');
+                    },
+                    'transiciones.usuario',
+                    'comentarios' => function($query){
+                        $query->orderBy('Comentario.fechahora', 'Desc');
+                    },
+                    'comentarios.usuario'
+			])->find($idTicket);
 
-			if (true === is_null($response)) {
+            if (true === is_null($response)) {
 				$response = new Response();
 				return $response->withRedirect($this->container->path('my_tickets', true));
 			}
@@ -160,7 +174,7 @@
 
 			return $this->render('tickets/editar.html.twig', [
 					'ticket'      => $response,
-					'relaciones'  => $data_relations,
+					'relaciones'  => '',
                     'workflow'    => $states['workflow']
 			]);
 		}
