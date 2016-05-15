@@ -34,7 +34,8 @@
         {
             $usuario = usuario::find($id);
             echo $this->render('security/profile.html.twig', [
-                'usuario' => $usuario
+                'usuario' => $usuario,
+                'tiposDocumento'=> $this->getParameter('document_types')
             ]);
         }
 

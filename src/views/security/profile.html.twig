@@ -44,9 +44,9 @@
                 {% for idTipoDocumento, tipoDocumento in tiposDocumento  %}
                     <option value="{{ idTipoDocumento }}"
                         {% if usuario.idTipoDocumento == idTipoDocumento %}
-                        selected
+                            selected
                         {% endif %}
-                        >
+                    >
                         {{ tipoDocumento }}
                     </option>
                 {% endfor %}
@@ -63,38 +63,6 @@
             <label for="email">email</label>
             <input name="email" type="text" id="email" placeholder="Email"  class="form-control"
                    required value="{{ usuario.email }}" />
-        </div>
-
-        <div class="form-group">
-            <label for="usuario">Usuario</label>
-            <input name="usuario" type="text" id="usuario" placeholder="Usuario" class="form-control"
-                   required value="{{ usuario.usuario }}"  />
-        </div>
-
-        {% if not usuario %}
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input name="password" type="password" id="password" placeholder="Password" class="form-control" required/>
-            </div>
-
-            <div class="form-group">
-                <label for="confirm_password">Confirmar Password</label>
-                <input name="confirm_password" type="password" id="confirm_password" placeholder="Password" class="form-control" required/>
-            </div>
-        {% endif %}
-
-        <div class="form-group">
-            <label for="rolPrincipal">Rol Asignado</label>
-            <select name="rolPrincipal" id="rolPrincipal" class="form-control" required>
-                <option value="">- Seleccione Uno -</option>
-                {% for rol in roles  %}
-                    <option value="{{ rol.idRol }}"
-                        {% if usuario.idRolPrincipal == rol.idRol %}
-                            selected
-                        {% endif %}
-                    >{{ rol.nombreRol }}</option>
-                {% endfor %}
-            </select>
         </div>
 
         <div class="fileinput fileinput-new" data-provides="fileinput">
