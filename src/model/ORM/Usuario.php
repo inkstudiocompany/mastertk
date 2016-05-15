@@ -26,11 +26,22 @@
 			return $this->hasMany('Model\ORM\TransicionItem', 'idUsuario', 'idUsuario');
 		}
 
-		public function scopeAuth($query, $email, $password)
+        public function comentarios() {
+            return $this->hasMany('Model\ORM\Comentario', 'idUsuario', 'idUsuario');
+        }
+
+        public function scopeAuth($query, $email, $password)
 		{
-      return $query->whereRaw(
-          '(email = \'' . $email . '\' OR usuario = \'' . $email . '\') AND password = \'' . $password . '\''
-      );
+            return $query->whereRaw(
+                '(email = \'' . $email . '\' OR usuario = \'' . $email . '\') AND password = \'' . $password . '\''
+            );
 		}
+
+        public function scopeAccessTockenAuth($query, $access_tocken)
+        {
+            return $query->whereRaw(
+                'accessToken = \'' . $access_tocken . '\''
+            );
+        }
 	}
 

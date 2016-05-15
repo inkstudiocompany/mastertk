@@ -55,7 +55,7 @@
         return $response->withJson($dataResponse);
     });
 
-$app::Router()->post($app->path('rename_equipo'), function(Request $request, Response $response, $args){
+    $app::Router()->post($app->path('rename_equipo'), function(Request $request, Response $response, $args){
     $parse = new RequestParse($request);
     $nomEquipo = $parse->get('nombreEquipo');
     $idEquipo = $parse->get('idEquipo');

@@ -1,18 +1,27 @@
 <?php
 
-namespace Model\ORM;
+    namespace Model\ORM;
 
-class EquipoAtencion extends EntityBase{
-    
-    protected $table = "EquipoAtencion";
-    
-    protected $primaryKey = 'idEquipoAtencion';
+    class EquipoAtencion extends EntityBase{
 
-    public function equipo(){
-    	$this->belongsTo('Model\ORM\Equipo','idEquipo','idEquipo');
+        protected $table = "EquipoAtencion";
+        protected $primaryKey = 'idEquipoAtencion';
+
+        public function equipo(){
+            $this->belongsTo('Model\ORM\Equipo','idEquipo','idEquipo');
+        }
+
+        public function estado(){
+            $this->belongsTo('Model\ORM\Estado','idEstado','idEstado');
+        }
+
+        public function scopeUsersByState($query, $idEstado)
+        {
+            return $query
+                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'EquipoAtencion.idEquipo')
+                ->join('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
+                ->where('EquipoAtencion.idEstado', '=', $idEstado)
+                ->select('Usuario.idUsuario', 'Usuario.nombreCompleto')
+                ->groupBy('Usuario.nombreCompleto');
+        }
     }
-    
-    public function estado(){
-    	$this->belongsTo('Model\ORM\Estado','idEstado','idEstado');
-    }
-}

@@ -17,11 +17,11 @@
 
 		public function __construct()
 		{
-        SecurityController::securityStart();
-        $this->parameters = [];
-				$this->routes = Routes::getRoutes();
-        $this->message = new Message();
-        $this->user = SecurityController::user();
+            SecurityController::securityStart();
+            $this->parameters = [];
+            $this->routes = Routes::getRoutes();
+            $this->message = new Message();
+            $this->user = SecurityController::user();
 		}
 
         public static function getInstance()

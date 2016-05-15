@@ -56,9 +56,10 @@
 			'delete_tipoitem' => '/tipoitems/borrar[/{id}]',
 
 			#Items
-			'item_detail'     => '/ticket/detalle[/{id}]',
-			'save_ticket'     => '/ticket/save',
-			'edit_ticket'     => '/ticket/editar[/{id}]',
+			'item_detail'           => '/ticket/detalle[/{id}]',
+			'save_ticket'           => '/ticket/save',
+			'edit_ticket'           => '/ticket/editar[/{id}]',
+            'users_allows_ticket'   => '/ticket/equipo/atencion',
 
 
 			#Workflow

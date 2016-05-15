@@ -26,7 +26,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 	    echo $response;
     });
 
-		$app::Router()->post($app->path('save_ticket'), function(Request $request, Response $response, $args){
+    $app::Router()->post($app->path('save_ticket'), function(Request $request, Response $response, $args){
 			$parse = new RequestParse($request, $args);
 
 			$params = [
@@ -47,7 +47,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 			return $response->withRedirect($path, 301);
 		});
 
-		$app::Router()->get($app->path('edit_ticket'), function(Request $request, Response $response, $args){
+    $app::Router()->get($app->path('edit_ticket'), function(Request $request, Response $response, $args){
 			$parse = new RequestParse($request, $args);
 
 			$ticketController = new TicketController();
@@ -59,3 +59,16 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
 			echo $response;
 		});
+
+    $app::Router()->post($app->path('users_allows_ticket'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+
+        $ticketController = new TicketController();
+
+        $response->withJson($ticketController->usersByState($parse->get('id')));
+
+        if (true === $response instanceof \Slim\Http\Response) {
+            return $response;
+        }
+    });
+
