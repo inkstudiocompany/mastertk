@@ -118,6 +118,6 @@
 
             $phpcrypt = new Simple($encryptionKey, $macKey);
 
-            return $phpcrypt->encrypt($userSession);
+            return $phpcrypt->encrypt($userSession->id().$userSession->nombre().date('YmdHis'));
         }
     }

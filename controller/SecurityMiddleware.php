@@ -123,7 +123,7 @@ class SecurityMiddleware
         );
 
         foreach ($disabledSecurityPaths As $keyPath) {
-            if (isset($routes[$keyPath]) && isset($path_conf[1])) {
+            if (isset($routes[$keyPath]) && isset($path_conf[1]) && !empty($path_conf[1])) {
                 if (stristr($routes[$keyPath], $path_conf[1])) {
                     return true;
                 }

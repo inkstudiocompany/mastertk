@@ -1,8 +1,7 @@
 <?php
 
-    use Application\Controller\SecurityController;
-    use Application\Controller\UserController;
     use Application\App;
+    use Application\Controller\SecurityController;
     use Application\Controller\RequestParse;
     use Illuminate\Database\Eloquent;
     use Model\Security\Cookie;
