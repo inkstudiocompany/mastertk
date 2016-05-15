@@ -14,6 +14,13 @@
         }
 
 
+        public static function selfie($id,$path)
+        {
+            $usuario = usuario::find($id);
+            $usuario -> selfie = $path;
+            return $usuario -> save();
+        }
+
         public static function getById($id)
         {
             return usuario::find($id);

@@ -5,6 +5,7 @@
     use Model\ORM\Usuario as usuario;
     use Model\Security\UserSession;
 
+
     class SecurityController extends ControllerBase
     {
         public static $session = 'mastertkSecurity';
@@ -24,6 +25,29 @@
         {
             echo $this->render('security/login.html.twig');
         }
+
+
+        public function profile($id)
+        {
+            $usuario = usuario::find($id);
+            echo $this->render('security/profile.html.twig', [
+                'usuario' => $usuario
+            ]);
+        }
+
+/*        public function profile($id)
+        {
+            $usuario = usuario::find($id);
+            return  $this->render('security/profile.html.twig',[
+                'title' => 'Perfil Usuario',
+                'usuario' => UserController::find($id),
+                'roles' => RolController::listAll(),
+                'tiposDocumento'=> $this->getParameter('document_types')
+
+            ]);
+
+        }
+*/
 
         public function authenticate($email = false, $password = false)
         {

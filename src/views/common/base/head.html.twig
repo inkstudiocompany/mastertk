@@ -5,13 +5,13 @@
 
 	<div class="profile" id="profilePanel">
 		<div class="image_profile">
-			<!--<img src="https://scontent-mia1-1.xx.fbcdn.net/hphotos-xpt1/v/t1.0-9/12417619_10153355266454103_4237973287739828278_n.jpg?oh=4c367141678cfe52bdb704e1fff55adc&oe=57431064"
-			/>-->
+			<img src="{{ app.user.selfie }}"
+			/>
 			<i class="glyphicon glyphicon-user"></i>
 	</div>
 	<div class="actionbuttons">
 		<h6>
-			<a href="">{{ app.user.usuario }}</a>
+			<a href="{{ app.path('profile', {'id': app.user.id}) }}"  title="Perfil">{{ app.user.usuario }}</a>
 		</h6>
 		<a class="glyphicon glyphicon-off" href="{{ app.path('logout') }}">Logout</a>
 	</div>

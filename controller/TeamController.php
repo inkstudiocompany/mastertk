@@ -4,6 +4,7 @@
 
 	use Application\Controller\ControllerBase;
 	use Model\ORM\Equipo as equipo;
+	use Model\ORM\Proyecto as proyecto;
 
 
 	class TeamController extends ControllerBase
@@ -67,6 +68,17 @@
 
         }
 
+		public function editForm($id)
+		{
+			$equipo = Equipo::find($id);
+			return $this->render('equipos/editar.html.twig', [
+				'equipo' => $equipo,
+				'title' => 'Editar Equipo',
+				'proyectos' => proyecto::all()
+			]);
+		}
+
+
         public static function listAll()
         {
             return Equipo::all();
@@ -83,8 +95,9 @@
             $id = self::getInput($params, 'id');
             $idProyecto = self::getInput($params, 'idProyecto');
             $nombre = self::getInput($params, 'nombreEquipo');
-
+            
             $equipo = new Equipo();
+
             if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $equipo = self::getById($id);
             }

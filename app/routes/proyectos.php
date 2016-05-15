@@ -7,10 +7,10 @@ use Application\App as App;
 use Application\Controller\ProjectController;
 use Application\Controller\RequestParse;
 use Illuminate\Database\Eloquent;
-//use Application\Controller\TeamController;
-//use Application\Controller\TipoItemController;
-//use Model\ORM\Equipo;
-//use Model\ORM\TipoItem;
+use Application\Controller\TeamController;
+use Application\Controller\TipoItemController;
+use Model\ORM\Equipo;
+use Model\ORM\TipoItem;
 
     /**
      * Proyectos Routes
@@ -75,7 +75,6 @@ use Illuminate\Database\Eloquent;
         $equipos = TeamController::getByProject($parse -> get('id'));
         echo json_encode($equipos);
     });
-
 
 
     $app::Router()->get($app->path('edit_project_item_types'), function( Request $request, Response $response, $args){

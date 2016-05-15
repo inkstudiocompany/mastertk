@@ -5,7 +5,6 @@
 
     use Application\App as App;
     use Application\Controller\TeamController;
-    use Application\Controller\ProjectController;
     use Application\Controller\RequestParse;
     use Illuminate\Database\Eloquent;
 
@@ -37,10 +36,12 @@
         return $response->withRedirect(App::getInstance()->path('equipos'), 301);
     });
 
-    $app::Router()->get($app->path('edit_equipo'), function(){
+    $app::Router()->get($app->path('edit_equipo'), function( Request $request, Response $response, $args){
         $equipo = new TeamController();
-        echo $equipo->addForm();
+        $parse = new RequestParse($request,$args);
+        echo $equipo-> editForm($parse -> get('id'));
     });
+
 
     $app::Router()->post($app->path('delete_equipo'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request, $args);

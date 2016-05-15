@@ -36,7 +36,8 @@ var libsJavascript = [
   'bower/bootstrap-table/dist/bootstrap-table.min.js',
   'bower/bootstrap-table/dist/locale/bootstrap-table-es-AR.min.js',
   'vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
-  'vendor/twbs/bootstrap/assets/js/jquery.js'
+  'vendor/twbs/bootstrap/assets/js/jquery.js',
+  'bower/jasny-bootstrap/js/fileinput.js'
 ];
 
 var libsCss = [
@@ -45,6 +46,7 @@ var libsCss = [
     'bower/bootstrap3-datepicker/css/datepicker.css',
     'bower/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
     'bower/bootstrap-table/dist/bootstrap-table.min.css',
+    'bower/jasny-bootstrap/dist/css/jasny-bootstrap.min.css',
     'bower/twitter-bootstrap-wizard/bootstrap/css/bootstrap-theme.min.css',
     'bower/jquery-typeahead/dist/jquery.typeahead.min.css'
 ];

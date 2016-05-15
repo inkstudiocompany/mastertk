@@ -1,6 +1,5 @@
 {% extends 'common/forms.html.twig' %}
 
-
 {% block form_title %}
     {{ title }}
 {% endblock form_title %}
@@ -14,7 +13,6 @@
       <input name="nombre" type="text" id="nombre" class="form-control" placeholder="Nombre" required value="{{ equipo.nombreEquipo }}" />
     </div>
 
-{{ dump(project)}}
     <div class="form-group">
         <label for="idProyecto">Proyecto Asignado</label>
         <select name="idProyecto" id="idProyecto" class="form-control" required>

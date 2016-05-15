@@ -27,7 +27,6 @@
         <td nowrap="nowrap">{{ equipo.nombreRol}}</td>                
         <td nowrap="nowrap">
           <div class="btn-group btn-group-sm right" role="group">
-            <button type="button" class="btn btn-sm btn-info">Detalles</button>
             <button type="button" class="btn btn-sm btn-info" 
             data-urledit="{{ app.path('edit_equipo', {'id': equipo.idEquipo }, true) }}" role-button="editar">Editar</button>
             <button type="button" class="btn btn-sm btn-danger" data-urldelete="{{ app.path('delete_equipo', {'id': equipo.idEquipo }, true) }}"

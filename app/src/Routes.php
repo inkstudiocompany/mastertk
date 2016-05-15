@@ -16,6 +16,8 @@
 			#Security
 			'login'           => '/login',
 			'logout'          => '/logout',
+			'profile'         => '/profile[/{id}]',
+			'selfie_edit'	  => '/profile/selfie',
 			'auth'            => '/authenticate[/{email}/{password}]',
 
 			#Message

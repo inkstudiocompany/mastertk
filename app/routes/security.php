@@ -4,12 +4,25 @@
     use \Psr\Http\Message\ResponseInterface as Response;
 
     use Application\Controller\SecurityController;
+    use Application\Controller\UserController;
     use Application\Controller\RequestParse;
     use Illuminate\Database\Eloquent;
 
     /**
      * Security
      **/
+/*
+    $app::Router()->get($app->path('profile'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $security = new SecurityController();
+        echo $security->profile($parse->get('id'));
+    });
+*/
+    $app::Router()->get($app->path('profile'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $security = new SecurityController();
+        echo $security->profile($parse->get('id'));
+    });
 
     $app::Router()->get($app->path('login'), function(){
         $security = new SecurityController();
