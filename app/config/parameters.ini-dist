@@ -16,3 +16,6 @@ document_types = '{"1" : "DNI", "2" : "Pasaporte"}'
 
 [priority]
 priority = '{"1" : "ALTA", "2" : "MEDIA", "3" : "BAJA" }'
+
+[security]
+profile_security = '{"1" : "ROOT", "2" : "USER"}'

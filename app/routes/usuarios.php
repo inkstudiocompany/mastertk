@@ -41,14 +41,15 @@
         $parse = new RequestParse($request, $args);
 
         $params = [
-            'id' => $parse->get('id'),
-            'numDocumento' => $parse->get('numDocumento'),
-            'nombreCompleto' => $parse->get('nombreCompleto'),
-            'email' => $parse->get('email'),
+            'id'            => $parse->get('id'),
+            'numDocumento'  => $parse->get('numDocumento'),
+            'nombreCompleto'=> $parse->get('nombreCompleto'),
+            'email'         => $parse->get('email'),
             'nombreUsuario' => $parse->get('usuario'),
-            'password' => $parse->get('password'),
+            'password'      => $parse->get('password'),
             'tipoDocumento' => $parse->get('tipoDocumento'),
-            'rolPrincipal' => $parse->get('rolPrincipal')
+            'rolPrincipal'  => $parse->get('rolPrincipal'),
+            'profile'       => $parse->get('profile'),
         ];
 
         UserController::Save($params);

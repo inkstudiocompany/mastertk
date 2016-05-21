@@ -73,6 +73,20 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="profile">Perfil de Usuario</label>
+            <select name="profile" id="profile" class="form-control" required>
+                <option value="">- Seleccione Uno -</option>
+                {% for id, profile in profiles %}
+                    <option value="{{ id }}"
+                        {% if usuario.profile == id %}
+                            selected
+                        {% endif %}
+                    >{{ profile }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
         <div class="btn-group right" role="group" aria-label="formActions">
             <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
             <button type="submit" class="btn btn-primary">Guardar</button>

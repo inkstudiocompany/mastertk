@@ -61,10 +61,10 @@
         public function addForm()
         {
             return  $this->render('usuarios/usuarioForm.html.twig',[
-                'title' => 'Agregar Usuario',
-                'roles'=> RolController::listAll(),
-                'tiposDocumento'=> $this->getParameter('document_types')
-
+                'title'             => 'Agregar Usuario',
+                'roles'             => RolController::listAll(),
+                'tiposDocumento'    => $this->getParameter('document_types'),
+                'profiles'          => $this->getParameter('profile_security'),
             ]);
         }
 
@@ -73,11 +73,11 @@
             $usuario = usuario::find($id);
 
             return  $this->render('usuarios/usuarioForm.html.twig',[
-                'title' => 'Editar Usuario',
-                'usuario' => $usuario,
-                'roles' => RolController::listAll(),
-                'tiposDocumento'=> $this->getParameter('document_types')
-
+                'title'             => 'Editar Usuario',
+                'usuario'           => $usuario,
+                'roles'             => RolController::listAll(),
+                'tiposDocumento'    => $this->getParameter('document_types'),
+                'profiles'          => $this->getParameter('profile_security'),
             ]);
         }
 
@@ -89,20 +89,22 @@
 
         public static function Save($params){
 
-            $id = self::getInput($params, 'id');
-            $tipoDocumento = self::getInput($params, 'tipoDocumento');
-            $numDocumento = self::getInput($params, 'numDocumento');
+            $id             = self::getInput($params, 'id');
+            $profile        = self::getInput($params, 'profile');
+            $tipoDocumento  = self::getInput($params, 'tipoDocumento');
+            $numDocumento   = self::getInput($params, 'numDocumento');
             $nombreCompleto = self::getInput($params, 'nombreCompleto');
-            $email = self::getInput($params, 'email');
-            $nombreUsuario = self::getInput($params, 'nombreUsuario');
-            $password = self::getInput($params, 'password');
-            $rolPrincipal = self::getInput($params, 'rolPrincipal');
+            $email          = self::getInput($params, 'email');
+            $nombreUsuario  = self::getInput($params, 'nombreUsuario');
+            $password       = self::getInput($params, 'password');
+            $rolPrincipal   = self::getInput($params, 'rolPrincipal');
 
             $usuario = new usuario();
             if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $usuario = self::getById($id);
             }
-
+//var_dump($params, $profile); die();
+            $usuario -> profile           = $profile;
             $usuario -> idTipoDocumento   = $tipoDocumento;
             $usuario -> numDocumento      = $numDocumento;
             $usuario -> nombreCompleto    = $nombreCompleto;
