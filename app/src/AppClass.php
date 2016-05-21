@@ -19,7 +19,7 @@
 		{
             SecurityController::securityStart();
             $this->parameters = [];
-			$this->routes = Routes::getRoutes();
+            $this->routes = Routes::getRoutes();
             $this->message = new Message();
             $this->user = SecurityController::user();
 		}

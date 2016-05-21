@@ -12,6 +12,11 @@
 	margin: -6px auto;
 }
 
+.form-group.autoinline .form-control{
+    display: inline;
+    width: auto;
+}
+
 .center {
 	position: relative;
 	float: inherit;
@@ -161,6 +166,38 @@ table.table{ font-size: 12px; }
     border-radius: 0px 0px 4px 4px;
     padding: 20px 15px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+
+.usercomments .panel .panel-heading{
+    font-weight: bold;
+}
+
+.usercomments .panel .panel-heading small{
+    color: #707070;
+    float: right;
+    font-weight: normal;
+}
+
+.usercomments .panel .panel-body label{
+    font-size: 12px;
+    color: #707070;
+    width: 100%;
+    text-transform: capitalize;
+    font-weight: normal;
+}
+
+.usercomments .panel .panel-body label strong{
+    position: relative;
+    display: block;
+    float: left;
+    color: #707070;
+    width: 15%;
+    backoground-color: #f2f2f2;
+}
+
+.usercomments .panel .glyphicon-plus-sign {
+    padding-top: 5px;
+    padding-left: 10px;
 }
 
 

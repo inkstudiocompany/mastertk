@@ -48,7 +48,7 @@
             $descripcion = self::getInput($params, 'descripcion');
 
             $rol = new Rol();
-            if($id !== false) {
+            if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $rol = self::getById($id);
             }
 

@@ -1,0 +1,38 @@
+{% extends 'common/forms.html.twig' %}
+
+{% block form_title %}
+  {{ title }}
+{% endblock form_title %}
+                
+{% block form %}
+
+    <form id="tipoitem_form" name="tipoitem_form" method="POST" novalidate="novalidate" action="{{ app.path('save_tipoitem') }}">
+        <input type="hidden" name="id" id="id" value="{{ tipoitems.idTipoItem }}" />
+        <div class="form-group">
+            <label for="descripcion">Nombre Item</label>
+            <input name="descripcion" type="text" id="descripcion" placeholder="Descripcion Item"
+                   class="form-control" required value="{{ tipoitems.descripcion }}" />
+        </div>
+
+        <div class="form-group">
+            <label for="nombreDescripcion">Estado</label>
+            <select name="nombreDescripcion" id="nombreDescripcion" class="form-control">
+                <option value="">Ninguno</option>
+                {% for nombreEstado in Estado  %}
+                    <option value="{{ estado.idEstado }}"
+                        {% if tipoitem.idEstado == estado.idEstado %}
+                        selected
+                        {% endif %}
+                        >
+                        {{ estado.nombreEstado }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="btn-group right" role="group" aria-label="formActions">
+            <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </form>
+{% endblock form %}

@@ -3,6 +3,7 @@
     use \Psr\Http\Message\ServerRequestInterface as Request;
     use \Psr\Http\Message\ResponseInterface as Response;
 
+    use Application\App as App;
     use Application\Controller\TeamController;
     use Application\Controller\RequestParse;
     use Illuminate\Database\Eloquent;
@@ -17,25 +18,30 @@
     });
 
     $app::Router()->get($app->path('new_equipo'), function(){
-        $team = new TeamController();
-        echo $team->addForm();
-    });
-
-    $app::Router()->post($app->path('new_equipo'), function(Request $request, Response $response, $args){
-        $parse = new RequestParse($request);
-        $nomEquipo = $parse->get('nomEquipo');
-        $idProyecto = $parse->get('idProyecto');
-
-        $teamController = new TeamController();
-        $teamController -> createNew($nomEquipo, $idProyecto);
-
-        echo $teamController->index();
-    });
-
-    $app::Router()->get($app->path('edit_equipo'), function(){
         $equipo = new TeamController();
         echo $equipo->addForm();
     });
+
+    $app::Router()->post($app->path('save_equipo'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+
+        $params = [
+            'id' => $parse->get('id'),
+            'idProyecto' => $parse->get('idProyecto'),
+            'nombreEquipo' => $parse->get('nombre'),
+        ];
+
+        TeamController::Save($params);
+
+        return $response->withRedirect(App::getInstance()->path('equipos'), 301);
+    });
+
+    $app::Router()->get($app->path('edit_equipo'), function( Request $request, Response $response, $args){
+        $equipo = new TeamController();
+        $parse = new RequestParse($request,$args);
+        echo $equipo-> editForm($parse -> get('id'));
+    });
+
 
     $app::Router()->post($app->path('delete_equipo'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request, $args);
@@ -49,7 +55,7 @@
         return $response->withJson($dataResponse);
     });
 
-$app::Router()->post($app->path('rename_equipo'), function(Request $request, Response $response, $args){
+    $app::Router()->post($app->path('rename_equipo'), function(Request $request, Response $response, $args){
     $parse = new RequestParse($request);
     $nomEquipo = $parse->get('nombreEquipo');
     $idEquipo = $parse->get('idEquipo');
@@ -83,5 +89,4 @@ $app::Router()->post($app->path('new_team'), function( Request $request, Respons
 
         echo $equiposController->index();
 });
-
 */

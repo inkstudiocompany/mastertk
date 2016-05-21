@@ -4,7 +4,6 @@
     class Proyecto extends EntityBase
 	{
         protected $table = 'Proyecto';
-		
 	    protected $primaryKey = 'idProyecto';
 		
         public function lider(){

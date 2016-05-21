@@ -28,6 +28,15 @@
         echo $usuariosController->editForm($parse->get('id'));
     });
 
+
+    $app::Router()->post($app->path('selfie_edit'), function(Request $request, Response $response, $args){
+        $parameters = json_decode(file_get_contents('php://input')); 
+        $usuariosController = new UserController();
+        $responsedata = $usuariosController->selfie($parameters->id,$parameters->path);
+
+        return $response -> withJson($responsedata);
+    });
+
     $app::Router()->post($app->path('save_user'), function( Request $request, Response $response, $args){
         $parse = new RequestParse($request, $args);
 

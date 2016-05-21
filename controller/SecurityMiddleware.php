@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Application\App;
 use Application\Routes;
+use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Uri;
 
@@ -40,8 +41,12 @@ class SecurityMiddleware
         return $response;
     }
 
-    public function callme($request, $response, $next)
+    public function callme(Request $request, $response, $next)
     {
+        if (false !== $this->rememberme($request)){
+            return $response->withRedirect('/home');
+        }
+
         if ($request->getUri()->getPath() === '/login') {
             if (SecurityController::AppAuthorization() === true) {
                 return $response->withRedirect('/home');
@@ -59,7 +64,39 @@ class SecurityMiddleware
         return $response;
     }
 
+    public function rememberme(Request $request)
+    {
+        if (false === SecurityController::AppAuthorization()) {
+            $tockenAccess = false;
 
+            $cookies = $request->getCookieParams();
+            foreach($cookies As $cookie => $value)
+            {
+                if('Rememberme' === $cookie) {
+                    $tockenAccess = $value;
+                    break;
+                }
+            }
+
+            /*
+            $cookies = explode(';', $request->getHeaders()['HTTP_COOKIE'][0]);
+            foreach($cookies As $cookie)
+            {
+                if(trim(stristr($cookie, '=', true)) === 'Rememberme') {
+                    $tockenAccess = trim(substr(stristr($cookie, '=', false), 1));
+                    break;
+                }
+            }
+            */
+
+            if (false !== $tockenAccess) {
+                $security = new SecurityController();
+                return $security->tockenAuthenticate($tockenAccess);
+            }
+        }
+
+        return false;
+    }
 
     public function getSessionId($request)
     {
@@ -86,7 +123,7 @@ class SecurityMiddleware
         );
 
         foreach ($disabledSecurityPaths As $keyPath) {
-            if (isset($routes[$keyPath]) && isset($path_conf[1])) {
+            if (isset($routes[$keyPath]) && isset($path_conf[1]) && !empty($path_conf[1])) {
                 if (stristr($routes[$keyPath], $path_conf[1])) {
                     return true;
                 }

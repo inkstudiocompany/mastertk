@@ -14,6 +14,13 @@
         }
 
 
+        public static function selfie($id,$path)
+        {
+            $usuario = usuario::find($id);
+            $usuario -> selfie = $path;
+            return $usuario -> save();
+        }
+
         public static function getById($id)
         {
             return usuario::find($id);
@@ -92,15 +99,15 @@
             $rolPrincipal = self::getInput($params, 'rolPrincipal');
 
             $usuario = new usuario();
-            if ($id !== false) {
+            if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $usuario = self::getById($id);
             }
 
-            $usuario -> idTipoDocumento = $tipoDocumento;
-            $usuario -> numDocumento = $numDocumento;
-            $usuario -> nombreCompleto = $nombreCompleto;
-            $usuario -> email = $email;
-            $usuario -> usuario = $nombreUsuario;
+            $usuario -> idTipoDocumento   = $tipoDocumento;
+            $usuario -> numDocumento      = $numDocumento;
+            $usuario -> nombreCompleto    = $nombreCompleto;
+            $usuario -> email             = $email;
+            $usuario -> usuario           = $nombreUsuario;
 
             if ($password !== false) {
                 $usuario->password = $password;

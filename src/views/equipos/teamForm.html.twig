@@ -13,6 +13,15 @@
       <input name="nombre" type="text" id="nombre" class="form-control" placeholder="Nombre" required value="{{ equipo.nombreEquipo }}" />
     </div>
 
+    <div class="form-group">
+        <label for="idProyecto">Proyecto Asignado</label>
+        <select name="idProyecto" id="idProyecto" class="form-control" required>
+            <option value="">- Seleccione Uno -</option>
+            {% for proyecto in proyectos  %}
+                <option value="{{ proyecto.idProyecto }}" selected>{{ proyecto.nombreProyecto }}</option>
+            {% endfor %}
+        </select>
+    </div>
 
     <div class="btn-group right" role="group" aria-label="formActions">
       <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>

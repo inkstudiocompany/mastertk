@@ -1,7 +1,28 @@
 {% if transiciones is not empty %}
-  {% for history in transiciones %}
-    <div class="row">
+  {% for key, history in transiciones %}
+    <div class="col-md-12 usercomments">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <a class="glyphicon glyphicon-plus-sign right" role="button" data-toggle="collapse" href="#history-{{ key }}" aria-expanded="false"></a>
+            <small>{{ history.fechahora }}</small> {{ history.usuario.nombreCompleto }}
+        </div>
 
+        {% set datalog = history.data | replace({ '{':'', '}': ''}) | split(',') %}
+
+        <div class="panel-body">
+            {% for index, item in datalog %}
+                {% if 2 == loop.index %}
+                    <div class="collapse" id="history-{{ key }}">
+                {% else %}
+                    <label><strong>{{ item | replace({'"': '', ':': '</strong>'}) | raw }}</label>
+                {% endif %}
+
+                {% if true == loop.last %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+      </div>
     </div>
   {% endfor %}
 {% else %}

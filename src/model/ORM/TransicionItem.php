@@ -8,15 +8,11 @@ class TransicionItem extends EntityBase{
     
     protected $primaryKey = 'idTransicionItem';
 
-    public function workflow(){
-    	$this->belongsTo('Model\ORM\WorkFlow','idWorkFlow','idWorkFlow');
-    }
-    
     public function item(){
-    	$this->belongsTo('Model\ORM\Item','idItem','idItem');
+    	return $this->belongsTo('Model\ORM\Item','idItem','idItem');
     }
     
-    public function actor(){
-        $this->belongsTo('Model\ORM\Usuario','actor','idUsuario');
+    public function usuario(){
+        return $this->hasOne('Model\ORM\Usuario','idUsuario','idUsuario');
     }
 }

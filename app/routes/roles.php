@@ -18,8 +18,8 @@
     });
 
     $app::Router()->get($app->path('new_rol'), function(){
-        $project = new RolController();
-        echo $project->addForm();
+        $rol = new RolController();
+        echo $rol->addForm();
     });
 
     $app::Router()->post($app->path('save_rol'), function(Request $request, Response $response, $args){
