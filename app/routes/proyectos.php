@@ -75,8 +75,6 @@ use Model\ORM\Equipo;
         echo json_encode($equipos);
     });
 
-
-
     $app::Router()->get($app->path('edit_project_item_types'), function( Request $request, Response $response, $args){
         $parse = new RequestParse($request,$args);
         echo (new  ProjectController()) -> editItemTypeForm($parse -> get('id'));

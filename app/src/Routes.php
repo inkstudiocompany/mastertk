@@ -51,12 +51,14 @@
 			'states_tipoitem' => '/tipoitems/estados',
 			'edit_tipoitem'   => '/tipoitems/editar[/{id}]',
 			'delete_tipoitem' => '/tipoitems/borrar[/{id}]',
+			'tipoitem_workflow' => '/tipoitems/workflow[/{id}]',
 
 			#Items
 			'item_detail'     => '/ticket[/{id}]',
 
 			#Workflow
 			'workflow'        => '/workflow',
+			'workflow_update'        => '/workflow/update',
 
 			#Proyectos
 			'edit_project' => '/proyectos/editar[/{id}]',

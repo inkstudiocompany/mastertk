@@ -3,6 +3,7 @@ $(document).ready(function (){
 
     var agregarProyecto =$("form#agregar_proyecto");
     var editTeamForm =  $("div#team-edition");
+    var editItemType = $("div#item-type-edition");
 
     agregarProyecto.validate({
         rules: {
@@ -262,9 +263,7 @@ $(document).ready(function (){
 
                 ].join('');
             }
-
-        },{
-            field: 'lider.nombreCompleto',
+        },{ field: 'lider.nombreCompleto',
             valign:'middle',
             halign:'center',
             title: 'Lider',
@@ -385,6 +384,89 @@ $(document).ready(function (){
             modal.modal('hide');
         });
 
+    });
+
+    /*Edition de Tipos de Item*/
+
+    editItemType.find("#edit-item-type-wz").bootstrapWizard({
+        onTabClick: function (tab, navigation, index) {
+            return false;
+        }
+    });
+
+    editItemType.find("#edit-item-type-wz .wf-ed").click(function (){
+        var id = this.dataset.id;
+        editItemType.itemTypeId = id;
+        editItemType.find("#edit-item-type-wz .title").html(this.dataset.name);
+        editItemType.find("#edit-item-type-wz").bootstrapWizard('show',2);
+        editItemType.workflow = new Workflow(id);
+        editItemType.workflow.draw();
+    });
+
+    editItemType.find("#edit-item-type-wz .st-ed").click(function (){
+        var id = this.dataset.id;
+        editItemType.itemTypeId = id;
+        editItemType.find("#edit-item-type-wz .title").html(this.dataset.name);
+        editItemType.find("#edit-item-type-wz").bootstrapWizard('show',1);
+        console.log(".....",id);
+        editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh', {url:'/tipoitems/workflow/'+id});
+
+    });
+    editItemType.find("#edit-item-type-wz #states-table").bootstrapTable({pagination:true,
+        pageSize:5,
+        method: 'get',
+        url:  '',
+        responseHandler: function(data){console.log(data); return data.estados;},
+        columns: [{
+            field: 'nombreEstado',
+            valign:'middle',
+            halign:'center',
+            class:'col-md-5',
+            title: 'Nombre Estado',
+            formatter: function(value, row, index) {
+                return [
+                    '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-name"',
+                    'data-id="', row.idEquipo,'" data-nombre= "', value,'"  title="Cambiar Nombre">',
+                    '<i class="glyphicon glyphicon-pencil"></i></a>  ',
+                    value
+
+                ].join('');
+            }
+        },{ field: 'acciones',
+            valign:'middle',
+            halign:'center',
+            class: 'col-md-2',
+            title: 'Acciones',
+            formatter: function(value, row, index) {
+                return [
+                    '<a href="#" class="badge btn-sm wf-ed" title="Cambiar Workflow">',
+                    '<i class="glyphicon glyphicon-random"></i></a>',
+                    '<a href="#" class=" badge btn-sm st-ed"  title="Ver Estados">',
+                    '<i class="glyphicon glyphicon-tasks"></i></a>'
+                ].join('');
+            }
+        }
+        ]
+    });
+
+    editItemType.find("#edit-item-type-wz .button-previous").click(function (){
+        editItemType.find("#edit-item-type-wz").bootstrapWizard('show',0);
+    });
+
+    editItemType.find("#edit-item-type-wz .button-save-workflow").click(function (){
+        var data = { idItemType: editItemType.itemTypeId,
+                     workflows :    editItemType.workflow.obtenerWorkflows()},
+            callback = function(data){
+                editItemType.find("#edit-item-type-wz").bootstrapWizard('show',0);
+            };
+        $.ajax({
+            url: "/workflow/update",
+            type: "POST",
+            data:  JSON.stringify(data),
+            dataType: 'json',
+            success: callback,
+            error:  function(data){console.log(data)}
+        });
     });
 });
 

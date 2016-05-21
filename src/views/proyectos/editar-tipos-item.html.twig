@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<div class="panel panel-default" id="team-edition">
+<div class="panel panel-default" id="item-type-edition">
     <div class="panel-heading">
         Edici&oacute;n de Tipos de Item
     </div>
@@ -31,14 +31,20 @@
         </div>
     </div>
 
-    <input type="hidden" name="idProyecto" id="idProyecto" class="basic-data" value="{{proyecto.idProyecto}}" required/>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6" >
+    <input type="hidden" name="idProyecto" id="idProyecto" class="basic-data" value="{{proyecto.idProyecto}}" />
+    <div id="edit-item-type-wz">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="list"><a href="#tab1" data-toggle="tab">Tipos de Item</a></li>
+            <li><a href="#tab2" data-toggle="tab">Estados</a></li>
+            <li><a href="#tab3" data-toggle="tab">Workflow</a></li>
+        </ul>
+        <div class="clearfix span6"> </div>
+        <div class="tab-content">
+            <div class="tab-pane" id="tab1">
                 {% if tiposItem is not empty %}
                     <ul class="list-group">
                         <li  class="list-group-item active" > Tipo Item
-                           {# <span class="badge">Estados</span>#}
+                            {# <span class="badge">Estados</span>#}
                         </li>
                         {% for tipoItem in tiposItem %}
                             <li  class="list-group-item">
@@ -46,10 +52,12 @@
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </a>
                                 {{ tipoItem.descripcion }}
-                                <a href="#" class=" badge btn-sm"  title="Cambiar Workflow">
-                                        <i class="glyphicon glyphicon-random"></i>
+                                <a href="#" class="badge btn-sm wf-ed" data-name="{{ tipoItem.descripcion }}"
+                                   data-id="{{ tipoItem.idTipoItem }}" title="Cambiar Workflow">
+                                    <i class="glyphicon glyphicon-random"></i>
                                 </a>
-                                <a href="#" class=" badge btn-sm"  title="Ver Estados">
+                                <a href="#" class=" badge btn-sm st-ed"  data-name="{{ tipoItem.descripcion }}"
+                                   data-id="{{ tipoItem.idTipoItem }}" title="Ver Estados">
                                     <i class="glyphicon glyphicon-tasks"></i>
                                 </a>
                             </li>
@@ -57,87 +65,47 @@
                     </ul>
                 {% endif %}
             </div>
-            <div class="col-sm-6" >
-                {% if tiposItem is not empty %}
-                    {% for tipoItem in tiposItem %}
-                        <div class=" estados list-group {{ tipoItem.idTipoItem }}" hidden >
-                            <a  class="list-group-item active panel-info">
-                                 Posibles estados para {{ tipoItem.descripcion  }}
-                            </a>
-                            {% if tipoItem.estados is not empty %}
-                                {% for estado in tipoItem.estados %}
-                                    <a  class="list-group-item">
-                                        {#<span class="badge">{{ tipoItem.estados | length }}</span>#}
-                                        {{ estado.nombreEstado }}
-                                    </a>
-                                {% endfor %}
-                            {% else %}
-                                <a  class="list-group-item">
-                                    No se han registrado estados
-                                </a>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                {% endif %}
+            <div class="tab-pane" id="tab2">
+                <nav>
+                    <ul class="pager">
+                        <li class="previous button-previous"><a href="#"><span aria-hidden="true" class="glyphicon glyphicon-hand-left"></span> Tipos Item</a></li>
+                        <li class="previous "><a href="#">Guardar <span aria-hidden="true" class="glyphicon glyphicon-floppy-saved"></span></a></li>
+                    </ul>
+                </nav>
+                <div class="row">
+                    <h4 class="col-md-2 col-md-offset-5 title" >
+                        SARASASA
+                    </h4>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <table id="states-table"></table>
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane" id="tab3">
+                <nav>
+                    <ul class="pager">
+                        <li class="previous button-previous"><a href="#"><span aria-hidden="true" class="glyphicon glyphicon-hand-left"></span> Tipos Item</a></li>
+                        <li class="previous button-save-workflow"><a href="#">Guardar <span aria-hidden="true" class="glyphicon glyphicon-floppy-saved"></span></a></li>
+                    </ul>
+                </nav>
+                <div class="row">
+                    <h4 class="col-md-2 col-md-offset-5 title" >
+                        SARASASA
+                    </h4>
+                </div>
+                <div class="workflow" id="canvas" >
+                </div>
             </div>
         </div>
     </div>
-
-    <!--
-    <div class="modal fade" id="edit-team-name" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="modal-title">Editar Nombre de Equipo</span>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nombreEquipo"> Nuevo Nombre</label>
-                        <input name="nombre"  id="nombre" type="text" class="form-control add-team" placeholder="Nombre de Equipo ..."  />
-                        <input type="hidden" name="idEquipo" id="idEquipo" />
-                        <input type="hidden" name="nombreOriginal" id="nombreOriginal" />
-                        <div class="error-msg alert-danger" role="alert" hidden>
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            Enter a valid email address
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer" role="group" aria-label="formActions">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="modal fade" id="edit-team-lider" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="modal-title">Editar Nombre de Equipo</span>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nombreEquipo"> Nuevo Nombre</label>
-                        <input name="nombre"  id="nombre" type="text" class="form-control add-team" placeholder="Nombre de Equipo ..."  />
-                        <input type="hidden" name="idEquipo" id="idEquipo" />
-                        <input type="hidden" name="nombreOriginal" id="nombreOriginal" />
-                        <div class="error-msg alert-danger" role="alert" hidden>
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            Enter a valid email address
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer" role="group" aria-label="formActions">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
-                </div>
-            </div>
-
-        </div>
-    </div> -->
-
-
 </div>
+
+
+
 {% endblock body %}

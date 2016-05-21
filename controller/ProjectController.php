@@ -34,19 +34,6 @@
 				'roles'=> RolController::listAll()]);
 		}
 
-        public function createNew($nomProyecto,$objProyecto,$inicioProyecto,$finProyecto,$productivoProyecto = 0,$idLider, $equipos, $tiposItem){
-            $proyecto= new Proyecto();
-            $proyecto -> nomProyecto = $nomProyecto;
-            $proyecto -> objProyecto = $objProyecto;
-            $proyecto -> inicioProyecto = $inicioProyecto;
-            $proyecto -> finProyecto = $finProyecto;
-            $proyecto -> productivoProyecto = $productivoProyecto;
-            $proyecto -> lider() -> associate($idLider);
-			$proyecto->save();
-			$proyecto -> equipos() -> saveMany ($equipos);
-			$proyecto -> tipoItem() -> saveMany($tiposItem);
-        }
-
 		public function editForm($id)
 		{
 			$proyecto = proyecto::with('lider') -> find($id);
@@ -95,10 +82,12 @@
 		{
 			$proyecto = self::getById($id);
 			$tiposItem = TipoItemController::getByProject($id);
+			$equipos = TeamController::getByProject($id);
 			//echo $tiposItem;
 			return $this->render('proyectos/editar-tipos-item.html.twig', [
 				'proyecto' => $proyecto,
-				'tiposItem' =>$tiposItem
+				'tiposItem' =>$tiposItem,
+				'equipos' => $equipos
 			]);
 
 		}

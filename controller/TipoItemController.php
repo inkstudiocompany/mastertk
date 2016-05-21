@@ -6,6 +6,8 @@
 	use Illuminate\Database\Eloquent\Collection;
 	use Model\ORM\Estado;
 	use Model\ORM\TipoItem as tipoitem;
+	use Model\ORM\Workflow;
+
 
 	class TipoItemController extends ControllerBase
 	{
@@ -23,10 +25,39 @@
 
 		public static function getByProject($id)
 		{
-			$tipoitems = tipoitem::with('estados')
+			$tipoitems = tipoitem::first()
 				-> where ('idProyecto','=',$id)
 				-> get();
 			return $tipoitems;
+		}
+
+		public static function getWorkflows($id)
+		{
+			$workflows = Workflow::first()
+				->join("Estado as ea", "ea.idEstado","=","idEstadoActual")
+				->join("Estado as es", "es.idEstado","=","idEstadoSiguiente")
+				->where("deleted","=",0)
+				->where(function($query) use($id) {
+					return $query->where("ea.idTipoItem","=",$id)
+						->orWhere("es.idTipoItem","=",$id);
+				})
+				-> get();
+
+
+			return $workflows;
+		}
+
+		public static function updateWorkflows($id, $nuevosWorkflows)
+		{
+			$workflows =  self::getWorkflows($id);
+			foreach($workflows as $workflow){
+				$workflow -> deleted ='1';
+				$workflow ->save();
+			}
+			foreach($nuevosWorkflows as $workflow){
+				$workflow ->save();
+			}
+
 		}
 
 		public function index()

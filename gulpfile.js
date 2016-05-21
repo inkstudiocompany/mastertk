@@ -35,6 +35,7 @@ var libsJavascript = [
   'bower/bootstrap-switch/dist/js/bootstrap-switch.min.js',
   'bower/bootstrap-table/dist/bootstrap-table.min.js',
   'bower/bootstrap-table/dist/locale/bootstrap-table-es-AR.min.js',
+  'bower/jsPlumb/dist/js/jsPlumb-2.0.7-min.js',
   'vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
   'vendor/twbs/bootstrap/assets/js/jquery.js'
 ];

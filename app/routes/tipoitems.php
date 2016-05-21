@@ -1,9 +1,12 @@
 <?php
 
-    use \Psr\Http\Message\ServerRequestInterface as Request;
+
+use Model\ORM\Workflow;
+use \Psr\Http\Message\ServerRequestInterface as Request;
     use \Psr\Http\Message\ResponseInterface as Response;
 
     use Application\Controller\TipoItemController;
+    use Application\Controller\EstadoController;
     use Application\Controller\RequestParse;
     use Illuminate\Database\Eloquent;
 
@@ -24,12 +27,7 @@
 
     $app::Router()->post($app->path('new_tipoitem'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request);
-    //		$nomEquipo = $parse->get('nomEquipo');
-    //      $idProyecto = $parse->get('idProyecto');
-
         $tipoitemController = new TipoItemController();
-    //        $itemController -> createNew($nomProyecto, $idProyecto);
-
         echo $tipoitemController->index();
     });
 
@@ -48,6 +46,40 @@
             $tipoitem = new TipoItemController();
             $dataResponse['status'] = (boolean) $tipoitem->delete($id);
         }
-
         return $response->withJson($dataResponse);
     });
+
+    $app::Router()->get($app->path('tipoitem_workflow'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $estados = EstadoController::getByItemTypeId($parse -> get('id'));
+        $workflows = TipoItemController::getWorkflows($parse -> get('id'));
+        $resultado = ["estados" => $estados, "workflows" => $workflows];
+        echo json_encode($resultado);
+    });
+
+    $app::Router()->post($app->path('workflow_update'), function(Request $request, Response $response, $args){
+        $workflows = new Eloquent\Collection();
+        $body = file_get_contents("php://input");
+        $body_params = json_decode($body);
+        foreach($body_params ->workflows as $workflow){
+            $item = new Workflow();
+            $item ->estadoActual()-> associate ($workflow -> idEstadoActual);
+            $item -> estadoSiguiente()-> associate($workflow -> idEstadoSiguiente);
+            $workflows -> add($item);
+        }
+        TipoItemController::updateWorkflows($body_params ->idItemType, $workflows);
+        json_encode(true);
+    });
+
+    $app::Router()->get($app->path('states_tipoitem'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $estados = EstadoController::getByItemTypeId($parse -> get('id'));
+        $workflows = TipoItemController::getWorkflows($parse -> get('id'));
+        $resultado = ["estados" => $estados, "workflows" => $workflows];
+        echo json_encode($resultado);
+    });
+
+
+
+
+

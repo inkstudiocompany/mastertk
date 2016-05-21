@@ -8,17 +8,14 @@
 
     <form id="agregar_proyecto" name="agregar_proyecto" method="POST" autocomplete="off" action="/proyectos/guardar">
         <div id="wizard">
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="container">
-                        <ul class="nav-justified">
-                            <li><a href="#tab1" data-toggle="tab">Datos B&aacute;sicos</a></li>
-                            <li><a href="#tab2" data-toggle="tab">Equipos</a></li>
-                            <li><a href="#tab3" data-toggle="tab">Tipos de Item</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <nav>
+                <ul class="nav nav-tabs nav-justified">
+                    <li><a href="#tab1" data-toggle="tab">Datos B&aacute;sicos</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Equipos</a></li>
+                    <li><a href="#tab3" data-toggle="tab">Tipos de Item</a></li>
+                </ul>
+            </nav>
+            <div class="clearfix span6"> </div>
             <div class="tab-content">
                 <div class="tab-pane" id="tab1">
                     {{ include ('proyectos/steps/datos-basicos.html')  }}
