@@ -74,6 +74,7 @@
 			'edit_project_item_types'   => '/proyectos/tipo-item[/{id}]',
 			'edit_project_workflow'     => '/proyectos/workflow[/{id}]',
 			'save_project'              => '/proyectos/guardar',
+            'project_detail'            => '/proyectos/detalle[/{id}]'
 		];
 
 		public static function getRoutes()
