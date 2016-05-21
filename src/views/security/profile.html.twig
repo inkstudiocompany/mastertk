@@ -29,7 +29,7 @@
 {% endblock form_title %}
 
 {% block form %}
-    <form id="usuario_form" name="usuario_form" method="POST" novalidate="novalidate" action="{{ app.path('save_user') }}">
+    <form id="usuario_form" name="usuario_form" method="POST" novalidate="novalidate" action="{{ app.path('save_user', {'from':'profile'}) }}">
         <input type="hidden" name="id" id="id" value="{{ usuario.idUsuario }}" />
         <div class="form-group">
             <label for="nombreCompleto">Nombre y Apellido</label>
