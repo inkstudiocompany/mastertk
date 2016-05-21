@@ -12,10 +12,14 @@
         }
 
         public function usuarioRolEquipo(){
-            return $this ->hasMany('Model\ORM\UsuarioRolEquipo','idEquipo','idEquipo');
+            return $this->hasMany('Model\ORM\UsuarioRolEquipo','idEquipo','idEquipo');
         }
 
-        public function lider(){
-            return $this->belongsTo('Model\ORM\Usuario','idLider','idUsuario');
+        public function scopeLider($query, $id){
+            $query->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
+                ->join('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+                ->where('UsuarioRolEquipo.esLider', '=', $id)
+                ->select('Usuario.*')
+                ;
         }
     }

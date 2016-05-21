@@ -81,3 +81,16 @@ use Model\ORM\TipoItem;
         $parse = new RequestParse($request,$args);
         echo (new  ProjectController()) -> editItemTypeForm($parse -> get('id'));
     });
+
+    $app::Router()->get($app->path('project_detail'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+
+        $proyectController = new ProjectController();
+        $response = $proyectController->detalle($parse->get('id'));
+
+        if (true === $response instanceof \Slim\Http\Response) {
+            return $response;
+        }
+
+        echo $response;
+    });
