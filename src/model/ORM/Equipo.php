@@ -19,7 +19,9 @@
             $query->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
                 ->join('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
                 ->where('UsuarioRolEquipo.esLider', '=', $id)
-                ->select('Usuario.*')
-                ;
+                ->select('Usuario.*');
         }
+
+
+
     }
