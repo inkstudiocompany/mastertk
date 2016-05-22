@@ -1,6 +1,10 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="{{ app.path('new_ticket', { 'id' : idproyecto }, true) }}" class="btn btn-default btn-sm col-md-offset-11">Nuevo Ticket</a>
+        <a href="{{ app.path('new_ticket', { 'id' : idproyecto }, true) }}"
+           {% if proyecto.equipos[0].usuarioRolEquipo is empty %}
+               disabled="true"
+           {% endif %}
+           class="btn btn-default btn-sm col-md-offset-11">Nuevo Ticket</a>
     </div>
     <table class="table">
         <thead>
@@ -32,7 +36,12 @@
                   </tr>
               {% endfor %}
           {% else %}
-              No hay tickets
+              <tr>
+                  <td colspan="5" class="alert alert-info text-center">
+                      <strong>Ups!</strong>
+                      No existen registros
+                  </td>
+              </tr>
           {% endif %}
       </tbody>
   </table>

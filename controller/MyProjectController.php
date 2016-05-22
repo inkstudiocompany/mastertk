@@ -14,12 +14,16 @@
 		
 			$usuario = SecurityController::user();
 			$misproyectos = Proyecto::with(['equipos', 'lider'])
-				->join('Equipo', 'Proyecto.idProyecto', '=', 'Equipo.idProyecto')
-				->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
-				->join('Rol', 'UsuarioRolEquipo.idRol', '=', 'Rol.idRol')
-				->join('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
+				->leftJoin('Equipo', 'Proyecto.idProyecto', '=', 'Equipo.idProyecto')
+				->leftJoin('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
+				->leftJoin('Rol', 'UsuarioRolEquipo.idRol', '=', 'Rol.idRol')
+				->leftJoin('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
 				->where('Usuario.idUsuario', '=', $usuario->id())
-				->get();
+                ->orWhere(function($query, $usuario)
+                {
+                    $usuario = SecurityController::user();
+                    $query->where('Proyecto.idLider', '=', $usuario->id());
+                })->distinct()->get();
 
 			return $this->render('misproyectos/listado.html.twig', [
 				'misproyectos' => $misproyectos

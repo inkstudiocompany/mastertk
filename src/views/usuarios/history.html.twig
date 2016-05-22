@@ -29,7 +29,7 @@
                   <div class="panel-body">
                       {% for index, item in datalog %}
                           {% if 2 == loop.index %}
-                              <ul class="collapse list-group" id="history-{{ tickets.idItem }}">
+                              <ul class="collapse list-group" id="history-{{ tickets.idTransicionItem }}">
                           {% else %}
                               <li class="list-group-item"><label><strong>{{ item | replace({'"': '', ':': '</strong>', 'accionTicket': ''}) | raw }}</label></li>
                           {% endif %}
@@ -40,7 +40,7 @@
                       {% endfor %}
                   </div>
 
-                  <a class="glyphicon glyphicon-plus-sign right" role="button" data-toggle="collapse" href="#history-{{ tickets.idItem }}" aria-expanded="false">
+                  <a class="glyphicon glyphicon-plus-sign right" role="button" data-toggle="collapse" href="#history-{{ tickets.idTransicionItem }}" aria-expanded="false">
                       Ver detalles
                   </a>
 

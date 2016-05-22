@@ -1,5 +1,98 @@
 {% extends 'common/base.html.twig' %}
 
 {% block body %}
-	Bienvenido!!
+	<div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a href="{{ app.path('my_projects') }}">
+                    Proyectos en los que participo
+                    </a>
+                </div>
+
+                <table class="table">
+                    {% for proyecto in misproyectos %}
+                        <tr>
+                            <td>{{ proyecto.nomProyecto }}</td>
+                            <td class="col-md-1">
+                                <button type="button" class="btn btn-sm btn-info"
+                                        data-urldetail="{{ app.path('project_detail', {'id': proyecto.idProyecto }, true) }}" role-button="detalle">
+                                    ver proyecto
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <a href="{{ app.path('my_tickets') }}">
+                    Tickets Asignados
+                    </a>
+                </div>
+
+                <table class="table">
+                {% for ticket in mistickets %}
+                    <tr>
+                        <td>{{ ticket.tituloItem }}</td>
+                        <td class="col-md-1">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-sm btn-info"
+                                        data-urldetail="{{ app.path('item_detail', {'id': ticket.idItem }, true) }}" role-button="detalle">
+                                    ver ticket
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <a href="{{ app.path('history') }}">
+                    Historial Acciones
+                    </a>
+                </div>
+                <table class="table">
+                    {% for tickets in history %}
+                        <tr>
+                            <td nowrap="nowrap">
+                                {% set datalog = tickets.data | replace({ '{':'', '}': ''}) | split(',') %}
+                                <div class="panel panel-default history-panel">
+
+                                    <div class="panel-body">
+                                        {% for index, item in datalog %}
+                                            {% if 2 == loop.index %}
+                                                <ul class="collapse list-group" id="history-{{ tickets.idTransicionItem }}">
+                                            {% else %}
+                                                <li class="list-group-item"><label><strong>{{ item | replace({'"': '', ':': '</strong>', 'accionTicket': ''}) | raw }}</label></li>
+                                            {% endif %}
+
+                                            {% if true == loop.last %}
+                                                </ul>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    <a class="glyphicon glyphicon-plus-sign right" role="button" data-toggle="collapse" href="#history-{{ tickets.idTransicionItem }}" aria-expanded="false">
+                                        Ver detalles
+                                    </a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock body %}

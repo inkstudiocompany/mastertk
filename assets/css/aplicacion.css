@@ -286,3 +286,11 @@ path, ._jsPlumb_endpoint {
 a:hover{
     text-decoration: none;
 }
+
+.container footer{
+    margin-top: 50px;
+    margin-bottom: 0px;
+    border-top: 1px solid #eee;
+    height: 30px;
+    padding-top: 10px;
+}
