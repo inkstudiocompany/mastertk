@@ -1,0 +1,105 @@
+{% extends 'common/base.html.twig' %}
+
+{% block custom_javascript %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#detailTabs a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
+{% endblock  %}
+
+{% block body %}
+    <div class="details-panel">
+        <div class="row">
+            <div class="col-md-10">
+                <h1>{{ proyecto.nomProyecto }}</h1>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-default right"
+                        data-urledit="{{ app.path('edit_project', {'id': proyecto.idProyecto }, true) }}" role-button="editar">Editar</button>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong class="col-md-5">Objetivo</strong>
+                        {{ proyecto.objProyecto }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong class="col-md-5">Fecha estimada</strong>
+                        de <i>{{ proyecto.inicioProyecto }}</i> a <i>{{ proyecto.finProyecto }}</i>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong class="col-md-5">Lider de Proyecto</strong>
+                        {{ proyecto.lider.nombreCompleto }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <strong class="col-md-4">Equipos asignados</strong>
+
+                        <div class="col-md-8">
+                        {%  for equipo in proyecto.equipos %}
+                            <div class="col-md-12">
+                                <a role="button" data-toggle="collapse" href="#{{ equipo.idEquipo }}Team" aria-expanded="false" aria-controls="collapseExample">
+                                    {{  equipo.nombreEquipo }}
+                                </a>
+                                <div class="collapse" id="{{ equipo.idEquipo }}Team">
+                                    <div class="">
+                                        <ul class="list-group">
+                                            {% for integrante in equipo.usuarioRolEquipo %}
+                                                <li class="list-group-item">
+                                                {% if integrante.esLider == 1 %}
+                                                    <i class="glyphicon glyphicon-asterisk"></i>
+                                                {% endif %}
+                                                {{ integrante.usuario.nombreCompleto }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="nav nav-tabs" id="detailTabs">
+                            <li role="presentation" class="active">
+                                <a href="#tickets">Tickets</a>
+                            </li>
+                            {#<li role="presentation">
+                                <a href="#history">Historial</a>
+                            </li>#}
+                        </ul>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="tickets">
+                                <div class="col-md-12 details-panel">
+                                    {% include 'misproyectos/tickets.html.twig' with { 'tickets': proyecto.items, 'idproyecto': proyecto.idProyecto } %}
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="history">
+                                <div class="col-md-12 details-panel">
+    {#{% include 'tickets/history.html.twig' with { 'transiciones': ticket.transiciones } %}#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

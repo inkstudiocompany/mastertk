@@ -41,19 +41,25 @@
         $parse = new RequestParse($request, $args);
 
         $params = [
-            'id' => $parse->get('id'),
-            'numDocumento' => $parse->get('numDocumento'),
-            'nombreCompleto' => $parse->get('nombreCompleto'),
-            'email' => $parse->get('email'),
+            'id'            => $parse->get('id'),
+            'numDocumento'  => $parse->get('numDocumento'),
+            'nombreCompleto'=> $parse->get('nombreCompleto'),
+            'email'         => $parse->get('email'),
             'nombreUsuario' => $parse->get('usuario'),
-            'password' => $parse->get('password'),
+            'password'      => $parse->get('password'),
             'tipoDocumento' => $parse->get('tipoDocumento'),
-            'rolPrincipal' => $parse->get('rolPrincipal')
+            'rolPrincipal'  => $parse->get('rolPrincipal'),
+            'profile'       => $parse->get('profile'),
         ];
 
-        UserController::Save($params);
+        $user = UserController::Save($params);
 
-        return $response->withRedirect(App::getInstance()->path('users'), 301);
+        if ('user' === $parse->get('from'))
+        {
+            return $response->withRedirect(App::getInstance()->path('edit_user',["id"=> $user->idUsuario], true), 301);
+        } else {
+            return $response->withRedirect(App::getInstance()->path('profile',["id"=> $user->idUsuario], true), 301);
+        }
     });
 
     $app::Router()->post($app->path('delete_user'), function(Request $request, Response $response, $args){
@@ -96,5 +102,10 @@
                 "usuarios" => UserController::listWithRolAll()
             )
         ));
+    });
+
+    $app::Router()->get($app->path('history'), function(){
+        $usuariosController = new UserController();
+        echo $usuariosController->history();
     });
 ?>

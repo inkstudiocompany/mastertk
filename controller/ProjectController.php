@@ -89,7 +89,23 @@
 				'tiposItem' =>$tiposItem,
 				'equipos' => $equipos
 			]);
-
 		}
 
+        public function detalle ($id) {
+            $response = proyecto::with([
+                    'lider',
+                    'equipos.usuarioRolEquipo.usuario',
+                    'items.estado',
+                    'items.asignado.usuario'
+                ]) -> find($id);
+
+            if (true === is_null($response)) {
+                $response = new Response();
+                return $response->withRedirect($this->container->path('list_project_teams', true));
+            }
+
+            return $this->render('misproyectos/detalle.html.twig', [
+                'proyecto'  => $response
+            ]);
+        }
 	}

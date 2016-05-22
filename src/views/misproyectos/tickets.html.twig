@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{{ app.path('new_ticket', { 'id' : idproyecto }, true) }}" class="btn btn-default btn-sm col-md-offset-11">Nuevo Ticket</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-md-4">Ticket</th>
+                <th class="col-md-2">Prioridad</th>
+                <th>Estado</th>
+                <th>Asignado a</th>
+                <th class="col-md-1"></th>
+            </tr>
+      </thead>
+      <tbody>
+          {% if tickets is not empty %}
+              {% for ticket in tickets %}
+                  <tr>
+                      <td>{{ ticket.tituloItem }}</td>
+                      <td>{{ ticket.prioridad }}</td>
+                      <td>{{ ticket.estado.nombreEstado }}</td>
+                      <td>{{ ticket.asignado.usuario.nombreCompleto }}</td>
+                      <td>
+                          <div class="btn-group btn-group-sm" role="group">
+                              <a type="button" class="btn btn-sm btn-info" target="_blank"
+                                      href="{{ app.path('item_detail', {'id': ticket.idItem }, true) }}" role-button="detalle">
+                                  ver ticket
+                                  <i class="glyphicon glyphicon-eye-open"></i>
+                              </a>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
+          {% else %}
+              No hay tickets
+          {% endif %}
+      </tbody>
+  </table>
+</div>

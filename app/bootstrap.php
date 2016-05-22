@@ -1,5 +1,6 @@
 <?php
     define ('BASE', realpath('./') . '/');
+    define ('ENVIRONMENT', 'develop');
 
 	$url = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 

@@ -8,6 +8,7 @@
         private $nombre;
         private $email;
         private $selfie;
+        private $profile;
 
         public function __construct($usuario)
         {
@@ -16,6 +17,7 @@
             $this->nombre   = $usuario->nombreCompleto;
             $this->email    = $usuario->email;
             $this->selfie   = $usuario->selfie;
+            $this->profile  = $usuario->profile;
         }
 
         public function id()
@@ -41,5 +43,10 @@
         public function selfie()
         {
             return $this->selfie;
+        }
+
+        public function profile()
+        {
+            return $this->profile;
         }
     }

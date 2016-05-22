@@ -2,6 +2,7 @@
 
     namespace Application\Controller;
 
+    use Application\App;
     use Model\ORM\Usuario as usuario;
 
 
@@ -61,10 +62,10 @@
         public function addForm()
         {
             return  $this->render('usuarios/usuarioForm.html.twig',[
-                'title' => 'Agregar Usuario',
-                'roles'=> RolController::listAll(),
-                'tiposDocumento'=> $this->getParameter('document_types')
-
+                'title'             => 'Agregar Usuario',
+                'roles'             => RolController::listAll(),
+                'tiposDocumento'    => $this->getParameter('document_types'),
+                'profiles'          => $this->getParameter('profile_security'),
             ]);
         }
 
@@ -73,11 +74,11 @@
             $usuario = usuario::find($id);
 
             return  $this->render('usuarios/usuarioForm.html.twig',[
-                'title' => 'Editar Usuario',
-                'usuario' => $usuario,
-                'roles' => RolController::listAll(),
-                'tiposDocumento'=> $this->getParameter('document_types')
-
+                'title'             => 'Editar Usuario',
+                'usuario'           => $usuario,
+                'roles'             => RolController::listAll(),
+                'tiposDocumento'    => $this->getParameter('document_types'),
+                'profiles'          => $this->getParameter('profile_security'),
             ]);
         }
 
@@ -89,36 +90,58 @@
 
         public static function Save($params){
 
-            $id = self::getInput($params, 'id');
-            $tipoDocumento = self::getInput($params, 'tipoDocumento');
-            $numDocumento = self::getInput($params, 'numDocumento');
+            $id             = self::getInput($params, 'id');
+            $profile        = self::getInput($params, 'profile');
+            $tipoDocumento  = self::getInput($params, 'tipoDocumento');
+            $numDocumento   = self::getInput($params, 'numDocumento');
             $nombreCompleto = self::getInput($params, 'nombreCompleto');
-            $email = self::getInput($params, 'email');
-            $nombreUsuario = self::getInput($params, 'nombreUsuario');
-            $password = self::getInput($params, 'password');
-            $rolPrincipal = self::getInput($params, 'rolPrincipal');
+            $email          = self::getInput($params, 'email');
+            $nombreUsuario  = self::getInput($params, 'nombreUsuario');
+            $password       = self::getInput($params, 'password');
+            $rolPrincipal   = self::getInput($params, 'rolPrincipal');
 
             $usuario = new usuario();
             if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $usuario = self::getById($id);
             }
 
-            $usuario -> idTipoDocumento   = $tipoDocumento;
-            $usuario -> numDocumento      = $numDocumento;
-            $usuario -> nombreCompleto    = $nombreCompleto;
-            $usuario -> email             = $email;
-            $usuario -> usuario           = $nombreUsuario;
-
+            if (false !== $profile)
+                $usuario -> profile           = $profile;
+            if (false !== $tipoDocumento)
+                $usuario -> idTipoDocumento   = $tipoDocumento;
+            if (false !== $numDocumento)
+                $usuario -> numDocumento      = $numDocumento;
+            if (false !== $nombreCompleto)
+                $usuario -> nombreCompleto    = $nombreCompleto;
+            if (false !== $email)
+                $usuario -> email             = $email;
+            if (false !== $nombreUsuario)
+                $usuario -> usuario           = $nombreUsuario;
+            
             if ($password !== false) {
                 $usuario->password = $password;
             }
 
-            $rol = RolController::getById($rolPrincipal);
-            $usuario -> rolPrincipal()-> associate($rol);
+            if (false !== $rolPrincipal) {
+                $rol = RolController::getById($rolPrincipal);
+                $usuario -> rolPrincipal()-> associate($rol);
+            }
 
             $usuario -> save();
 
             return $usuario;
+        }
+
+        public function history()
+        {
+            $app = App::getInstance();
+            $usuario = new usuario();
+
+            $response = $usuario->history($app->user->id())->get();
+
+            return  $this->render('usuarios/history.html.twig',[
+                'history'   => $response
+            ]);
         }
 
     }

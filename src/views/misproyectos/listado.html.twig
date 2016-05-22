@@ -9,37 +9,50 @@
 
   <!-- Table -->
   <table class="table">
-    <tr>
-      <td>Nombre Proyecto</td>
-      <td>Rol asignado</td>
-      <td>Lider del Proyecto</td>
-      <td class="col-md-2">Proyecto Productivo</td>
-    </tr>
-    {% if misproyectos is not empty %}
-      {% for myproyect in misproyectos %}
-        <tr>
-          <td>{{ myproyect.nomProyecto }}</td>
-          <td>{{ myproyect.nombreRol }}</td>
-          <td>{{ myproyect.nombreCompleto }}</td>
-          <td>{% if myproyect.productivoProyecto %}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SI
-              {%  else %}
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO
-              {%  endif %}
-          </td>
-        </tr>
-      {% endfor %}
-    {% else %}
-      <tr>
-        <td colspan="4" class="alert alert-info text-center">
-          <strong>Ups!</strong>
-          No existen registros
-        </td>
-      </tr>
-    {% endif %}
-    <tr>
-      <td colspan="4"></td>
-    </tr>
+      <thead>
+          <tr>
+              <td>Nombre Proyecto</td>
+              <td>Rol asignado</td>
+              <td>Lider del Proyecto</td>
+              <td class="col-md-2">Proyecto Productivo</td>
+              <td class="col-md-1">Acciones</td>
+          </tr>
+      </thead>
+
+      <tbody>
+          {% if misproyectos is not empty %}
+              {% for myproyect in misproyectos %}
+                  <tr>
+                      <td>{{ myproyect.nomProyecto }}</td>
+                      <td>{{ myproyect.nombreRol }}</td>
+                      <td>{{ myproyect.nombreCompleto }}</td>
+                      <td>
+                          {% if myproyect.productivoProyecto %}
+                              SI
+                          {%  else %}
+                              NO
+                          {%  endif %}
+                      </td>
+                      <td nowrap="nowrap text-center">
+                          <div class="btn-group btn-group-sm" role="group">
+                              <button type="button" class="btn btn-sm btn-info"
+                                      data-urldetail="{{ app.path('project_detail', {'id': myproyect.idProyecto }, true) }}" role-button="detalle">
+                                  ver proyecto
+                                  <i class="glyphicon glyphicon-eye-open"></i>
+                              </button>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
+          {% else %}
+              <tr>
+                  <td colspan="5" class="alert alert-info text-center">
+                      <strong>Ups!</strong>
+                      No existen registros
+                  </td>
+              </tr>
+          {% endif %}
+      </tbody>
   </table>
 </div>
 

@@ -1,0 +1,136 @@
+{% extends 'common/base.html.twig' %}
+
+{% block custom_javascript %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#detailTabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+
+            $('#estado').relation({
+                relation  : 'estados',
+                key       : 'id',
+                value     : 'nombre',
+                data      : {{ relaciones.tipo_items | json_encode(constant('JSON_PRETTY_PRINT')) | raw }}
+            });
+
+            $('#asignado').relation({
+                key       : 'idUsuario',
+                value     : 'nombreCompleto',
+                url       : '{{ app.path('users_allows_ticket') }}'
+            });
+        });
+  </script>
+{% endblock  %}
+
+{% block body %}
+
+<div class="details-panel">
+    <div class="row">
+        <div class="col-md-10">
+            <h1>{{ proyecto.nomProyecto }}</h1>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form id="new_ticket" name="new_ticket" method="post" action="{{ app.path('save_ticket') }}">
+
+                <input type="hidden" value="{{ proyecto.idProyecto }}" name="proyecto" id="proyecto" />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong class="col-md-2">Titulo Ticket</strong>
+                            <input type="text" name="tituloItem" id="tituloItem" placeholder="Titulo para el nuevo ticket" class="form-control clearfix" required />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">&nbsp;</div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group autoinline">
+                            <strong class="col-md-4">Tipo</strong>
+                            <select name="tipoitem" id="tipoitem" class="form-control input-sm" required>
+                                {% for tipoitem in proyecto.tipoItem %}
+                                    <option value="{{ tipoitem.idTipoItem }}">{{ tipoitem.descripcion }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group autoinline">
+                            <strong class="col-md-5">Estado</strong>
+                            <select id="estado" name="estado" data-reference="tipoitem" class="form-control input-sm">
+                                {% for estado in workflow %}
+                                    <option value="{{ estado.id }}">{{ estado.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="form-group autoinline">
+                            <strong class="col-md-4">Asignado a</strong>
+                            <select id="asignado" name="asignado" data-reference="estado" class="form-control input-sm">
+                                {% for usuario in equipo %}
+                                    <option value="{{ usuario.idUsuario }}"
+                                    {% if usuario.idUsuario == app.user.id %}
+                                        selected
+                                    {% endif %}
+                                    >{{ usuario.nombreCompleto }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group autoinline">
+                            <strong class="col-md-6">Prioridad</strong>
+                            <select id="prioridad" name="prioridad" class="form-control input-sm">
+                                {% for id, nombre in app.get('priority') %}
+                                    <option value="{{ nombre }}"
+                                        {% if nombre == ticket.prioridad %}
+                                            selected
+                                        {% endif %}
+                                    >{{ nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <hr />
+                    <div class="col-md-1">
+                        <h5>Descripción:</h5>
+                    </div>
+
+                    <div class="col-md-11">
+                        <textarea class="form-control" name="descripcion" id="descripcion"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-offset-10 col-md-2">
+                        <div class="btn-group right" role="group">
+                            <a href="javascript: window.history.back();" type="submit" class="btn btn-default">Cancelar</a>
+                            <button type="submit" class="btn btn-default">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

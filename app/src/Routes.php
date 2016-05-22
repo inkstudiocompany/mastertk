@@ -43,10 +43,11 @@
 			'new_user'        => '/usuarios/nuevo',
 			'edit_user'       => '/usuarios/editar[/{id}]',
 			'delete_user'     => '/usuarios/borrar[/{id}]',
-			'save_user'       => '/usuarios/guardar',
+			'save_user'       => '/usuarios/guardar[/{from}]',
 			'get_user'        => '/usuarios/get[/{id}]',
 			'find_user'       => '/usuarios/find[/{query}]',
 			'all_users'       => '/usuarios/all',
+            'history'         => '/history',
 
 			#TipoItems
 			'tipoitems'       => '/tipoitems',
@@ -62,12 +63,13 @@
 			#Items
 			'item_detail'           => '/ticket/detalle[/{id}]',
 			'save_ticket'           => '/ticket/save',
+            'new_ticket'            => '/ticket/nuevo[/{id}]',
 			'edit_ticket'           => '/ticket/editar[/{id}]',
             'users_allows_ticket'   => '/ticket/equipo/atencion',
 
 
 			#Workflow
-			'workflow'        => '/workflow',
+			'workflow'                  => '/workflow',
 			'workflow_update'        => '/workflow/update',
 
 			#Proyectos
@@ -77,10 +79,17 @@
 			'edit_project_item_types'   => '/proyectos/tipo-item[/{id}]',
 			'edit_project_workflow'     => '/proyectos/workflow[/{id}]',
 			'save_project'              => '/proyectos/guardar',
+            'project_detail'            => '/proyectos/detalle[/{id}]'
 		];
 
 		public static function getRoutes()
 		{
+            if ('production' === ENVIRONMENT) {
+                foreach (self::$routes As $key => $route) {
+                    self::$routes[$key] = '/unlp' . $route;
+                }
+            }
+
 			return self::$routes;
 		}
 	}

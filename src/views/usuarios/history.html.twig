@@ -1,0 +1,75 @@
+{% extends 'common/base.html.twig' %}
+
+{% block body %}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Historial de tickets
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+      <tr>
+        <td class="text-center col-md-3">Ticket</td>
+        <td class="text-center col-md-6">Detalles</td>
+        <td class="text-center">Fecha de Actualización</td>
+        <td class="text-center col-md-1">Acciones</td>
+      </tr>
+    </thead>
+
+    {% if history is not empty %}
+      {% for tickets in history %}
+        <tr>
+          <td nowrap="nowrap">{{ tickets.tituloItem }}</td>
+          <td nowrap="nowrap">
+              {% set datalog = tickets.data | replace({ '{':'', '}': ''}) | split(',') %}
+              <div class="panel panel-default history-panel">
+
+                  <div class="panel-body">
+                      {% for index, item in datalog %}
+                          {% if 2 == loop.index %}
+                              <ul class="collapse list-group" id="history-{{ tickets.idItem }}">
+                          {% else %}
+                              <li class="list-group-item"><label><strong>{{ item | replace({'"': '', ':': '</strong>', 'accionTicket': ''}) | raw }}</label></li>
+                          {% endif %}
+
+                          {% if true == loop.last %}
+                              </ul>
+                          {% endif %}
+                      {% endfor %}
+                  </div>
+
+                  <a class="glyphicon glyphicon-plus-sign right" role="button" data-toggle="collapse" href="#history-{{ tickets.idItem }}" aria-expanded="false">
+                      Ver detalles
+                  </a>
+
+              </div>
+          </td>
+          <td nowrap="nowrap text-center">{{ tickets.fechahora }}</td>
+          <td nowrap="nowrap text-center">
+            <div class="btn-group btn-group-sm" role="group">
+              <button type="button" class="btn btn-sm btn-info"
+                data-urldetail="{{ app.path('item_detail', {'id': tickets.idItem }, true) }}" role-button="detalle">
+                  ver ticket
+                <i class="glyphicon glyphicon-eye-open"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="7" class="alert alert-info text-center">
+          <strong>Ups!</strong>
+          No existen registros
+        </td>
+      </tr>
+    {% endif %}
+    <tr>
+      <td colspan="7"></td>
+    </tr>
+  </table>
+</div>
+
+{% endblock body %}

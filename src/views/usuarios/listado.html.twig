@@ -17,6 +17,7 @@
                 <td class="text-center">Nro. de Documento</td>
                 <td class="text-center">Email</td>
                 <td class="text-center">Usuario</td>
+                <td class="text-center">Perfil</td>
                 <td class="text-center">Rol Principal</td>
                 <td class="text-center">Proyectos Asignados</td>
                 <td class="text-center">Acciones</td>
@@ -31,6 +32,13 @@
           <td nowrap="nowrap">{{ usuario.numDocumento}}</td>
           <td nowrap="nowrap">{{ usuario.email }}</td>
           <td nowrap="nowrap">{{ usuario.usuario }}</td>
+            <td nowrap="nowrap">
+                {% if 1 == usuario.profile %}
+                    Root
+                {%  elseif 2 == usuario.profile %}
+                    User
+                {%  endif %}
+            </td>
           <td nowrap="nowrap">{{ usuario.rolPrincipal.nombreRol }}</td>
           <td nowrap="nowrap"></td>
           <td nowrap="nowrap">

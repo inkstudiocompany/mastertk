@@ -6,7 +6,8 @@
 	use Model\ORM\Comentario;
     use Model\ORM\EquipoAtencion;
     use Model\ORM\Item;
-	use Model\ORM\TipoItem;
+    use Model\ORM\Proyecto;
+    use Model\ORM\TipoItem;
 	use Model\ORM\TransicionItem;
     use Model\ORM\Estado;
     use Model\ORM\Usuario;
@@ -46,6 +47,10 @@
 
 		public static function Save($params)
 		{
+            $idproyecto = self::getInput($params, 'proyecto');
+            $titulo     = self::getInput($params, 'titulo');
+            $asignado   = self::getInput($params, 'asignado');
+            $descripcion= self::getInput($params, 'descripcion');
 			$id         = self::getInput($params, 'id');
 			$tipoitem   = self::getInput($params, 'tipoitem');
 			$estado     = self::getInput($params, 'estado');
@@ -53,17 +58,45 @@
 			$prioridad  = self::getInput($params, 'prioridad');
 			$comentario = self::getInput($params, 'comentario');
 
-			$ticketUpdate = true;
+			$ticketUpdate   = true;
+            $newticket      = true;
 			$dataLog = [];
 
 			$item = new Item();
-			$dataLog['accion'] = 'Ticket nuevo';
+			$dataLog['accion'] = 'Ticket creado';
 			if($id !== false) {
-				$ticketUpdate         = false;
-				$item                 = self::getById($id);
-				$dataLog['accion']    = 'Nuevo Comentario';
-				$dataLog['Detalles:']['']  = '';
-			}
+                $newticket                  = false;
+				$ticketUpdate               = false;
+				$item                       = self::getById($id);
+				$dataLog['accion']          = 'Nuevo Comentario';
+				$dataLog['Detalles:']['']   = '';
+			} else {
+                $item -> fechacreacion = Date('Y-m-d H:i:s');
+            }
+
+            if (false !== $idproyecto) {
+                $item -> idProyecto   = $idproyecto;
+                $ticketUpdate         = true;
+                $dataLog['ticket']['Proyecto']  = Proyecto::find($idproyecto)->nomProyecto;
+            }
+
+            if (false !== $titulo) {
+                $item -> tituloItem   = $titulo;
+                $ticketUpdate         = true;
+                $dataLog['ticket']['Titulo']  = $titulo;
+            }
+
+            if (false !== $asignado) {
+                $item -> responsable  = $asignado;
+                $ticketUpdate         = true;
+                $dataLog['ticket']['Responsable'] = Usuario::find($asignado)->nombreCompleto;
+            }
+
+            if (false !== $descripcion) {
+                $item -> descItem  = $descripcion;
+                $ticketUpdate         = true;
+                $dataLog['ticket']['Descripcion'] = $descripcion;
+            }
 
 			if (false !== $tipoitem) {
 				$item -> idTipoItem   = $tipoitem;
@@ -89,31 +122,32 @@
 				$dataLog['ticket']['prioridad'] = $prioridad;
 			}
 
-			if (true === $ticketUpdate) {
+			if (true === $ticketUpdate && false === $newticket) {
 				$dataLog['accion']    = 'Ticket actualizado';
-				$item -> save();
 			}
 
-			if (false !== $comentario && false === empty($comentario)) {
-				$comment = new Comentario();
+            if($item -> save()) {
+                if (false !== $comentario && false === empty($comentario)) {
+                    $comment = new Comentario();
 
-				$comment -> idItem      = $item -> idItem;
-				$comment -> idUsuario   = App::getInstance()->user->id();
-				$comment -> fechahora   = date('Y-m-d H:i:s', time());
-				$comment -> comentario  = $comentario;
+                    $comment -> idItem      = $item -> idItem;
+                    $comment -> idUsuario   = App::getInstance()->user->id();
+                    $comment -> fechahora   = date('Y-m-d H:i:s', time());
+                    $comment -> comentario  = $comentario;
 
-				$item -> comentarios() -> save($comment);
+                    $item -> comentarios() -> save($comment);
 
-				$dataLog['comentario']  = $comentario;
-			}
+                    $dataLog['comentario']  = $comentario;
+                }
 
-			$transicion = new TransicionItem();
-			$transicion -> idItem      = $item -> idItem;
-			$transicion -> idUsuario   = App::getInstance()->user->id();
-			$transicion -> fechahora   = date('Y-m-d H:i:s', time());
-			$transicion -> data        = json_encode($dataLog, JSON_FORCE_OBJECT);
+                $transicion = new TransicionItem();
+                $transicion -> idItem      = $item -> idItem;
+                $transicion -> idUsuario   = App::getInstance()->user->id();
+                $transicion -> fechahora   = date('Y-m-d H:i:s', time());
+                $transicion -> data        = json_encode($dataLog, JSON_FORCE_OBJECT);
 
-			$item -> transiciones() -> save($transicion);
+                $item -> transiciones() -> save($transicion);
+            }
 
 			return $item;
 		}
@@ -138,13 +172,13 @@
 				return $response->withRedirect($this->container->path('my_tickets', true));
 			}
 
-            $Item = new Item();
-            $estadoActual = $Item->estadoActual($idTicket)->get();
-            $workflow = $Item->workFlow($idTicket)->get();
+            $Item           = new Item();
+            $estadoActual   = $Item->estadoActual($idTicket)->get();
+            $workflow       = $Item->workFlow($idTicket)->get();
 
-            $states            = [];
+            $states             = [];
             $states['workflow'] = [];
-            $idEstado = 0;
+            $idEstado           = 0;
             foreach ($estadoActual As $key => $estado)
             {
                 $states['workflow'][] = [
@@ -191,6 +225,43 @@
                     'equipo'      => $usuarios_atencion
 			]);
 		}
+
+        public function createForm($id)
+        {
+            $response = Proyecto::with([
+                    'tipoItem.estados'
+                ]) -> find($id);
+
+            $tipoItems = TipoItem::tipoItemsProyecto($id)->get();
+
+            $data_relations = [];
+            $data_relations['tipo_items'] = [];
+            foreach ($tipoItems As $tipoitem)
+            {
+                $data = [];
+                $data['id']             = $tipoitem->idTipoItem;
+                $data['descripcion']    = $tipoitem->descripcion;
+                $data['estados']        = [];
+
+                foreach ($tipoitem->estados()->get() As $key => $estado)
+                {
+                    $data['estados'][$key] = [
+                        'id'      => $estado->idEstado,
+                        'nombre'  => $estado->nombreEstado,
+                    ];
+                }
+                array_push($data_relations['tipo_items'], $data);
+            }
+
+            $usuarios_atencion = $this->usersByState($data_relations['tipo_items'][0]['estados'][0]['id']);
+
+            return $this->render('tickets/agregar.html.twig', [
+                'proyecto'      => $response,
+                'relaciones'    => $data_relations,
+                'workflow'      => $data_relations['tipo_items'][0]['estados'],
+                'equipo'        => $usuarios_atencion
+            ]);
+        }
 
         public function usersByState($idEstado)
         {

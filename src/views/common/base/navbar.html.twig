@@ -11,28 +11,30 @@
 	<li role="presentation">
   		<a href="{{ app.path('history') }}">Historial</a>
 	</li>
-	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Panel de Control<span class="caret"></span></a>
-      	<ul class="dropdown-menu">
-      		<li><a href="{{ app.path('admin_project') }}">Proyectos</a></li>
-          <li><a href="{{ app.path('equipment') }}">Equipos</a></li>
-            <li><a href="{{ app.path('roles') }}">Roles</a></li>
-            <li><a href="{{ app.path('users') }}">Usuarios</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{{ app.path('tipoitems') }}">Tipo Item</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{{ app.path('states') }}">Estados</a></li>
-            <li><a href="{{ app.path('workflow') }}">Work Flow</a></li>
-      	</ul>
-    </li>
+    {%  if app.user is defined %}
+        {% if 1 == app.user.profile %}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Panel de Control<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ app.path('admin_project') }}">Proyectos</a></li>
+                  <li><a href="{{ app.path('equipment') }}">Equipos</a></li>
+                    <li><a href="{{ app.path('roles') }}">Roles</a></li>
+                    <li><a href="{{ app.path('users') }}">Usuarios</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ app.path('tipoitems') }}">Tipo Item</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ app.path('states') }}">Estados</a></li>
+                    <li><a href="{{ app.path('workflow') }}">Work Flow</a></li>
+                </ul>
+            </li>
+        {% endif %}
+    {% endif %}
 </ul>
 
 
 <div>&nbsp;</div>
-
-
+{#
 <ol class="breadcrumb">
-	<li><a href="#">Home</a></li>
-	<li><a href="#">Library</a></li>
-	<li class="active">Data</li>
+	<li><a href="{{ app.path('homepage') }}">Home</a></li>
 </ol>
+#}
