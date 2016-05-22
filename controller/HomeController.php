@@ -10,17 +10,22 @@
 		public function index()
 		{
             $usuario = SecurityController::user();
+            $lidero = Proyecto::with(['equipos', 'lider'])
+                ->join('Usuario', 'Usuario.idUsuario', '=', 'Proyecto.idLider')
+                ->join('Rol', 'Rol.idRol', '=', 'Usuario.idRolPrincipal')
+                ->where('Proyecto.idLider', '=', $usuario->id())
+                ->select('Proyecto.*', 'Usuario.nombreCompleto', 'Rol.nombreRol');
+
             $misproyectos = Proyecto::with(['equipos', 'lider'])
-                ->leftJoin('Equipo', 'Proyecto.idProyecto', '=', 'Equipo.idProyecto')
-                ->leftJoin('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
-                ->leftJoin('Rol', 'UsuarioRolEquipo.idRol', '=', 'Rol.idRol')
-                ->leftJoin('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
+                ->join('Equipo', 'Proyecto.idProyecto', '=', 'Equipo.idProyecto')
+                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
+                ->join('Rol', 'UsuarioRolEquipo.idRol', '=', 'Rol.idRol')
+                ->join('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
                 ->where('Usuario.idUsuario', '=', $usuario->id())
-                ->orWhere(function($query, $usuario)
-                {
-                    $usuario = SecurityController::user();
-                    $query->where('Proyecto.idLider', '=', $usuario->id());
-                })->distinct()->get();
+                ->select('Proyecto.*', 'Usuario.nombreCompleto', 'Rol.nombreRol')
+                ->union($lidero)
+                ->distinct()
+                ->get();
 
             $mistickets = Proyecto::with(['equipos', 'lider'])
                 ->join('Item', 'Proyecto.idProyecto', '=', 'Item.idProyecto')
