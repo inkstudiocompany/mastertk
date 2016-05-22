@@ -128,7 +128,7 @@ Workflow.prototype = {
         var me = this,
             instance = me.instance;
         instance.batch(function () {
-            var top = 60, left =60;
+            var top = 60, left =60,
                 states= me.states();
             for (var i = 0; i < states.length; i++) {
                 var node = states[i];

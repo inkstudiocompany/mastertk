@@ -9,6 +9,7 @@
   </div>
 
   <!-- Table -->
+  {% if proyectos is not empty %}
   <table class="table"
          data-toggle="table"
          data-search="true"
@@ -22,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-    {% if proyectos is not empty %}
+
       {% for proyecto in proyectos %}
         <tr>
           <td>{{ proyecto.nomProyecto }}</td>
@@ -55,14 +56,6 @@
           </td>
         </tr>
       {% endfor %}
-    {% else %}
-      <tr>
-        <td colspan="4" class="alert alert-info text-center">
-          <strong>Ups!</strong>
-          No existen registros
-        </td>
-      </tr>
-    {% endif %}
     </tbody>
   </table>
 </div>

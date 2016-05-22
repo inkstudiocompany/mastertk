@@ -5,7 +5,7 @@
 	use Illuminate\Database\Eloquent\Collection;
 	use Model\ORM\Estado;
 	use Model\ORM\TipoItem as tipoitem;
-	use Model\ORM\Workflow;
+	use Model\ORM\Workflow as workflow;
 
 
 	class TipoItemController extends ControllerBase
@@ -24,39 +24,49 @@
 
 		public static function getByProject($id)
 		{
-			$tipoitems = tipoitem::first()
-				-> where ('idProyecto','=',$id)
+			$tipoitems = tipoitem::where ('idProyecto','=',$id)
 				-> get();
 			return $tipoitems;
 		}
 
 		public static function getWorkflows($id)
 		{
-			$workflows = Workflow::first()
+
+			$workflows = workflow::where("deleted","=",0)
 				->join("Estado as ea", "ea.idEstado","=","idEstadoActual")
 				->join("Estado as es", "es.idEstado","=","idEstadoSiguiente")
-				->where("deleted","=",0)
 				->where(function($query) use($id) {
 					return $query->where("ea.idTipoItem","=",$id)
 						->orWhere("es.idTipoItem","=",$id);
-				})
-				-> get();
-
-
+				})-> get();
 			return $workflows;
 		}
 
 		public static function updateWorkflows($id, $nuevosWorkflows)
 		{
-			$workflows =  self::getWorkflows($id);
-			foreach($workflows as $workflow){
-				$workflow -> deleted ='1';
-				$workflow ->save();
-			}
+			workflow::where("deleted","=",0)
+				->join("Estado as ea", "ea.idEstado","=","idEstadoActual")
+				->join("Estado as es", "es.idEstado","=","idEstadoSiguiente")
+				->where(function($query) use($id) {
+					return $query->where("ea.idTipoItem","=",$id)
+						->orWhere("es.idTipoItem","=",$id);
+				}) -> update(['deleted' => 1]);
 			foreach($nuevosWorkflows as $workflow){
-				$workflow ->save();
+				$workflowDB =  workflow::buscarPorEstados($workflow -> idEstadoActual, $workflow -> idEstadoSiguiente)
+					-> first();
+				if(!is_null($workflowDB)){
+					$workflowDB -> deleted = 0;
+					$workflowDB -> save();
+				}else{
+					$workflow ->save();
+				}
 			}
+		}
 
+		public static function createNew($tipoItem)
+		{
+			$tipoItem -> save();
+			$tipoItem -> estados() -> saveMany(self::getIntialsStates());
 		}
 
 		public function index()

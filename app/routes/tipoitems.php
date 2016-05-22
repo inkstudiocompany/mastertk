@@ -1,6 +1,9 @@
 <?php
 
 
+use Application\Controller\ProjectController;
+use Model\ORM\EquipoAtencion;
+use Model\ORM\TipoItem;
 use Model\ORM\Workflow;
 use \Psr\Http\Message\ServerRequestInterface as Request;
     use \Psr\Http\Message\ResponseInterface as Response;
@@ -27,8 +30,11 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
     $app::Router()->post($app->path('new_tipoitem'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request);
-        $tipoitemController = new TipoItemController();
-        echo $tipoitemController->index();
+        $tipoItem = new TipoItem();
+        $tipoItem -> descripcion =  $parse ->get('nombreTipoItem');
+        $tipoItem -> proyecto() ->associate($parse ->get('idProyecto'));
+        TipoItemController::createNew($tipoItem);
+        echo (new  ProjectController()) -> editItemTypeForm($parse ->get('idProyecto'));
     });
 
 
@@ -36,6 +42,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
         $parse = new RequestParse($request, $args);
         $tipoitemController = new TipoItemController();
         echo $tipoitemController->edit_tipoitem($parse->get('id'));
+
     });
 
     $app::Router()->post($app->path('delete_tipoitem'), function(Request $request, Response $response, $args){
@@ -78,6 +85,32 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
         $resultado = ["estados" => $estados, "workflows" => $workflows];
         echo json_encode($resultado);
     });
+
+$app::Router()->get($app->path('equipos_atencion'), function(Request $request, Response $response, $args){
+    $parse = new RequestParse($request, $args);
+    $equiposAtencion = EstadoController::getEquiposDeAtencion($parse -> get('id'));
+    $resultado = ["equipos" => $equiposAtencion];
+    echo json_encode($resultado);
+});
+
+$app::Router()->post($app->path('equipos_atencion'), function(Request $request, Response $response, $args){
+    $parse = new RequestParse($request, $args);
+    $idEstado = $parse -> get('id');
+    $body = file_get_contents("php://input");
+    $body_params = json_decode($body);
+    $equiposAtencion = new Eloquent\Collection();
+
+    foreach($body_params ->equipos as $equipo){
+        $item = new EquipoAtencion();
+        error_log($equipo);
+        $item -> equipo() -> associate($equipo);
+        $item -> estado() -> associate($idEstado);
+        $equiposAtencion ->add($item);
+    }
+    $resultado = EstadoController::updateEquiposAtencion($idEstado, $equiposAtencion);
+    json_encode(true);
+});
+
 
 
 /*

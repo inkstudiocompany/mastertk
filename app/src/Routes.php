@@ -56,6 +56,9 @@
 			'delete_tipoitem' => '/tipoitems/borrar[/{id}]',
 			'tipoitem_workflow' => '/tipoitems/workflow[/{id}]',
 
+			#Estados
+			'equipos_atencion' => '/estado/equipos-atencion[/{id}]',
+
 			#Items
 			'item_detail'           => '/ticket/detalle[/{id}]',
 			'save_ticket'           => '/ticket/save',

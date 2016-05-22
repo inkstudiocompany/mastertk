@@ -8,11 +8,11 @@
         protected $primaryKey = 'idEquipoAtencion';
 
         public function equipo(){
-            $this->belongsTo('Model\ORM\Equipo','idEquipo','idEquipo');
+           return $this->belongsTo('Model\ORM\Equipo','idEquipo','idEquipo');
         }
 
         public function estado(){
-            $this->belongsTo('Model\ORM\Estado','idEstado','idEstado');
+            return $this->belongsTo('Model\ORM\Estado','idEstado','idEstado');
         }
 
         public function scopeUsersByState($query, $idEstado)

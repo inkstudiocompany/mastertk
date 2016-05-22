@@ -22,10 +22,10 @@ $(document).ready(function (){
         messages: {
             nomProyecto: "No se permiten caracteres especiales",
             objProyecto: "No se permiten caracteres especiales",
-            start: "Debe ingresar el INICIO del Proyecto",
-            end: "Debe ingresar el FIN del Proyecto",
+            start: "Debe ingresar el inicio del Proyecto",
+            end: "Debe ingresar el fin del Proyecto",
             productivoProyecto: "Debe ingresar SI / NO, esta Productivo",
-            lider:"Debe seleccionar un LIDER"
+            lider:"Debe seleccionar un lider"
         }
     });
 
@@ -388,6 +388,13 @@ $(document).ready(function (){
 
     /*Edition de Tipos de Item*/
 
+    editItemType.find("[name='equipo-estado']").bootstrapSwitch({
+        onText:'SI',
+        offText:'NO',
+        size:'mini',
+        onColor:'success'
+    });
+
     editItemType.find("#edit-item-type-wz").bootstrapWizard({
         onTabClick: function (tab, navigation, index) {
             return false;
@@ -408,15 +415,17 @@ $(document).ready(function (){
         editItemType.itemTypeId = id;
         editItemType.find("#edit-item-type-wz .title").html(this.dataset.name);
         editItemType.find("#edit-item-type-wz").bootstrapWizard('show',1);
-        console.log(".....",id);
         editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh', {url:'/tipoitems/workflow/'+id});
 
     });
+
     editItemType.find("#edit-item-type-wz #states-table").bootstrapTable({pagination:true,
-        pageSize:5,
+        pageSize:10,
         method: 'get',
         url:  '',
-        responseHandler: function(data){console.log(data); return data.estados;},
+        responseHandler: function(data){
+            return data.estados;
+        },
         columns: [{
             field: 'nombreEstado',
             valign:'middle',
@@ -426,25 +435,33 @@ $(document).ready(function (){
             formatter: function(value, row, index) {
                 return [
                     '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-name"',
-                    'data-id="', row.idEquipo,'" data-nombre= "', value,'"  title="Cambiar Nombre">',
+                    'data-id="', row.idEstado,'" data-nombre= "', value,'"  title="Cambiar Nombre">',
                     '<i class="glyphicon glyphicon-pencil"></i></a>  ',
-                    value
-
+                    value,
+                    '<div class="pull-right"><button type="button" class="btn btn-sm btn-danger remove-item-type" title="Eliminar">',
+                    '<i class="glyphicon glyphicon-trash"></i></button>',
+                    '<button type="button" class="btn btn-sm btn-info state-team-btn" title="Equipos Atenci&oacute;n">',
+                    '<i class="glyphicon glyphicon-tags"></i></button> </div>'
                 ].join('');
-            }
-        },{ field: 'acciones',
-            valign:'middle',
-            halign:'center',
-            class: 'col-md-2',
-            title: 'Acciones',
-            formatter: function(value, row, index) {
-                return [
-                    '<a href="#" class="badge btn-sm wf-ed" title="Cambiar Workflow">',
-                    '<i class="glyphicon glyphicon-random"></i></a>',
-                    '<a href="#" class=" badge btn-sm st-ed"  title="Ver Estados">',
-                    '<i class="glyphicon glyphicon-tasks"></i></a>'
-                ].join('');
-            }
+            },
+            events:{
+                'click .state-team-btn': function (e, value, row) {
+                    editItemType.find("[name='equipo-estado']").bootstrapSwitch('state', false, false);
+                    editItemType.find("#edit-item-type-wz #idState").val(row.idEstado);
+                    var callback = function(data){
+                        data.equipos.forEach(function(team){
+                            editItemType.find("[name='equipo-estado'][value="+team.idEquipo+"]").bootstrapSwitch('state', true, true);
+                        });
+                        editItemType.find("#edit-item-type-wz #states-team-table").show();
+                    };
+                    $.ajax({
+                        url: "/estado/equipos-atencion/"+row.idEstado,
+                        type: "GET",
+                        success: callback,
+                        dataType: 'json',
+                        error:  function(data){console.log(data)}
+                    });
+                }}
         }
         ]
     });
@@ -467,6 +484,68 @@ $(document).ready(function (){
             success: callback,
             error:  function(data){console.log(data)}
         });
+    });
+
+    editItemType.find("#edit-item-type-wz #states-team-table #assign-teams").click(function(){
+        var equipos = [],
+            idEstado = editItemType.find("#edit-item-type-wz #idState").val();
+
+        editItemType.find("[name='equipo-estado']:checked").each(function() {
+            equipos.push(this.value);
+        });
+        var data = {
+            equipos: equipos,
+            estado : idEstado
+        };
+        $.ajax({
+            url: "/estado/equipos-atencion/"+idEstado,
+            type: "POST",
+            success: function(data){console.log(data)},
+            dataType: 'json',
+            data:  JSON.stringify(data),
+            error:  function(data){console.log(data)}
+        });
+    });
+
+    editItemType.find('#addItemType.btn-primary').click(function() {
+        var messages= {
+                nombreVacio: "Debe ingresar un nombre para el tipo de Item",
+                nombreExistente: "Ya existe un tipo de item con el mismo nombre"
+            },
+            nombre =editItemType.find('#nombreTipoItem').val(),
+            alert= editItemType.find('#new-item-type .error-msg');
+        if($.trim( nombre ) === '' ){
+            alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreVacio).show();
+            setTimeout(function () {
+                alert.hide();
+            }, 3000);
+            return;
+        }
+        console.log(nombre);
+        /*else{
+            var exist = types.find(function(element, index, array) {
+                return types.nombre === nombre;
+            });
+            if(exist){
+                alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreExistente).show();
+                setTimeout(function () {
+                    alert.hide();
+                }, 3000);
+                return;
+            }
+        }
+        alert.hide();
+
+        agregarProyecto.find('#itemTypeTable').bootstrapTable('append', { nombre:nombre});
+*/
+    });
+    editItemType.find("#new-item-type").appValidate({
+        rules: {
+            nombreTipoItem:  {required: true}
+        },
+        messages: {
+            nombreTipoItem: "No Puede estar vacio el nombre"
+        }
     });
 });
 

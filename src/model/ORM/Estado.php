@@ -10,4 +10,8 @@ class Estado extends EntityBase{
     public function tipoItem(){
         return $this->belongsTo('Model\ORM\TipoItem', 'idTipoItem', 'idTipoItem');
     }
+
+    public function equiposAtencion(){
+        return $this -> hasMany('Model\ORM\EquipoAtencion','idEstado','idEstado');
+    }
 }

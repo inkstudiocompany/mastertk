@@ -83,7 +83,7 @@
 			$proyecto = self::getById($id);
 			$tiposItem = TipoItemController::getByProject($id);
 			$equipos = TeamController::getByProject($id);
-			//echo $tiposItem;
+			//echo $equipos;
 			return $this->render('proyectos/editar-tipos-item.html.twig', [
 				'proyecto' => $proyecto,
 				'tiposItem' =>$tiposItem,
