@@ -22,4 +22,11 @@
         public function itemsAsignados(){
             return $this->hasMany('Model\ORM\Item', 'idUsuarioRolEquipo' ,'responsable');
         }
+
+        public static function scopeBuscarUsuarioRolEquipo($query, $idUsuario, $idRol,$idEquipo)
+        {
+            return $query->where('idUsuario','=', $idUsuario)
+                ->where('idRol', '=',$idRol)
+                ->where('idEquipo', '=',$idEquipo);
+        }
     }

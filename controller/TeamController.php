@@ -5,6 +5,8 @@
 	use Application\Controller\ControllerBase;
 	use Model\ORM\Equipo as equipo;
 	use Model\ORM\Proyecto as proyecto;
+	use Model\ORM\Usuario;
+	use Model\ORM\UsuarioRolEquipo;
 
 
 	class TeamController extends ControllerBase
@@ -18,6 +20,31 @@
 		private static function getById($id)
 		{
 			return equipo::find($id);
+		}
+
+		public static function updateUsuariosRolEquipo($idEquipo, $items)
+		{
+			UsuarioRolEquipo::where('idEquipo', '=',$idEquipo) -> update(['activo'=> 0]);
+
+			foreach($items as $usuarioRolEquipo){
+				$usuarioRolEquipoDB =  UsuarioRolEquipo::buscarUsuarioRolEquipo( $usuarioRolEquipo -> idUsuario,
+					$usuarioRolEquipo  -> idRol, $usuarioRolEquipo ->idEquipo)	-> first();
+				if(!is_null($usuarioRolEquipoDB)){
+					$usuarioRolEquipoDB -> activo = 1;
+					$usuarioRolEquipoDB -> save();
+				}else{
+					$usuarioRolEquipo ->save();
+				}
+			}
+
+		}
+
+		public static function listarUsuariosRolEquipo($idEquipo)
+		{
+			$usuariosRolEquipo = UsuarioRolEquipo::where('idEquipo','=',$idEquipo)
+				->where ('activo','=', 1)
+				->get();
+			return $usuariosRolEquipo;
 		}
 
 		public function index()
@@ -41,25 +68,6 @@
 			]);
 		}
 
-/*   		public function addForm()
-		{
-			return  $this->render('equipos/agregar.html.twig');
-		}
-*/
-/*      public function createNew($nombreEquipo,$idProyecto,$idUsuario){
-            $equipo = new equipo();
-            $equipo -> nomEquipo = $nombreEquipo;
-            
-            $equipo = ProyectController::getById($idProyecto);
-            //$equipo -> lider() -> associate($usuario);
-
-            $equipo = UserController::getById($idUsuario);
-            //$equipo -> lider() -> associate($usuario);
-            
-            $equipo -> save();
-            return $proyecto;
-        }
-*/
        public function addForm()
         {
             return  $this->render('equipos/teamForm.html.twig', [

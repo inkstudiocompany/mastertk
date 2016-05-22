@@ -113,36 +113,4 @@ $app::Router()->post($app->path('equipos_atencion'), function(Request $request, 
 
 
 
-/*
-    $app::Router()->post($app->path('save_tipoitem'), function( Request $request, Response $response, $args){
-        $parse = new RequestParse($request, $args);
-
-        $params = [
-            'id' => $parse->get('id'),
-            'idProyecto' => $parse->get('idProyecto'),
-            'descripcion' => $parse->get('descripcion')
-        ];
-
-        TipoItemController::Save($params);
-
-        return $response->withRedirect(App::getInstance()->path('users'), 301);
-    });
-
-
-    $app::Router()->post($app->path('delete_tipoitem'), function(Request $request, Response $response, $args){
-        $parse = new RequestParse($request, $args);
-        $dataResponse = [];
-
-        if ($id = $parse->get('id')) {
-            $tipoitem = new TipoItemController();
-            $dataResponse['status'] = (boolean) $tipoitem->delete($id);
-        }
-
-        return $response->withJson($dataResponse);
-    });
-
-    */
-
-
-
 

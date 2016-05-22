@@ -292,7 +292,7 @@ $(document).ready(function (){
             align:'center',
             formatter: function(value, row, index) {
                 return [
-                    '<button type="button" class="btn btn-sm btn-info team-members" data-toggle="modal" data-target="#edit-team-members">',
+                    '<button type="button" class="btn btn-sm btn-info team-members"  data-id="', row.idEquipo,'" data-toggle="modal" data-target="#edit-team-members">',
                     'Integrantes<i class="glyphicon glyphicon-user"></i></button>',
                     '<button type="button" class="btn btn-sm btn-danger remove-team" role-button="delete">',
                     'Eliminar<i class="glyphicon glyphicon-trash"></i></button>'
@@ -391,6 +391,41 @@ $(document).ready(function (){
         offText:'NO',
         size:'mini',
         onColor:'success'
+    });
+
+    editTeamForm.find('#edit-team-members').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            idEquipo = button.data('id'),
+            modal = $(this),
+            callback = function(data){
+                data =JSON.parse(data);
+                data.forEach(function(item){
+                    editTeamForm.find("[id='rol-"+item.idUsuario+"']").val(item.idRol);
+                    editTeamForm.find("[name='usuario-equipo'][value="+item.idUsuario+"]").bootstrapSwitch('state', true, true);
+                });
+
+            };
+        editTeamForm.find("[name='usuario-equipo']").bootstrapSwitch('state', false, false);
+        modal.find('#idEquipoIntegrantes').val(idEquipo);
+        editTeamForm.ajaxUpdate('/equipos/integrantes/'+idEquipo,'GET',[],callback);
+
+    });
+
+    editTeamForm.find('#edit-team-members').find('.btn-primary').click(function(){
+        var modal = editTeamForm.find('#edit-team-members'),
+           idEquipo= modal.find('#idEquipoIntegrantes').val(),
+           usuarios =[], data =[];
+        editTeamForm.find("[name='usuario-equipo']:checked").each(function() {
+            usuarios.push({usuario:this.value,
+                rol: editTeamForm.find("[id='rol-"+this.value+"']").val()
+            });
+
+        });
+        data = JSON.stringify({equipo:idEquipo,usuarios:usuarios});
+        editTeamForm.ajaxUpdate('/equipos/integrantes/'+idEquipo,'POST',data,function(){
+           modal.modal('hide');
+        });
+
     });
 
     /*Edition de Tipos de Item*/
