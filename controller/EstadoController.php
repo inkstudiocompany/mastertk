@@ -18,7 +18,10 @@ class EstadoController extends ControllerBase
 
     public static function getByItemTypeId($id=0)
     {
-        $estados = estado::where('idTipoItem','=',$id) -> get();
+        $estados = estado::with([
+                'tickets'
+            ])
+            ->where('idTipoItem','=',$id) -> get();
         return $estados;
     }
 

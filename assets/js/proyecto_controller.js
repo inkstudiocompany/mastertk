@@ -477,12 +477,17 @@ $(document).ready(function (){
             class:'col-md-5',
             title: 'Nombre Estado',
             formatter: function(value, row, index) {
+                var disabled = '';
+                if (row.tickets.length > 0) {
+                    disabled = ' disabled ';
+                }
+
                 return [
                     '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-name"',
                     'data-id="', row.idEstado,'" data-nombre= "', value,'"  title="Cambiar Nombre">',
                     '<i class="glyphicon glyphicon-pencil"></i></a>  ',
                     value,
-                    '<div class="pull-right"><button type="button" class="btn btn-sm btn-danger remove-item-type" title="Eliminar">',
+                    '<div class="pull-right"><button type="button" class="btn btn-sm btn-danger remove-item-type" title="Eliminar"',  disabled,'>',
                     '<i class="glyphicon glyphicon-trash"></i></button>',
                     '<button type="button" class="btn btn-sm btn-info state-team-btn" title="Equipos Atenci&oacute;n">',
                     '<i class="glyphicon glyphicon-tags"></i></button> </div>'
