@@ -294,3 +294,7 @@ a:hover{
     height: 30px;
     padding-top: 10px;
 }
+
+.fixed-table-body{
+    overflow: visible;
+}

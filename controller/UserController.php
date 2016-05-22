@@ -40,10 +40,17 @@
 
         public function index()
         {
-            $usuarios = usuario::with('rolPrincipal')->get();
+            $usuarios = usuario::with([
+                    'rolPrincipal',
+                    'responsable',
+                    'lidera'
+                ])
+                -> where('Usuario.estado','=',1)
+                -> get();
+
             return  $this->render('usuarios/listado.html.twig', [
-                'usuarios' => $usuarios,
-                'tiposDocumento' => $this->getParameter('document_types')
+                'usuarios'          => $usuarios,
+                'tiposDocumento'    => $this->getParameter('document_types')
             ]);
 
         }
@@ -85,7 +92,9 @@
         public function delete($id = 0)
         {
             $usuario = usuario::find($id);
-            return $usuario->delete();
+            $usuario -> estado = 0;
+            return $usuario->save();
+            //return $usuario->delete();
         }
 
         public static function Save($params){

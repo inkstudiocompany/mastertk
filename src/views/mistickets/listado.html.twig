@@ -25,12 +25,12 @@
       {% for tickets in mistickets %}
         <tr>
           <td nowrap="nowrap">{{ tickets.tituloItem }}</td>
-          <td nowrap="nowrap">{{ tickets.nombreEstado }}</td>
+          <td nowrap="nowrap" class="text-center">{{ tickets.nombreEstado }}</td>
           <td nowrap="nowrap">{{ tickets.descItem }}</td>
           <td nowrap="nowrap">{{ tickets.descripcion }}</td>
-          <td nowrap="nowrap">{{ tickets.prioridad }}</td>
-          <td nowrap="nowrap">{{ tickets.fechacreacion }}</td>
-          <td nowrap="nowrap text-center">
+          <td nowrap="nowrap" class="text-center">{{ tickets.prioridad }}</td>
+          <td nowrap="nowrap" class="text-center">{{ tickets.fechacreacion }}</td>
+          <td nowrap="nowrap" class="text-right">
             <div class="btn-group btn-group-sm" role="group">
               <button type="button" class="btn btn-sm btn-info"
                 data-urldetail="{{ app.path('item_detail', {'id': tickets.idItem }, true) }}" role-button="detalle">
