@@ -595,17 +595,13 @@ $(document).ready(function (){
     });
 
     editItemType.find("#addNewState").click(function(){
-
         var data ={
             itemTypeId: editItemType.itemTypeId,
-            nombreEstado : editItemType.find("#nombreEstado").val()
-        };
-
-        var callback = function(data){
-            editItemType.find("#nombreEstado").val("");
-            editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh', {url:'/tipoitems/workflow/'+editItemType.itemTypeId});
-        };
-
+            nombreEstado : editItemType.find("#nombreEstado").val() },
+            callback = function(data){
+                editItemType.find("#nombreEstado").val('');
+                editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh', {url:'/tipoitems/workflow/'+editItemType.itemTypeId});
+            };
         $.ajax({
             url: "/estado/nuevo",
             type: "POST",
