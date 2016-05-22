@@ -2,6 +2,7 @@
 
     namespace Application\Controller;
 
+    use Application\App;
     use Model\ORM\Usuario as usuario;
 
 
@@ -129,6 +130,18 @@
             $usuario -> save();
 
             return $usuario;
+        }
+
+        public function history()
+        {
+            $app = App::getInstance();
+            $usuario = new usuario();
+
+            $response = $usuario->history($app->user->id())->get();
+
+            return  $this->render('usuarios/history.html.twig',[
+                'history'   => $response
+            ]);
         }
 
     }

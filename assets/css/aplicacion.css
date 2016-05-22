@@ -265,3 +265,24 @@ table.table{ font-size: 12px; }
 path, ._jsPlumb_endpoint {
 	cursor:pointer;
 }
+
+.history-panel .panel-body{
+    padding: 2px 2px 22px 2px;
+    border: none !important;
+}
+
+.history-panel .list-group-item label{
+    font-weight: normal;
+}
+
+.history-panel .list-group-item label strong{
+    width: 100px; display: block; float: left;
+}
+
+.history-panel a[data-toggle="collapse"]{
+    margin: -20px 5px;
+}
+
+a:hover{
+    text-decoration: none;
+}

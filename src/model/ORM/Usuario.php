@@ -43,5 +43,14 @@
                 'accessToken = \'' . $access_tocken . '\''
             );
         }
+
+        public function scopeHistory($query, $id)
+        {
+            return $query
+                ->join('Item', 'Item.responsable', '=', 'Usuario.idUsuario')
+                ->join('TransicionItem', 'TransicionItem.idItem', '=', 'Item.idItem')
+                ->where('Usuario.idUsuario', '=', $id)
+                ->orderBy('TransicionItem.fechahora', 'Desc');
+        }
 	}
 

@@ -47,6 +47,7 @@
 			'get_user'        => '/usuarios/get[/{id}]',
 			'find_user'       => '/usuarios/find[/{query}]',
 			'all_users'       => '/usuarios/all',
+            'history'         => '/history',
 
 			#TipoItems
 			'tipoitems'       => '/tipoitems',

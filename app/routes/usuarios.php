@@ -103,4 +103,9 @@
             )
         ));
     });
+
+    $app::Router()->get($app->path('history'), function(){
+        $usuariosController = new UserController();
+        echo $usuariosController->history();
+    });
 ?>
