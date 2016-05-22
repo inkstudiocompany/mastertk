@@ -15,6 +15,10 @@
             return $this ->hasMany('Model\ORM\Estado','idTipoItem','idTipoItem');
         }
 
+        public function tickets(){
+            return $this ->hasMany('Model\ORM\Item','idTipoItem','idTipoItem');
+        }
+
         public function scopeTipoItemsProyecto($query, $idProyecto)
         {
             return $query->whereIdproyecto($idProyecto);

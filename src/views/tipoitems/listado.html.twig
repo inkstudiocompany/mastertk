@@ -5,7 +5,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     ABM TipoItems
-    <a class="btn btn-primary right" href="{{ app.path('new_tipoitem') }}" role="button">Nuevo</a>
   </div>
 
   <!-- Table -->
@@ -17,32 +16,39 @@
           <td class="col-md-2 text-center">Acciones</td>
         </tr>
       </thead>
-    {% if tipoitems is not empty %}
-      {% for tipoitem  in tipoitems %}
-      <tr>
-        <td  nowrap="nowrap">{{ tipoitem.descripcion}}</td>
-        <td class="text-center" nowrap="nowrap">{{ tipoitem.nombreEstado}}</td>
-        <td class="text-right" nowrap="nowrap">
-          <div class="btn-group btn-group-sm" role="group">
-            <button type="button" class="btn btn-sm btn-info">Detalles</button>
-            <button type="button" class="btn btn-sm btn-info" 
-              data-urledit="{{ app.path('edit_tipoitem', {'id': tipoitem.idTipoItem }, true) }}" role-button="editar">Editar</button>
-            <button type="button" class="btn btn-sm btn-danger" role-button="eliminar"
-              data-title="Eliminar Usuario" data-message="¿Seguro hermano?"
-              data-urldelete="{{ app.path('delete_tipoitem', {'id': tipoitem.idTipoItem }, true) }}">
-              Eliminar <i class='glyphicon glyphicon-trash'></i></button>
-          </div> 
-        </td>
-      </tr>
-      {% endfor %}
-    {% else %}
-      <tr>
-        <td colspan="3" class="alert alert-info text-center">
-          <strong>Ups!</strong>
-          No existen registros
-        </td>
-      </tr>
-    {% endif %}
+
+      {% if tipoitems is not empty %}
+          {% for tipoitem  in tipoitems %}
+              <tr>
+                  <td  nowrap="nowrap">{{ tipoitem.descripcion}}</td>
+                  <td class="text-center" nowrap="nowrap">
+                      <ul class="list-group">
+                          {% for estado in tipoitem.estados %}
+                          <li class="list-group-item">{{ estado.nombreEstado }}</li>
+                          {% endfor %}
+                      </ul>
+                  </td>
+                  <td class="text-right" nowrap="nowrap">
+                      <div class="btn-group btn-group-sm" role="group">
+                          <button type="button" class="btn btn-sm btn-danger" role-button="eliminar"
+                                  data-title="Eliminar Usuario" data-message="¿Seguro hermano?"
+                                  {% if tipoitem.estados is not empty or tipoitems.tickets is not empty %}
+                                      disabled
+                                  {% endif %}
+                                  data-urldelete="{{ app.path('delete_tipoitem', {'id': tipoitem.idTipoItem }, true) }}">
+                              Eliminar <i class='glyphicon glyphicon-trash'></i></button>
+                      </div>
+                  </td>
+              </tr>
+          {% endfor %}
+      {% else %}
+          <tr>
+              <td colspan="3" class="alert alert-info text-center">
+                  <strong>Ups!</strong>
+                  No existen registros
+              </td>
+          </tr>
+      {% endif %}
 
   </table>
 </div>

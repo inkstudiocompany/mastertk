@@ -79,10 +79,14 @@
 
 		public function listado()
 		{
-			$tipoitems = tipoitem::with('estados')
-			->join('Estado', 'Estado.idTipoItem', '=', 'TipoItem.idTipoItem')
+			$tipoitems = tipoitem::with([
+                'estados',
+                'tickets'
+            ])
+			//->join('Estado', 'Estado.idTipoItem', '=', 'TipoItem.idTipoItem')
+            ->distinct()
 			-> get();
-			
+
 			return $this->render('tipoitems/listado.html.twig', [
 				'tipoitems' => $tipoitems
 			]);
