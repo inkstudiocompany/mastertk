@@ -56,13 +56,13 @@
             if (false != $usuario) {
                 $this->createUserSession($usuario);
                 $response['authenticated'] = true;
-            }
 
-            $usuario->accessToken = '';
-            if (true === filter_var($rememberme, FILTER_VALIDATE_BOOLEAN)) {
-                $usuario->accessToken = $response['rememberme'] = self::generateAccessToken($_SESSION[self::$session]['USER']);
+                $usuario->accessToken = '';
+                if (true === filter_var($rememberme, FILTER_VALIDATE_BOOLEAN)) {
+                    $usuario->accessToken = $response['rememberme'] = self::generateAccessToken($_SESSION[self::$session]['USER']);
+                }
+                $usuario->save();
             }
-            $usuario->save();
 
             return $response;
         }
