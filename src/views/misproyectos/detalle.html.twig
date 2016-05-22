@@ -88,7 +88,7 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active" id="tickets">
                                 <div class="col-md-12 details-panel">
-                                    {% include 'misproyectos/tickets.html.twig' with { 'tickets': proyecto.items } %}
+                                    {% include 'misproyectos/tickets.html.twig' with { 'tickets': proyecto.items, 'idproyecto': proyecto.idProyecto } %}
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="history">

@@ -43,19 +43,21 @@ class SecurityMiddleware
 
     public function callme(Request $request, $response, $next)
     {
+        $app = App::getInstance();
+
         if (false !== $this->rememberme($request)){
-            return $response->withRedirect('/home');
+            return $response->withRedirect($app->path('homepage'));
         }
 
-        if ($request->getUri()->getPath() === '/login') {
+        if ($request->getUri()->getPath() === $app->path('login')) {
             if (SecurityController::AppAuthorization() === true) {
-                return $response->withRedirect('/home');
+                return $response->withRedirect($app->path('homepage'));
             }
         }
 
-        if ($request->getUri()->getPath() !== '/login') {
+        if ($request->getUri()->getPath() !== $app->path('login')) {
             if (SecurityController::AppAuthorization() === false) {
-                return $response->withRedirect('/login');
+                return $response->withRedirect($app->path('login'));
             }
         }
 

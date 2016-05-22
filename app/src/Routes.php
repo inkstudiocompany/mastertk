@@ -59,12 +59,13 @@
 			#Items
 			'item_detail'           => '/ticket/detalle[/{id}]',
 			'save_ticket'           => '/ticket/save',
+            'new_ticket'            => '/ticket/nuevo[/{id}]',
 			'edit_ticket'           => '/ticket/editar[/{id}]',
             'users_allows_ticket'   => '/ticket/equipo/atencion',
 
 
 			#Workflow
-			'workflow'        => '/workflow',
+			'workflow'                  => '/workflow',
 			'workflow_update'        => '/workflow/update',
 
 			#Proyectos
@@ -79,6 +80,12 @@
 
 		public static function getRoutes()
 		{
+            if ('production' === ENVIRONMENT) {
+                foreach (self::$routes As $key => $route) {
+                    self::$routes[$key] = '/unlp' . $route;
+                }
+            }
+
 			return self::$routes;
 		}
 	}
