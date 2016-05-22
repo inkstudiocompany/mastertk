@@ -3,6 +3,7 @@
 	namespace Application\Controller;
 
 	use Model\ORM\Proyecto as proyecto;
+	use Model\ORM\Usuario as usuario;
 
 
 
@@ -72,8 +73,11 @@
 		public function editTeamForm($id)
 		{
 			$proyecto = proyecto::with('lider') -> find($id);
+			$usuarios = UserController::listWithRolAll();
+			$roles = RolController::listAll();
 			return $this->render('proyectos/editar-equipos.html.twig', [
-				'proyecto' => $proyecto
+				'proyecto' => $proyecto, 'usuarios' =>$usuarios,
+				'roles'=>$roles
 			]);
 
 		}

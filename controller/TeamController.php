@@ -11,7 +11,7 @@
 	{
 		public static function getByProject($idProject)
 		{
-			$equipos = equipo::with('lider') -> where('idProyecto','=',$idProject) ->get();
+			$equipos = equipo::where('idProyecto','=',$idProject) ->get();
 			return $equipos;
 		}
 

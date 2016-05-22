@@ -292,7 +292,7 @@ $(document).ready(function (){
             align:'center',
             formatter: function(value, row, index) {
                 return [
-                    '<button type="button" class="btn btn-sm btn-info team-members" >',
+                    '<button type="button" class="btn btn-sm btn-info team-members" data-toggle="modal" data-target="#edit-team-members">',
                     'Integrantes<i class="glyphicon glyphicon-user"></i></button>',
                     '<button type="button" class="btn btn-sm btn-danger remove-team" role-button="delete">',
                     'Eliminar<i class="glyphicon glyphicon-trash"></i></button>'
@@ -386,6 +386,13 @@ $(document).ready(function (){
 
     });
 
+    editTeamForm.find("[name='usuario-equipo']").bootstrapSwitch({
+        onText:'SI',
+        offText:'NO',
+        size:'mini',
+        onColor:'success'
+    });
+
     /*Edition de Tipos de Item*/
 
     editItemType.find("[name='equipo-estado']").bootstrapSwitch({
@@ -446,6 +453,7 @@ $(document).ready(function (){
             },
             events:{
                 'click .state-team-btn': function (e, value, row) {
+                    console.log(e, value, row);
                     editItemType.find("[name='equipo-estado']").bootstrapSwitch('state', false, false);
                     editItemType.find("#edit-item-type-wz #idState").val(row.idEstado);
                     var callback = function(data){
@@ -539,6 +547,7 @@ $(document).ready(function (){
         agregarProyecto.find('#itemTypeTable').bootstrapTable('append', { nombre:nombre});
 */
     });
+
     editItemType.find("#new-item-type").appValidate({
         rules: {
             nombreTipoItem:  {required: true}
