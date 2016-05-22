@@ -11,16 +11,16 @@
   <!-- Table -->
   <table class="table">
     <tr>
-      <td class="text-center">Nombre Tipo Item</td>
-      <td class="text-center">Estado</td>
-      <td class="text-center">Acciones</td>
+      <td class="col-md-6 text-center">Nombre Tipo Item</td>
+      <td class="col-md-2 text-center">Estado</td>
+      <td class="col-md-2 text-center">Acciones</td>
     </tr>
     {% if tipoitems is not empty %}
       {% for tipoitem  in tipoitems %}
       <tr>
-        <td nowrap="nowrap">{{ tipoitem.descripcion}}</td>
-        <td nowrap="nowrap">{{ tipoitem.nombreEstado}}</td>
-        <td nowrap="nowrap">
+        <td  nowrap="nowrap">{{ tipoitem.descripcion}}</td>
+        <td class="text-center" nowrap="nowrap">{{ tipoitem.nombreEstado}}</td>
+        <td class="text-right" nowrap="nowrap">
           <div class="btn-group btn-group-sm" role="group">
             <button type="button" class="btn btn-sm btn-info">Detalles</button>
             <button type="button" class="btn btn-sm btn-info" 
