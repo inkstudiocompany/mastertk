@@ -58,8 +58,9 @@
 			'tipoitem_workflow' => '/tipoitems/workflow[/{id}]',
 
 			#Estados
-			'equipos_atencion' => '/estado/equipos-atencion[/{id}]',
-			'new_estado' 	=>	'/estado/nuevo',
+			'equipos_atencion'      => '/estado/equipos-atencion[/{id}]',
+			'new_estado' 	        => '/estado/nuevo',
+            'estado_delete'         => '/estado/delete[/{id}]',
 
 			#Items
 			'item_detail'           => '/ticket/detalle[/{id}]',

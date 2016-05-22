@@ -58,9 +58,9 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 
     $app::Router()->get($app->path('tipoitem_workflow'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request, $args);
-        $estados = EstadoController::getByItemTypeId($parse -> get('id'));
-        $workflows = TipoItemController::getWorkflows($parse -> get('id'));
-        $resultado = ["estados" => $estados, "workflows" => $workflows];
+        $estados    = EstadoController::getByItemTypeId($parse -> get('id'));
+        $workflows  = TipoItemController::getWorkflows($parse -> get('id'));
+        $resultado  = ["estados" => $estados, "workflows" => $workflows];
         echo json_encode($resultado);
     });
 
