@@ -10,11 +10,13 @@
 
   <!-- Table -->
   <table class="table">
-    <tr>
-      <td class="col-md-6 text-center">Nombre Tipo Item</td>
-      <td class="col-md-2 text-center">Estado</td>
-      <td class="col-md-2 text-center">Acciones</td>
-    </tr>
+      <thead>
+        <tr>
+          <td class="col-md-6 text-center">Nombre Tipo Item</td>
+          <td class="col-md-2 text-center">Estado</td>
+          <td class="col-md-2 text-center">Acciones</td>
+        </tr>
+      </thead>
     {% if tipoitems is not empty %}
       {% for tipoitem  in tipoitems %}
       <tr>

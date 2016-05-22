@@ -41,12 +41,15 @@
             </td>
           <td nowrap="nowrap">{{ usuario.rolPrincipal.nombreRol }}</td>
           <td nowrap="nowrap"></td>
-          <td nowrap="nowrap">
-            <div class="btn-group btn-group-sm" role="group">
-              <button type="button" class="btn btn-sm btn-info"
+          <td nowrap="text-right nowrap">
+              <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-sm btn-info"
                       data-urledit="{{ app.path('edit_user', {'id': usuario.idUsuario }, true) }}" role-button="editar">Editar</button>
               <button type="button" class="btn btn-sm btn-danger" role-button="eliminar"
                       data-title="Eliminar Usuario" data-message="¿Seguro hermano? Ud. va a eliminar a '{{usuario.nombreCompleto}}'"
+                      {% if usuario.responsable is not empty or usuario.lidera is not empty %}
+                          disabled
+                      {% endif %}
                       data-urldelete="{{ app.path('delete_user', {'id': usuario.idUsuario }, true) }}">
                   Eliminar <i class='glyphicon glyphicon-trash'></i></button>
             </div>
@@ -55,14 +58,14 @@
       {% endfor %}
     {% else %}
       <tr>
-        <td colspan="8" class="alert alert-info text-center">
+        <td colspan="9" class="alert alert-info text-center">
           <strong>Ups!</strong>
           No existen registros
         </td>
       </tr>
     {% endif %}
     <tr>
-      <td colspan="8">&nbsp;</td>
+      <td colspan="9">&nbsp;</td>
 
     </tr>
 

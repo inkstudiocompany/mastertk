@@ -11,7 +11,7 @@
 		}
 
 		public function lidera(){
-			return $this->belongsTo('Model\ORM\Proyecto','idUsuario','idLider');
+			return $this->hasMany('Model\ORM\Proyecto','idLider','idUsuario');
 		}
 
 		public function equipoRol(){
@@ -28,6 +28,10 @@
 
         public function comentarios() {
             return $this->hasMany('Model\ORM\Comentario', 'idUsuario', 'idUsuario');
+        }
+
+        public function responsable() {
+            return $this->hasMany('Model\ORM\Item', 'responsable', 'idUsuario');
         }
 
         public function scopeAuth($query, $email, $password)

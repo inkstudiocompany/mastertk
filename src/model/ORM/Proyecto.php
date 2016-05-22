@@ -7,7 +7,7 @@
 	    protected $primaryKey = 'idProyecto';
 		
         public function lider(){
-            return $this->belongsTo('Model\ORM\Usuario','idLider','idUsuario');
+            return $this->hasOne('Model\ORM\Usuario','idUsuario','idLider');
         }
         
         public function equipos(){
