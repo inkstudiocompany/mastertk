@@ -456,7 +456,9 @@ $(document).ready(function (){
         var id = this.dataset.id;
         editItemType.itemTypeId = id;
         editItemType.find("#edit-item-type-wz .title").html(this.dataset.name);
+        editItemType.find("#idTipoItem").val(id);
         editItemType.find("#edit-item-type-wz").bootstrapWizard('show',1);
+        editItemType.find("#nombreEstado").val('');
         editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh', {url:'/tipoitems/workflow/'+id});
 
     });
@@ -591,5 +593,28 @@ $(document).ready(function (){
             nombreTipoItem: "No Puede estar vacio el nombre"
         }
     });
+
+    editItemType.find("#addNewState").click(function(){
+
+        var data ={
+            itemTypeId: editItemType.itemTypeId,
+            nombreEstado : editItemType.find("#nombreEstado").val()
+        };
+
+        var callback = function(data){
+            editItemType.find("#nombreEstado").val("");
+            editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh', {url:'/tipoitems/workflow/'+editItemType.itemTypeId});
+        };
+
+        $.ajax({
+            url: "/estado/nuevo",
+            type: "POST",
+            success: callback,
+            dataType: 'json',
+            data:  JSON.stringify(data),
+            error:  function(data){console.log(data)}
+        });
+
+    })
 });
 

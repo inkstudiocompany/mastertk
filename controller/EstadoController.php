@@ -37,5 +37,10 @@ class EstadoController extends ControllerBase
         //$estado-> save();
     }
 
+    public static function saveNew($estado)
+    {
+        return $estado ->save();
+    }
+
 
 }

@@ -59,6 +59,7 @@
 
 			#Estados
 			'equipos_atencion' => '/estado/equipos-atencion[/{id}]',
+			'new_estado' 	=>	'/estado/nuevo',
 
 			#Items
 			'item_detail'           => '/ticket/detalle[/{id}]',

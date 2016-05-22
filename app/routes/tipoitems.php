@@ -108,7 +108,19 @@ $app::Router()->post($app->path('equipos_atencion'), function(Request $request, 
         $equiposAtencion ->add($item);
     }
     $resultado = EstadoController::updateEquiposAtencion($idEstado, $equiposAtencion);
-    json_encode(true);
+    echo json_encode(true);
+});
+
+
+$app::Router()->post($app->path('new_estado'), function(Request $request, Response $response, $args){
+    $parse = new RequestParse($request, $args);
+    $body = file_get_contents("php://input");
+    $body_params = json_decode($body);
+    $estado = new \Model\ORM\Estado();
+    $estado -> nombreEstado = $body_params -> nombreEstado;
+    $estado -> tipoItem() ->associate( $body_params -> itemTypeId);
+    EstadoController::saveNew($estado);
+    echo json_encode(true);
 });
 
 
