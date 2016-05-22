@@ -103,20 +103,28 @@
             if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $usuario = self::getById($id);
             }
-//var_dump($params, $profile); die();
-            $usuario -> profile           = $profile;
-            $usuario -> idTipoDocumento   = $tipoDocumento;
-            $usuario -> numDocumento      = $numDocumento;
-            $usuario -> nombreCompleto    = $nombreCompleto;
-            $usuario -> email             = $email;
-            $usuario -> usuario           = $nombreUsuario;
 
+            if (false !== $profile)
+                $usuario -> profile           = $profile;
+            if (false !== $tipoDocumento)
+                $usuario -> idTipoDocumento   = $tipoDocumento;
+            if (false !== $numDocumento)
+                $usuario -> numDocumento      = $numDocumento;
+            if (false !== $nombreCompleto)
+                $usuario -> nombreCompleto    = $nombreCompleto;
+            if (false !== $email)
+                $usuario -> email             = $email;
+            if (false !== $nombreUsuario)
+                $usuario -> usuario           = $nombreUsuario;
+            
             if ($password !== false) {
                 $usuario->password = $password;
             }
 
-            $rol = RolController::getById($rolPrincipal);
-            $usuario -> rolPrincipal()-> associate($rol);
+            if (false !== $rolPrincipal) {
+                $rol = RolController::getById($rolPrincipal);
+                $usuario -> rolPrincipal()-> associate($rol);
+            }
 
             $usuario -> save();
 

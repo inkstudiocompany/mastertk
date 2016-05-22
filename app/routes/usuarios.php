@@ -52,9 +52,14 @@
             'profile'       => $parse->get('profile'),
         ];
 
-        UserController::Save($params);
+        $user = UserController::Save($params);
 
-        return $response->withRedirect(App::getInstance()->path('users'), 301);
+        if ('user' === $parse->get('from'))
+        {
+            return $response->withRedirect(App::getInstance()->path('edit_user',["id"=> $user->idUsuario], true), 301);
+        } else {
+            return $response->withRedirect(App::getInstance()->path('profile',["id"=> $user->idUsuario], true), 301);
+        }
     });
 
     $app::Router()->post($app->path('delete_user'), function(Request $request, Response $response, $args){
