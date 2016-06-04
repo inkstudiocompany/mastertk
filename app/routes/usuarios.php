@@ -111,32 +111,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
         echo $usuariosController->history();
     });
 
-$app::Router()->post($app->path('usuario_equipo'), function(Request $request, Response $response, $args){
-    $parse = new RequestParse($request, $args);
-    $idEquipo = $parse -> get('id');
-    $body = file_get_contents("php://input");
-    $body_params = json_decode($body);
-    $items = new Eloquent\Collection();
 
-    foreach($body_params -> usuarios as $usuario){
-        $item = new UsuarioRolEquipo();
-        $item -> equipo() -> associate($idEquipo);
-        $item -> usuario() -> associate($usuario -> usuario);
-        $item -> rol() ->associate($usuario -> rol);
-        $item -> esLider = 0;
-        $items ->add($item);
-    }
-
-    $resultado = TeamController::updateUsuariosRolEquipo($idEquipo, $items);
-    json_encode(true);
-});
-
-$app::Router()->get($app->path('usuario_equipo'), function(Request $request, Response $response, $args){
-    $parse = new RequestParse($request, $args);
-    $idEquipo = $parse -> get('id');
-    $resultado = TeamController::listarUsuariosRolEquipo($idEquipo);
-    echo json_encode($resultado);
-});
 
 
 

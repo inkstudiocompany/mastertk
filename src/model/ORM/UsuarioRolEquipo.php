@@ -23,10 +23,9 @@
             return $this->hasMany('Model\ORM\Item', 'idUsuarioRolEquipo' ,'responsable');
         }
 
-        public static function scopeBuscarUsuarioRolEquipo($query, $idUsuario, $idRol,$idEquipo)
+        public static function scopeBuscarUsuarioEquipo($query, $idUsuario,$idEquipo)
         {
             return $query->where('idUsuario','=', $idUsuario)
-                ->where('idRol', '=',$idRol)
                 ->where('idEquipo', '=',$idEquipo);
         }
     }

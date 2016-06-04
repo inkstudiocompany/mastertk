@@ -13,7 +13,15 @@
 	{
 		public static function getByProject($idProject)
 		{
-			$equipos = equipo::where('idProyecto','=',$idProject) ->get();
+			$equipos = equipo::where('idProyecto','=',$idProject)
+				->leftJoin('UsuarioRolEquipo', function($join){
+					$join->on('Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
+					->where ('UsuarioRolEquipo.esLider','=',1)
+					->where ('UsuarioRolEquipo.activo','=',1);
+				})
+				->leftjoin('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+				->select ('Equipo.*', 'Usuario.nombreCompleto')
+				-> get();
 			return $equipos;
 		}
 
@@ -27,8 +35,7 @@
 			UsuarioRolEquipo::where('idEquipo', '=',$idEquipo) -> update(['activo'=> 0]);
 
 			foreach($items as $usuarioRolEquipo){
-				$usuarioRolEquipoDB =  UsuarioRolEquipo::buscarUsuarioRolEquipo( $usuarioRolEquipo -> idUsuario,
-					$usuarioRolEquipo  -> idRol, $usuarioRolEquipo ->idEquipo)	-> first();
+				$usuarioRolEquipoDB =  UsuarioRolEquipo::buscarUsuarioEquipo( $usuarioRolEquipo -> idUsuario, $usuarioRolEquipo ->idEquipo)	-> first();
 				if(!is_null($usuarioRolEquipoDB)){
 					$usuarioRolEquipoDB -> activo = 1;
 					$usuarioRolEquipoDB -> save();
@@ -49,6 +56,13 @@
 				->where ('activo','=', 1)
 				->get();
 			return $usuariosRolEquipo;
+		}
+
+		public static function updateLiderEquipo($idEquipo, $idUsuarioRolEquipo)
+		{
+			var_dump($idEquipo);
+			UsuarioRolEquipo::where('idEquipo', '=',$idEquipo) -> update(['esLider'=> 0]);
+			UsuarioRolEquipo::where('idUsuarioRolEquipo', '=',$idUsuarioRolEquipo)-> update(['esLider'=> 1]);
 		}
 
 		public function index()
@@ -107,9 +121,7 @@
             $id = self::getInput($params, 'id');
             $idProyecto = self::getInput($params, 'idProyecto');
             $nombre = self::getInput($params, 'nombreEquipo');
-            
             $equipo = new Equipo();
-
             if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $equipo = self::getById($id);
             }
