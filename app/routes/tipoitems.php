@@ -119,6 +119,7 @@ $app::Router()->post($app->path('new_estado'), function(Request $request, Respon
     $estado = new \Model\ORM\Estado();
     $estado -> nombreEstado = $body_params -> nombreEstado;
     $estado -> tipoItem() ->associate( $body_params -> itemTypeId);
+    $estado -> tipoEstado =3;
     EstadoController::saveNew($estado);
     echo json_encode(true);
 });
