@@ -268,4 +268,11 @@
             $equipoAtencion = new EquipoAtencion();
             return $equipoAtencion->usersByState($idEstado)->get();
         }
+
+        public function delete($id = 0)
+        {
+            $ticket = Item::find($id);
+            $ticket->estado = 0;
+            return $ticket->save();
+        }
 	}

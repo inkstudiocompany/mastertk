@@ -112,4 +112,11 @@
                 'proyecto'  => $response
             ]);
         }
+
+        public function delete($id = 0)
+        {
+            $proyecto = proyecto::find($id);
+            $proyecto->estado = 0;
+            return $proyecto->save();
+        }
 	}

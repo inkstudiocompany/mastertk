@@ -308,10 +308,11 @@ $(document).ready(function (){
             },
             events:{
                 'click .remove-team': function (e, value, row) {
-                    editar.find('#teamTable').bootstrapTable('remove', {
+                    alert('Aqui se debe habilitar este boton si el equipo no tienen algun ticket pendiente.');
+                    /*editar.find('#teamTable').bootstrapTable('remove', {
                         field: 'nombre',
                         values: [row.nombre]
-                    });
+                    });*/
                 },
                 'click .team-members': function (e, value, row) {
 

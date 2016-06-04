@@ -113,7 +113,8 @@
         public function delete($id = 0) 
         {
             $equipo = Equipo::find($id);
-            return $equipo->delete();
+            $equipo->estado = 0;
+            return $equipo->save();
         }
 
         public static function Save($params)
