@@ -298,3 +298,51 @@ a:hover{
 .fixed-table-body{
     overflow: visible;
 }
+
+
+/**** AJAX ***/
+#ajax-loader{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px; left: 0px;
+
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+#ajax-loader .ajax-background{
+    position: absolute;
+    width: 100%; height: 100%;
+    background: #fff;
+    opacity: 0.4;
+}
+
+#ajax-loader i,
+#ajax-loader h3,
+#ajax-loader img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+#ajax-loader i{
+    color: #2980b9;
+    font-size: 150px;
+    text-align: center;
+}
+
+#ajax-loader h3{
+    color: #fff;
+}
+
+#ajax-loader img{
+    width: 100px;
+    margin-top: 80px;
+}
+/*** AJAX ***/
