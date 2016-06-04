@@ -46,47 +46,32 @@
     $app::Router()->post($app->path('delete_equipo'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request, $args);
         $dataResponse = [];
-
         if ($id = $parse->get('id')) {
             $equipo = new TeamController();
             $dataResponse['status'] = (boolean) $equipo->delete($id);
         }
-
         return $response->withJson($dataResponse);
     });
 
     $app::Router()->post($app->path('rename_equipo'), function(Request $request, Response $response, $args){
-    $parse = new RequestParse($request);
-    $nomEquipo = $parse->get('nombreEquipo');
-    $idEquipo = $parse->get('idEquipo');
-    $teamController = new TeamController();
-    $result = $teamController -> rename($nomEquipo, $idEquipo);
-
-    echo json_encode($result);
-});
-
-
-/*
-$app::Router()->get($app->path('team'), function(){
-    //var_dump("En EQUIPOS");
-    $equiposController = new TeamController();
-    echo $equiposController->index();
-});
-
-$app::Router()->get($app->path('new_team'), function(){
-    $equiposController = new TeamController();
-    echo $equiposController->addForm();
-});
-
-$app::Router()->post($app->path('new_team'), function( Request $request, Response $response, $args){
         $parse = new RequestParse($request);
+        $nomEquipo = $parse->get('nombreEquipo');
+        $idEquipo = $parse->get('idEquipo');
+        $teamController = new TeamController();
+        $result = $teamController -> rename($nomEquipo, $idEquipo);
+        echo json_encode($result);
+    });
 
-        $nomEquipo = $parse->get('nomEquipo');
-        $idUsuario = $parse->get('tipoDocumento');
-        $idProyecto = $parse->get('rolPrincipal');
-        $equiposController = new TeamController();
-        $equiposController -> createNew($nomEquipo,$idUsuario,$idProyecto);
 
-        echo $equiposController->index();
-});
-*/
+    $app::Router()->post($app->path('new_equipo'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request);
+        $params = [
+            'id' => $parse->get('id'),
+            'idProyecto' => $parse->get('idProyecto'),
+            'nombreEquipo' => $parse->get('nombreEquipo'),
+        ];
+        TeamController::Save($params);
+        echo json_encode(true);
+    });
+
+
