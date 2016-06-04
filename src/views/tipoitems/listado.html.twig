@@ -11,9 +11,9 @@
   <table class="table">
       <thead>
         <tr>
-          <td class="col-md-6 text-center">Nombre Tipo Item</td>
-          <td class="col-md-2 text-center">Estado</td>
-          <td class="col-md-2 text-center">Acciones</td>
+          <td class="col-md-6 text-center">Tipo Item</td>
+          <td class="col-md-6 text-center">Proyecto</td>
+          <td class="col-md-2 text-center">Estados</td>
         </tr>
       </thead>
 
@@ -21,23 +21,13 @@
           {% for tipoitem  in tipoitems %}
               <tr>
                   <td  nowrap="nowrap">{{ tipoitem.descripcion}}</td>
-                  <td class="text-center" nowrap="nowrap">
-                      <ul class="list-group">
+                  <td  nowrap="nowrap">{{ tipoitem.proyecto.nomProyecto }}</td>
+                  <td class="text-left" nowrap="nowrap">
+                      <ul>
                           {% for estado in tipoitem.estados %}
-                          <li class="list-group-item">{{ estado.nombreEstado }}</li>
+                          <li>{{ estado.nombreEstado }}</li>
                           {% endfor %}
                       </ul>
-                  </td>
-                  <td class="text-right" nowrap="nowrap">
-                      <div class="btn-group btn-group-sm" role="group">
-                          <button type="button" class="btn btn-sm btn-danger" role-button="eliminar"
-                                  data-title="Eliminar Usuario" data-message="¿Seguro hermano?"
-                                  {% if tipoitem.estados is not empty or tipoitems.tickets is not empty %}
-                                      disabled
-                                  {% endif %}
-                                  data-urldelete="{{ app.path('delete_tipoitem', {'id': tipoitem.idTipoItem }, true) }}">
-                              Eliminar <i class='glyphicon glyphicon-trash'></i></button>
-                      </div>
                   </td>
               </tr>
           {% endfor %}

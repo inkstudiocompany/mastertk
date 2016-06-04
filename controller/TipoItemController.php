@@ -81,7 +81,7 @@
 		{
 			$tipoitems = tipoitem::with([
                 'estados',
-                'tickets'
+                'proyecto'
             ])
 			//->join('Estado', 'Estado.idTipoItem', '=', 'TipoItem.idTipoItem')
             ->distinct()
