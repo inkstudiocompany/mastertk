@@ -41,7 +41,11 @@
 
 		public static function listarUsuariosRolEquipo($idEquipo)
 		{
-			$usuariosRolEquipo = UsuarioRolEquipo::where('idEquipo','=',$idEquipo)
+			$usuariosRolEquipo = UsuarioRolEquipo::with(array(
+				'usuario'=>function($query){$query->select('idUsuario','nombreCompleto');},
+				'rol' =>function($query){$query->select('idRol','nombreRol');}
+			))
+				->where('idEquipo','=',$idEquipo)
 				->where ('activo','=', 1)
 				->get();
 			return $usuariosRolEquipo;
@@ -111,6 +115,7 @@
             }
 
             $equipo -> nombreEquipo = $nombre;
+			$equipo ->proyecto() ->associate($idProyecto);
             $equipo -> save();
             return $equipo;
         }

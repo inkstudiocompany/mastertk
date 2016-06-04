@@ -122,7 +122,8 @@ $app::Router()->post($app->path('usuario_equipo'), function(Request $request, Re
         $item = new UsuarioRolEquipo();
         $item -> equipo() -> associate($idEquipo);
         $item -> usuario() -> associate($usuario -> usuario);
-        $item ->rol() ->associate($usuario -> rol);
+        $item -> rol() ->associate($usuario -> rol);
+        $item -> esLider = 0;
         $items ->add($item);
     }
 
@@ -133,7 +134,6 @@ $app::Router()->post($app->path('usuario_equipo'), function(Request $request, Re
 $app::Router()->get($app->path('usuario_equipo'), function(Request $request, Response $response, $args){
     $parse = new RequestParse($request, $args);
     $idEquipo = $parse -> get('id');
-    error_log($idEquipo);
     $resultado = TeamController::listarUsuariosRolEquipo($idEquipo);
     echo json_encode($resultado);
 });

@@ -5,6 +5,9 @@ $(document).ready(function (){
     var editTeamForm =  $("div#team-edition");
     var editItemType = $("div#item-type-edition");
 
+    /*ALTA DE PROYECTOS*/
+
+    /*Validador de Datos Basicos del alta de Proyectos*/
     agregarProyecto.validate({
         rules: {
             nomProyecto: { numberslettersonly: true},
@@ -29,6 +32,7 @@ $(document).ready(function (){
         }
     });
 
+    /*Definicion de wizard del alta de Proyectos*/
     agregarProyecto.find('#wizard').bootstrapWizard({
         nextSelector: '.button-next',
         previousSelector: '.button-previous',
@@ -46,6 +50,7 @@ $(document).ready(function (){
         }
     });
 
+    /*Evento del boton de salvado del formulario de alta de proyecto*/
     agregarProyecto.find('#wizard').find('.button-finish').click(function () {
         var validator = agregarProyecto.validate();
         if(validator.form()){
@@ -62,6 +67,7 @@ $(document).ready(function (){
         }
     });
 
+    /*Autocomplete para el lider de proyecto*/
     agregarProyecto.find("#lider" ).typeahead({
        minLength: 3,
        maxItem: 8,
@@ -88,6 +94,7 @@ $(document).ready(function (){
        }
     });
 
+    /*Calendario para la fecha de inicio y fin del proyecto en  alta de Proyectos*/
     agregarProyecto.find('.input-daterange').datepicker({
         format: "yyyy/mm/dd",
         language: "es",
@@ -95,6 +102,7 @@ $(document).ready(function (){
         autoclose: true
     });
 
+    /*Estilo boostrap para el check de productivo en alta de proyecto*/
     agregarProyecto.find('#proyectoproductivo').bootstrapSwitch({
         onText:'SI',
         offText:'NO',
@@ -279,9 +287,9 @@ $(document).ready(function (){
 
                 }else{
                     return [
-                        '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-lider"',
-                        'data-id="', row.idEquipo,'" data-lider= ""  title="Seleccionar Lider">',
-                        '<i class="glyphicon glyphicon-tower"></i>Seleccionar lider</a> '
+                        '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-leader"',
+                        'data-id="', row.idEquipo,'" data-lider= "', value,'"  title=" Seleccionar Lider">',
+                        '<i class="glyphicon glyphicon-tower"></i> Seleccionar lider</a> '
 
                     ].join('');
                 }
@@ -338,7 +346,16 @@ $(document).ready(function (){
                 return;
             }
         }
-        alert.hide();    });
+        alert.hide();
+        var team = { nombreEquipo:  nombreEquipo,
+            idProyecto:  editTeamForm.find('#idProyecto').val()
+        };
+        editTeamForm.ajaxUpdate('/equipos/nuevo','POST',team,function(){
+            editTeamForm.find('#teamTable').bootstrapTable('refresh');
+            editTeamForm.find('#nombreEquipo').val('');
+        });
+
+    });
 
     editTeamForm.find('#edit-team-name').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget),
@@ -379,7 +396,6 @@ $(document).ready(function (){
             }
         }
         editTeamForm.ajaxUpdate('/equipos/renombrar','POST',team,function(){
-            console.log();
             editTeamForm.find('#teamTable').bootstrapTable('refresh');
             modal.modal('hide');
         });
@@ -426,6 +442,42 @@ $(document).ready(function (){
            modal.modal('hide');
         });
 
+    });
+
+    editTeamForm.find('#edit-team-leader').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            idEquipo = button.data('id'),
+            modal = $(this);
+        editTeamForm.teamToChangeLeader = idEquipo;
+        console.log(idEquipo);
+        editTeamForm.find('#edit-team-leader #members-list').bootstrapTable('refresh', {url:'/equipos/integrantes/'+idEquipo});
+
+    });
+
+    editTeamForm.find('#edit-team-leader #members-list').bootstrapTable({
+        method: 'get',
+        columns: [
+
+            {
+                field: 'idUsuarioRolEquipo',
+                valign:'middle',
+                halign:'center',
+                class:'col-md-2',
+                radio:true,
+                clickToSelect:true
+            },
+            {
+                field: 'usuario.nombreCompleto',
+                valign:'middle',
+                halign:'center',
+                class:'col-md-5',
+                title: 'Nombre Integrante'
+            },
+            {   field: 'rol.nombreRol',
+                valign:'middle',
+                halign:'center',
+                title: 'Rol en el Equipo'
+        }]
     });
 
     /*Edition de Tipos de Item*/

@@ -60,23 +60,16 @@
             </div>
         </div>
 
-        <div class="modal fade" id="edit-team-lider" role="dialog">
+        <div class="modal fade" id="edit-team-leader" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <span class="modal-title">Editar Nombre de Equipo</span>
+                        <span class="modal-title">Editar Lider de Equipo</span>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="nombreEquipo"> Nuevo Nombre</label>
-                            <input name="nombre"  id="nombre" type="text" class="form-control add-team" placeholder="Nombre de Equipo ..."  />
-                            <input type="hidden" name="idEquipo" id="idEquipo" />
-                            <input type="hidden" name="nombreOriginal" id="nombreOriginal" />
-                            <div class="error-msg alert-danger" role="alert" hidden>
-                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                Enter a valid email address
-                            </div>
-                        </div>
+                        <table id="members-list">
+
+                        </table>
                     </div>
                     <div class="modal-footer" role="group" aria-label="formActions">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
