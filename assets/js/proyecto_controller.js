@@ -271,16 +271,16 @@ $(document).ready(function (){
 
                 ].join('');
             }
-        },{ field: 'lider.nombreCompleto',
+        },{ field: 'nombreCompleto',
             valign:'middle',
             halign:'center',
             title: 'Lider',
             formatter: function(value, row, index) {
                 if(value){
                     return [
-                        '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-lider"',
+                        '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-leader"',
                         'data-id="', row.idEquipo,'" data-lider= "', value,'"  title="Cambiar Lider">',
-                        '<i class="glyphicon glyphicon-king"></i></a>  ',
+                        '<i class="glyphicon glyphicon-user"></i></a> ',
                         value
 
                     ].join('');
@@ -314,7 +314,7 @@ $(document).ready(function (){
                     });
                 },
                 'click .team-members': function (e, value, row) {
-                    console.log( row.idEquipo);
+
                 }
             }
         }]
@@ -440,6 +440,7 @@ $(document).ready(function (){
         data = JSON.stringify({equipo:idEquipo,usuarios:usuarios});
         editTeamForm.ajaxUpdate('/equipos/integrantes/'+idEquipo,'POST',data,function(){
            modal.modal('hide');
+            editTeamForm.find('#teamTable').bootstrapTable('refresh');
         });
 
     });
@@ -449,23 +450,20 @@ $(document).ready(function (){
             idEquipo = button.data('id'),
             modal = $(this);
         editTeamForm.teamToChangeLeader = idEquipo;
-        console.log(idEquipo);
+        editTeamForm.find('#edit-team-leader #members-list').bootstrapTable('resetView');
         editTeamForm.find('#edit-team-leader #members-list').bootstrapTable('refresh', {url:'/equipos/integrantes/'+idEquipo});
+        editTeamForm.find("#edit-team-leader #members-list [name='leader']").bootstrapSwitch({
+            onText:'SI',
+            offText:'NO',
+            size:'mini',
+            onColor:'success'
+        })
 
     });
 
     editTeamForm.find('#edit-team-leader #members-list').bootstrapTable({
         method: 'get',
         columns: [
-
-            {
-                field: 'idUsuarioRolEquipo',
-                valign:'middle',
-                halign:'center',
-                class:'col-md-2',
-                radio:true,
-                clickToSelect:true
-            },
             {
                 field: 'usuario.nombreCompleto',
                 valign:'middle',
@@ -477,7 +475,38 @@ $(document).ready(function (){
                 valign:'middle',
                 halign:'center',
                 title: 'Rol en el Equipo'
-        }]
+            },
+            {
+                title: 'Lider',
+                field: 'idUsuarioRolEquipo',
+                halign:'center',
+                class:'col-md-1',
+                formatter: function(value, row, index) {
+                    var checked = row.esLider ==1?' checked':'';
+                    return [
+                        '<input type="radio" name="leader" value="', row.idUsuarioRolEquipo,'" ',checked,'/> '
+                    ].join('');
+                }
+            }],
+        onPostBody:function(){
+            editTeamForm.find("#edit-team-leader #members-list [name='leader']").bootstrapSwitch({
+                onText:'SI',
+                offText:'NO',
+                size:'mini',
+                onColor:'success'
+            })
+        }
+    });
+
+    editTeamForm.find('#edit-team-leader .btn-primary').click(function (){
+        var idLider= editTeamForm.find("#edit-team-leader [name='leader']:checked").val(),
+            modal = editTeamForm.find('#edit-team-leader'),
+            callback = function(data){
+                modal.modal('hide');
+                editTeamForm.find('#teamTable').bootstrapTable('refresh');
+            };
+        var url = '/equipos/lider/'+editTeamForm.teamToChangeLeader+'/'+idLider;
+        editTeamForm.ajaxUpdate(url,'POST',[],callback,function(){});
     });
 
     /*Edition de Tipos de Item*/

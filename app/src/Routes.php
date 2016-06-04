@@ -38,6 +38,7 @@
       		'delete_equipo'   => '/equipos/borrar[/{id}]',
 			'rename_equipo'   => '/equipos/renombrar',
 			'usuario_equipo'  => '/equipos/integrantes[/{id}]',
+			'lider_equipo'    => '/equipos/lider[/{id}/{lider}]',
 
 			#Usuarios
 			'users'           => '/usuarios',
