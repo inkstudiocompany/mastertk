@@ -47,7 +47,7 @@
                    required value="{{ usuario.usuario }}"  />
         </div>
 
-         {% if usuario.profile == 1 %}
+         {% if app.user.profile == 1 %}
             <div class="form-group">
                 <label for="password">Password</label>
                 <input name="password" type="password" id="password" placeholder="Password" class="form-control" required/>
