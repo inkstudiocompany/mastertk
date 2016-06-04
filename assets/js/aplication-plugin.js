@@ -233,4 +233,27 @@
             }
         });
     }
+
+    $.fn.ajaxLoaderInit = function() {
+        var ajaxElement = document.getElementById('ajax-loader');
+        ajaxElement.addEventListener('transitionend', function(){
+            if (1 === parseInt($(ajaxElement).css('opacity'))) {
+                $(ajaxElement).css('height', '100%');
+            }
+            if (0 === parseInt($(ajaxElement).css('opacity'))) {
+                $(ajaxElement).css('height', '0%');
+            }
+        });
+    }
+
+    $.fn.ajaxIn = function() {
+        var ajaxElement = document.getElementById('ajax-loader');
+        $(ajaxElement).css('height', '100%');
+        $(ajaxElement).css('opacity', '1');
+    }
+
+    $.fn.ajaxOut = function() {
+        var ajaxElement = document.getElementById('ajax-loader');
+        $(ajaxElement).css('opacity', '0');
+    }
 })(jQuery);

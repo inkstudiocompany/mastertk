@@ -45,7 +45,7 @@ class SecurityMiddleware
     {
         $app = App::getInstance();
 
-        if (false !== $this->rememberme($request)){
+        if (false !== $this->rememberme($request) && false !== SecurityController::AppAuthorization()){ die();
             return $response->withRedirect($app->path('homepage'));
         }
 
