@@ -592,7 +592,12 @@ $(document).ready(function (){
                         dataType: 'json',
                         error:  function(data){console.log(data)}
                     });
-                }}
+                },
+                'click .remove-item-type': function(e, value, row) {
+                    alert('Aqui debemos borrar el estado. Se debe hacer borrado lógico. Validar si al cargar la lista se ' +
+                        'puede desactivar el botón de borrado. ID: ' + row.idEstado);
+                }
+            }
         }
         ]
     });
