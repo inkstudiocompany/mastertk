@@ -1,0 +1,11 @@
+FTP
+URL br000001.ferozo.com
+User unlp@design2001.com.ar
+Pass MachoMecha2016
+
+/public_html/unlp/
+
+BD
+br000001_tickets
+User: br000001_unlp
+Pass: MachoMecha2016

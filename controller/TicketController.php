@@ -10,7 +10,7 @@
     use Model\ORM\TipoItem;
 	use Model\ORM\TransicionItem;
     use Model\ORM\Estado;
-    use Model\ORM\Usuario;
+    use Model\ORM\UsuarioRolEquipo;
     use Slim\Http\Response;
 
 	class TicketController extends ControllerBase
@@ -89,7 +89,7 @@
             if (false !== $asignado) {
                 $item -> responsable  = $asignado;
                 $ticketUpdate         = true;
-                $dataLog['ticket']['Responsable'] = Usuario::find($asignado)->nombreCompleto;
+                $dataLog['ticket']['Responsable'] = UsuarioRolEquipo::with('usuario')->find($asignado)->usuario->nombreCompleto;
             }
 
             if (false !== $descripcion) {
@@ -113,7 +113,7 @@
             if (false !== $asignado) {
                 $item -> responsable    = $asignado;
                 $ticketUpdate           = true;
-                $dataLog['ticket']['Asignado a']  = Usuario::find($asignado)->nombreCompleto;
+                $dataLog['ticket']['Asignado a']  = UsuarioRolEquipo::with('usuario')->find($asignado)->usuario->nombreCompleto;
             }
 
 			if (false !== $prioridad) {

@@ -13,20 +13,24 @@
         <thead>
             <tr>
                 <td class="text-center">Nombre y Apellido</td>
-                <td class="text-center">Tipo de Documento</td>
+                <td class="text-center col-md-1">Tipo de Documento</td>
                 <td class="text-center">Nro. de Documento</td>
                 <td class="text-center">Email</td>
                 <td class="text-center">Usuario</td>
                 <td class="text-center">Perfil</td>
                 <td class="text-center">Rol Principal</td>
                 <td class="text-center">Proyectos Asignados</td>
-                <td class="text-center">Acciones</td>
+                <td class="text-center col-md-2">Acciones</td>
             </tr>
         </thead>
 
     {% if usuarios is not empty %}
       {% for usuario  in usuarios %}
-        <tr>
+        <tr
+            {% if 0 == usuario.estado %}
+             class="registeroff"
+            {% endif %}
+          >
           <td nowrap="nowrap">{{ usuario.nombreCompleto }}</td>
           <td nowrap="nowrap">{{ tiposDocumento[usuario.idTipoDocumento] }}</td>
           <td nowrap="nowrap">{{ usuario.numDocumento}}</td>
@@ -40,14 +44,18 @@
                 {%  endif %}
             </td>
           <td nowrap="nowrap">{{ usuario.rolPrincipal.nombreRol }}</td>
-          <td nowrap="nowrap"></td>
+          <td nowrap="nowrap">
+              {% for proyecto in usuario.getProyectos() %}
+                  <p>{{ proyecto.nomProyecto }}</p>
+              {% endfor %}
+          </td>
           <td nowrap="text-right nowrap">
-              <div class="btn-group btn-group-sm" role="group">
+              <div class="btn-group btn-group-sm right" role="group">
                     <button type="button" class="btn btn-sm btn-info"
                       data-urledit="{{ app.path('edit_user', {'id': usuario.idUsuario }, true) }}" role-button="editar">Editar</button>
               <button type="button" class="btn btn-sm btn-danger" role-button="eliminar"
                       data-title="Eliminar Usuario" data-message="¿Seguro hermano? Ud. va a eliminar a '{{usuario.nombreCompleto}}'"
-                      {% if usuario.responsable is not empty or usuario.lidera is not empty %}
+                      {% if true == usuario.isResponsable() or usuario.lidera is not empty %}
                           disabled
                       {% endif %}
                       data-urldelete="{{ app.path('delete_user', {'id': usuario.idUsuario }, true) }}">

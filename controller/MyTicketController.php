@@ -17,7 +17,8 @@
 				->join('Item', 'Proyecto.idProyecto', '=', 'Item.idProyecto')
 				->join('Estado', 'Item.estadoActual', '=', 'Estado.idEstado')
 				->join('TipoItem', 'Item.idTipoItem', '=', 'TipoItem.idTipoItem')
-				->join('Usuario', 'Usuario.idUsuario', '=', 'Item.responsable')
+                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuarioRolEquipo', '=', 'Item.responsable')
+				->join('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
 				->where('Usuario.idUsuario', '=', $usuario->id())
 				->get();
 

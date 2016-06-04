@@ -2,6 +2,8 @@
 
 namespace Model\ORM;
 
+use Illuminate\Database\Eloquent\Collection;
+
 class Item extends EntityBase{
     
     protected $table = "Item";
@@ -57,5 +59,22 @@ class Item extends EntityBase{
             ->join('Estado', 'WorkFlow.idEstadoSiguiente', '=', 'Estado.idEstado')
             ->where('Item.idItem', '=', $id)
             ->select('Estado.idEstado', 'Estado.nombreEstado');
+    }
+
+    public function scopeUserEdit($query, $id)
+    {
+        return $query
+            ->join('Proyecto', 'Proyecto.idProyecto', '=', 'Item.idProyecto')
+            ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuarioRolEquipo', '=', 'Item.responsable')
+            ->where('Item.idItem', '=', $this->idItem)
+            ->where('Proyecto.idLider', '=', $id)
+            ->orWhere('UsuarioRolEquipo.idUsuario', '=', $id);
+    }
+
+    public function isEditable($idUsuario)
+    {
+        /** @var Collection $response */
+        $response = $this->userEdit($idUsuario)->get();
+        return !$response->isEmpty();
     }
 }

@@ -82,7 +82,7 @@
 		{
 			$tipoitems = tipoitem::with([
                 'estados',
-                'tickets'
+                'proyecto'
             ])
             ->distinct()
 			-> get();

@@ -113,6 +113,42 @@
 		});
 	}
 
+    /**
+     * modal
+     *
+     * Crea modal con mensaje de alerta.
+     *
+     * @param options
+     * @param callback
+     */
+    $.fn.modalAlert = function(options, callback) {
+        $.fn.confirm.defaults = {
+            title   : 'Alerta',
+            message : 'Here are your message'
+        };
+
+        var opts = $.extend( {}, $.fn.confirm.defaults, options );
+
+        var HTMLBodyModal = '<div class="modal-header">' +
+            '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+            '<span aria-hidden="true">&times;</span>' +
+            '</button>' +
+            '<h4 class="modal-title">' + opts.title + '</h4>' +
+            '</div>';
+
+            HTMLBodyModal += '<div class="modal-body">' +
+                '<p>' + opts.message  + '</p>' +
+                '</div>';
+
+            HTMLBodyModal += '<div class="modal-footer">' +
+                '<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>' +
+                '</div>';
+
+            $('div[role="alert"]').find('.modal-content').html('');
+            $('div[role="alert"]').find('.modal-content').append($(HTMLBodyModal));
+            $('div[role="alert"]').modal();
+    }
+
 	/**
 	 * appValidate
      *
@@ -241,9 +277,11 @@
             ajaxElement.addEventListener('transitionend', function(){
                 if (1 === parseInt($(ajaxElement).css('opacity'))) {
                     $(ajaxElement).css('height', '100%');
+                    console.log('AParece');
                 }
                 if (0 === parseInt($(ajaxElement).css('opacity'))) {
                     $(ajaxElement).css('height', '0%');
+                    console.log('desarece');
                 }
             });
         }

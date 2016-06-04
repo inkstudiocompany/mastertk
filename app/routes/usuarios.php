@@ -52,6 +52,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
             'tipoDocumento' => $parse->get('tipoDocumento'),
             'rolPrincipal'  => $parse->get('rolPrincipal'),
             'profile'       => $parse->get('profile'),
+            'estado'        => $parse->get('estado'),
         ];
 
         $user = UserController::Save($params);
