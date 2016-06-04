@@ -266,6 +266,10 @@ path, ._jsPlumb_endpoint {
 	cursor:pointer;
 }
 
+.history-panel {
+    max-width: 342px;
+}
+
 .history-panel .panel-body{
     padding: 2px 2px 22px 2px;
     border: none !important;
@@ -273,6 +277,11 @@ path, ._jsPlumb_endpoint {
 
 .history-panel .list-group-item label{
     font-weight: normal;
+    overflow: auto;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    display: block;
+    word-break: break-word;
 }
 
 .history-panel .list-group-item label strong{
@@ -302,22 +311,25 @@ a:hover{
 
 /**** AJAX ***/
 #ajax-loader{
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 0%;
     top: 0px; left: 0px;
     opacity: 0;
+    z-index: 99999999;
+    overflow: hidden;
 
-    -webkit-transition: all 0.2s ease-in-out;
-    -moz-transition: all 0.2s ease-in-out;
-    -ms-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    -ms-transition: opacity 0.2s ease-in-out;
+    -o-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
 }
 
 #ajax-loader .ajax-background{
-    position: absolute;
-    width: 100%; height: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
     background: #fff;
     opacity: 0.4;
 }
@@ -347,3 +359,8 @@ a:hover{
     margin-top: 80px;
 }
 /*** AJAX ***/
+
+/*** MODAL ***/
+.modal-title {
+    color: #7f8c8d;
+}

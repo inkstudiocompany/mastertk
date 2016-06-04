@@ -74,7 +74,9 @@
                                             {% if 2 == loop.index %}
                                                 <ul class="collapse list-group" id="history-{{ tickets.idTransicionItem }}">
                                             {% else %}
-                                                <li class="list-group-item"><label><strong>{{ item | replace({'"': '', ':': '</strong>', 'accionTicket': ''}) | raw }}</label></li>
+                                                <li class="list-group-item">
+                                                    <label><strong>{{ item | replace({'"': '', ':': '</strong>', 'accionTicket': ''}) | raw }}</label>
+                                                </li>
                                             {% endif %}
 
                                             {% if true == loop.last %}

@@ -51,8 +51,9 @@
         public function scopeHistory($query, $id)
         {
             return $query
-                ->join('Item', 'Item.responsable', '=', 'Usuario.idUsuario')
-                ->join('TransicionItem', 'TransicionItem.idItem', '=', 'Item.idItem')
+                ->join('TransicionItem', 'TransicionItem.idUsuario', '=', 'Usuario.idUsuario')
+                ->join('Item', 'TransicionItem.idItem', '=', 'Item.idItem')
+                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuarioRolEquipo', '=', 'Item.responsable')
                 ->where('Usuario.idUsuario', '=', $id)
                 ->orderBy('TransicionItem.fechahora', 'Desc');
         }

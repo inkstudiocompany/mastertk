@@ -589,6 +589,8 @@ $(document).ready(function (){
     });
 
     editItemType.find("#edit-item-type-wz #states-team-table #assign-teams").click(function(){
+        $.fn.ajaxIn();
+
         var equipos = [],
             idEstado = editItemType.find("#edit-item-type-wz #idState").val();
 
@@ -602,7 +604,10 @@ $(document).ready(function (){
         $.ajax({
             url: "/estado/equipos-atencion/"+idEstado,
             type: "POST",
-            success: function(data){console.log(data)},
+            success: function(data){
+                console.log(data);
+                $.fn.ajaxOut();
+            },
             dataType: 'json',
             data:  JSON.stringify(data),
             error:  function(data){console.log(data)}
@@ -652,13 +657,26 @@ $(document).ready(function (){
     });
 
     editItemType.find("#addNewState").click(function(){
-        var data ={
-            itemTypeId: editItemType.itemTypeId,
-            nombreEstado : editItemType.find("#nombreEstado").val() },
+
+        var data = {
+                itemTypeId: editItemType.itemTypeId,
+                nombreEstado : editItemType.find("#nombreEstado").val()
+            },
             callback = function(data){
                 editItemType.find("#nombreEstado").val('');
                 editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh', {url:'/tipoitems/workflow/'+editItemType.itemTypeId});
+                $.fn.ajaxOut();
             };
+
+        if ('' === $.trim(data.nombreEstado)) {
+            $.fn.modalAlert({
+                title   : 'Nombre Requerido!',
+                message : 'Para crear un nuevo registro es necesario que ingreses un nombre para el estado.'
+            });
+            return;
+        }
+
+        $.fn.ajaxIn();
         $.ajax({
             url: "/estado/nuevo",
             type: "POST",
