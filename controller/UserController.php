@@ -60,7 +60,9 @@
 
         public static function listWithRolAll()
         {
-            $usuarios = usuario::with('rolPrincipal')-> get() ;
+            $usuarios = usuario::with('rolPrincipal')
+                -> where('estado','=',1)
+                -> get() ;
             return $usuarios;
         }
 

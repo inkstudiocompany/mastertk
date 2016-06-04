@@ -5,9 +5,9 @@
 	{
         protected $table = 'Proyecto';
 	    protected $primaryKey = 'idProyecto';
-		
+
         public function lider(){
-            return $this->hasOne('Model\ORM\Usuario','idUsuario','idLider');
+            return $this->belongsTo('Model\ORM\Usuario','idLider','idUsuario');
         }
         
         public function equipos(){

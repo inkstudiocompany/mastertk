@@ -206,17 +206,17 @@
                 window.location.href = '/login';
             }
         })
-    }
+    };
 
     $.fn.cleanErrorLog = function() {
         $('#login_errors label').html('');
         $('#login_errors').fadeOut();
-    }
+    };
 
     $.fn.errorLog = function(stringError) {
         $('#login_errors label').html(stringError);
         $('#login_errors').fadeIn();
-    }
+    };
 
     /** Relacion Ajax **/
     $.fn.relation = function(options, callback) {
@@ -225,7 +225,7 @@
             url         : false,
             relation    : 'relacion',
             key         : 'id',
-            value       : 'nombre',
+            value       : 'nombre'
         };
 
         var opts = $.extend( {}, $.fn.relation.defaults, options );
@@ -268,7 +268,7 @@
                 });
             }
         });
-    }
+    };
 
     $.fn.ajaxLoaderInit = function() {
         var ajaxElement = document.getElementById('ajax-loader');
@@ -285,16 +285,16 @@
                 }
             });
         }
-    }
+    };
 
     $.fn.ajaxIn = function() {
         var ajaxElement = document.getElementById('ajax-loader');
         $(ajaxElement).css('height', '100%');
         $(ajaxElement).css('opacity', '1');
-    }
+    };
 
     $.fn.ajaxOut = function() {
         var ajaxElement = document.getElementById('ajax-loader');
         $(ajaxElement).css('opacity', '0');
-    }
+    };
 })(jQuery);

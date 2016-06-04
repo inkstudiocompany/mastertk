@@ -439,7 +439,7 @@ $(document).ready(function (){
         });
         data = JSON.stringify({equipo:idEquipo,usuarios:usuarios});
         editTeamForm.ajaxUpdate('/equipos/integrantes/'+idEquipo,'POST',data,function(){
-           modal.modal('hide');
+            modal.modal('hide');
             editTeamForm.find('#teamTable').bootstrapTable('refresh');
         });
 

@@ -15,8 +15,10 @@
 			$estados = new Collection();
 			$estadoInicial = new Estado();
 			$estadoInicial -> nombreEstado ="Abierto";
+			$estadoInicial -> tipoEstado = 1;
 			$estadoFinal = new Estado();
 			$estadoFinal -> nombreEstado ="Cerrado";
+			$estadoFinal -> tipoEstado = 2;
 			$estados ->add($estadoInicial);
 			$estados ->add($estadoFinal);
 			return $estados;
@@ -75,7 +77,6 @@
 		           'tipoitems' => self::listAll()
 				]);
 		}
-	
 
 		public function listado()
 		{
@@ -83,7 +84,6 @@
                 'estados',
                 'proyecto'
             ])
-			//->join('Estado', 'Estado.idTipoItem', '=', 'TipoItem.idTipoItem')
             ->distinct()
 			-> get();
 
@@ -102,30 +102,7 @@
                 'title' => 'Editar Item'
             ]);
         }
-
-/*
-   		public function addForm()
-		{
-			return  $this->render('tipoitems/agregar.html.twig');
-		}
-*/
-
-/*
-        public function createNew($nombreEquipo,$idProyecto,$idUsuario){
-            $equipo = new equipo();
-            $equipo -> nomEquipo = $nombreEquipo;
-            
-            $equipo = ProyectController::getById($idProyecto);
-            //$equipo -> lider() -> associate($usuario);
-
-            $equipo = UserController::getById($idUsuario);
-            //$equipo -> lider() -> associate($usuario);
-            
-            $equipo -> save();
-            return $proyecto;
-        }
-*/
-        public static function listAll()
+       public static function listAll()
         {
             return TipoItem::all();
         }

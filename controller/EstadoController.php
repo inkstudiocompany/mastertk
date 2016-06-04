@@ -37,7 +37,6 @@ class EstadoController extends ControllerBase
         equipoAtencion::where('idEstado', '=',$idEstado) -> delete();
         $estado = self::getById($idEstado);
         $estado -> equiposAtencion() ->saveMany ($equiposAtencion);
-        //$estado-> save();
     }
 
     public static function saveNew($estado)
