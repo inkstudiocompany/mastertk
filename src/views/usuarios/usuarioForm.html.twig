@@ -87,6 +87,22 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="profile">Estado</label>
+            <select name="estado" id="estado" class="form-control" required>
+                <option value="1"
+                    {% if 1 == usuario.estado or true == usuario is not defined %}
+                        selected
+                    {% endif %}
+                >Activo</option>
+                <option value="0"
+                    {% if 0 == usuario.estado and true == usuario is defined %}
+                        selected
+                    {% endif %}
+                >Inactivo</option>
+            </select>
+        </div>
+
         <div class="btn-group right" role="group" aria-label="formActions">
             <button type="button" class="btn btn-danger" rol="backButton">Cancelar</button>
             <button type="submit" class="btn btn-primary">Guardar</button>

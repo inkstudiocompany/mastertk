@@ -1,7 +1,9 @@
 <?php
 	namespace Model\ORM;
 
-	class Usuario extends EntityBase{
+	use Illuminate\Database\Eloquent\Collection;
+
+    class Usuario extends EntityBase{
             
 		protected $table = "Usuario";
 		protected $primaryKey = "idUsuario";
@@ -30,10 +32,6 @@
             return $this->hasMany('Model\ORM\Comentario', 'idUsuario', 'idUsuario');
         }
 
-        public function responsable() {
-            return $this->hasMany('Model\ORM\Item', 'responsable', 'idUsuario');
-        }
-
         public function scopeAuth($query, $email, $password)
 		{
             return $query->whereRaw(
@@ -48,6 +46,14 @@
             );
         }
 
+        public function scopeResponsable($query, $id)
+        {
+            return $query
+                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+                ->join('Item', 'Item.responsable', '=', 'UsuarioRolEquipo.idUsuarioRolEquipo')
+                ->where('Usuario.idUsuario', '=', $id);
+        }
+
         public function scopeHistory($query, $id)
         {
             return $query
@@ -56,6 +62,29 @@
                 ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuarioRolEquipo', '=', 'Item.responsable')
                 ->where('Usuario.idUsuario', '=', $id)
                 ->orderBy('TransicionItem.fechahora', 'Desc');
+        }
+
+        public function scopeProyectos($query, $id)
+        {
+            return $query
+                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+                ->join('Equipo', 'Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
+                ->join('Proyecto', 'Proyecto.idProyecto', '=', 'Equipo.idProyecto')
+                ->select('Proyecto.*')
+                ->where('UsuarioRolEquipo.idUsuario', '=', $id);
+        }
+
+        public function isResponsable()
+        {
+            /** @var Collection $test */
+            $responsable = $this->responsable($this->idUsuario)->get();
+            return !$responsable->isEmpty();
+        }
+
+        public function getProyectos()
+        {
+            $lider = $this->lidera();
+            return $this->proyectos($this->idUsuario)->union($lider)->get();
         }
 	}
 

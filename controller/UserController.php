@@ -42,10 +42,8 @@
         {
             $usuarios = usuario::with([
                     'rolPrincipal',
-                    'responsable',
                     'lidera'
                 ])
-                -> where('Usuario.estado','=',1)
                 -> get();
 
             return  $this->render('usuarios/listado.html.twig', [
@@ -108,12 +106,15 @@
             $nombreUsuario  = self::getInput($params, 'nombreUsuario');
             $password       = self::getInput($params, 'password');
             $rolPrincipal   = self::getInput($params, 'rolPrincipal');
+            $estado   = self::getInput($params, 'estado');
 
             $usuario = new usuario();
             if (false === empty($id) && $id !== false && (int) $id > 0) {
                 $usuario = self::getById($id);
             }
 
+            if (false !== $estado)
+                $usuario -> estado            = $estado;
             if (false !== $profile)
                 $usuario -> profile           = $profile;
             if (false !== $tipoDocumento)
