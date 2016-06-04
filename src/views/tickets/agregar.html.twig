@@ -16,7 +16,7 @@
             });
 
             $('#asignado').relation({
-                key       : 'idUsuario',
+                key       : 'idUsuarioRolEquipo',
                 value     : 'nombreCompleto',
                 url       : '{{ app.path('users_allows_ticket') }}'
             });
@@ -78,7 +78,7 @@
                             <strong class="col-md-5">Asignado a</strong>
                             <select id="asignado" name="asignado" data-reference="estado" class="form-control input-sm">
                                 {% for usuario in equipo %}
-                                    <option value="{{ usuario.idUsuario }}"
+                                    <option value="{{ usuario.idUsuarioRolEquipo }}"
                                     {% if usuario.idUsuario == app.user.id %}
                                         selected
                                     {% endif %}

@@ -236,14 +236,17 @@
 
     $.fn.ajaxLoaderInit = function() {
         var ajaxElement = document.getElementById('ajax-loader');
-        ajaxElement.addEventListener('transitionend', function(){
-            if (1 === parseInt($(ajaxElement).css('opacity'))) {
-                $(ajaxElement).css('height', '100%');
-            }
-            if (0 === parseInt($(ajaxElement).css('opacity'))) {
-                $(ajaxElement).css('height', '0%');
-            }
-        });
+
+        if (null !== ajaxElement) {
+            ajaxElement.addEventListener('transitionend', function(){
+                if (1 === parseInt($(ajaxElement).css('opacity'))) {
+                    $(ajaxElement).css('height', '100%');
+                }
+                if (0 === parseInt($(ajaxElement).css('opacity'))) {
+                    $(ajaxElement).css('height', '0%');
+                }
+            });
+        }
     }
 
     $.fn.ajaxIn = function() {
