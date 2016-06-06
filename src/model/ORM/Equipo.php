@@ -21,7 +21,4 @@
                 ->where('UsuarioRolEquipo.esLider', '=', $id)
                 ->select('Usuario.*');
         }
-
-
-
     }

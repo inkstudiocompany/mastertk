@@ -18,7 +18,7 @@
 
 		public function index()
 		{
-			return $this->render('proyectos/proyectos.html.twig');
+            return $this->render('proyectos/proyectos.html.twig');
 		}
 
 		public function listado()
@@ -87,7 +87,7 @@
 			$proyecto = self::getById($id);
 			$tiposItem = TipoItemController::getByProject($id);
 			$equipos = TeamController::getByProject($id);
-			//echo $equipos;
+
 			return $this->render('proyectos/editar-tipos-item.html.twig', [
 				'proyecto' => $proyecto,
 				'tiposItem' =>$tiposItem,

@@ -13,7 +13,7 @@
 		}
 
 		public function lidera(){
-			return $this->hasMany('Model\ORM\Proyecto','idLider','idUsuario');
+			return $this->hasMany('Model\ORM\Proyecto', 'idLider','idUsuario');
 		}
 
 		public function equipoRol(){
