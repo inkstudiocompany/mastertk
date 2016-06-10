@@ -130,7 +130,7 @@
             if (false !== $nombreUsuario)
                 $usuario -> usuario           = $nombreUsuario;
             
-            if ($password !== false) {
+            if ($password !== false && false === empty(trim($password))) {
                 $usuario->password = $password;
             }
 
