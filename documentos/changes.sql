@@ -38,3 +38,4 @@ ADD CONSTRAINT UsuarioRolEquipo_ibfk_3
 FOREIGN KEY (idEquipo) REFERENCES Equipo (idEquipo) ON DELETE CASCADE;
 
 Alter Table Estado Add column estado Int (1) Default 1;
+Alter Table TipoItem Add column estado Int (1) Default 1;

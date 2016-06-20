@@ -51,17 +51,19 @@
 			'all_users'       => '/usuarios/all',
 
 			#TipoItems
-			'tipoitems'       => '/tipoitems',
-			'new_tipoitem'    => '/tipoitems/nuevo',
-			'states_tipoitem' => '/tipoitems/estados',
-			'edit_tipoitem'   => '/tipoitems/editar[/{id}]',
-			'delete_tipoitem' => '/tipoitems/borrar[/{id}]',
+			'tipoitems'       	=> '/tipoitems',
+			'new_tipoitem'    	=> '/tipoitems/nuevo',
+			'states_tipoitem' 	=> '/tipoitems/estados',
+			'edit_tipoitem'   	=> '/tipoitems/editar[/{id}]',
+			'delete_tipoitem' 	=> '/tipoitems/borrar[/{id}]',
 			'tipoitem_workflow' => '/tipoitems/workflow[/{id}]',
+			'rename_tipoitem'	=> '/tipoitems/renombrar',
 
 			#Estados
 			'equipos_atencion'      => '/estado/equipos-atencion[/{id}]',
 			'new_estado' 	        => '/estado/nuevo',
-            'estado_delete'         => '/estado/delete[/{id}]',
+            'estado_delete'         => '/estado/borrar[/{id}]',
+			'rename_estado'			=> '/estado/renombrar',
 
 			#Items
 			'item_detail'           => '/ticket/detalle[/{id}]',

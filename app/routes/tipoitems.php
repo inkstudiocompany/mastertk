@@ -48,7 +48,6 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
     $app::Router()->post($app->path('delete_tipoitem'), function(Request $request, Response $response, $args){
         $parse = new RequestParse($request, $args);
         $dataResponse = [];
-
         if ($id = $parse->get('id')) {
             $tipoitem = new TipoItemController();
             $dataResponse['status'] = (boolean) $tipoitem->delete($id);
@@ -122,6 +121,34 @@ $app::Router()->post($app->path('new_estado'), function(Request $request, Respon
     $estado -> tipoEstado =3;
     EstadoController::saveNew($estado);
     echo json_encode(true);
+});
+
+$app::Router()->post($app->path('estado_delete'), function(Request $request, Response $response, $args){
+    $parse = new RequestParse($request, $args);
+    $dataResponse = [];
+    if ($id = $parse->get('id')) {
+        $estadoController = new EstadoController();
+        $dataResponse['status'] = (boolean) $estadoController->delete($id);
+    }
+    return $response->withJson($dataResponse);
+});
+
+$app::Router()->post($app->path('rename_estado'), function(Request $request, Response $response, $args){
+    $parse = new RequestParse($request);
+    $nombre = $parse->get('nombreEstado');
+    $id = $parse->get('idEstado');
+    $estadoController = new EstadoController();
+    $result = $estadoController -> rename($nombre, $id);
+    echo json_encode($result);
+});
+
+$app::Router()->post($app->path('rename_tipoitem'), function(Request $request, Response $response, $args){
+    $parse = new RequestParse($request);
+    $descripcion = $parse->get('descripcion');
+    $id = $parse->get('idTipoItem');
+    $tipoItemController = new TipoItemController();
+    $result = $tipoItemController -> rename($descripcion, $id);
+    echo json_encode($result);
 });
 
 

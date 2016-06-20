@@ -45,5 +45,19 @@ class EstadoController extends ControllerBase
         return $estado ->save();
     }
 
+    public function delete($id)
+    {
+        $estado = self::getById($id);
+        $estado -> estado = 0;
+        return $estado -> save();
+    }
+
+    public function rename($nombre, $id)
+    {
+        $estado =  self::getById($id);
+        $estado -> nombreEstado = $nombre;
+        return $estado -> save();
+    }
+
 
 }

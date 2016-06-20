@@ -1,0 +1,114 @@
+<nav>
+    <ul class="pager">
+        <li class="previous button-previous"><a href="#"><span aria-hidden="true" class="glyphicon glyphicon-hand-left"></span> Tipos Item</a></li>
+    </ul>
+</nav>
+<div class="row">
+    <h4 class="col-md-8 col-md-offset-5 title" >
+        SARASASA
+    </h4>
+
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <table id="states-table"></table>
+
+        <div class="input-group" id="new-state-type">
+            <input name="nombreEstado"  id="nombreEstado" type="text" class="form-control add-team" placeholder="Nuevo Estado ..."  />
+                            <span class="input-group-btn" style="vertical-align: top">
+                                <button class="btn btn-primary" type="button" id="addNewState">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar
+                                </button>
+                            </span>
+        </div>
+        <input type="hidden" name="idTipoItem" />
+    </div>
+    <div class="col-lg-6">
+        {% if equipos is not empty %}
+        <input type="hidden" id="idState" value=""/>
+        <table id="states-team-table"
+               class="table"
+               data-toggle="table"
+               hidden>
+            <thead>
+            <tr>
+                <th>Equipos De Atenci&oacute;n</th>
+            <tr>
+            </thead>
+            <tbody>
+            {% for equipo in equipos %}
+            <tr>
+                <td>{{ equipo.nombreEquipo }}
+                    <div class="pull-right">
+                        <input type="checkbox" name="equipo-estado" class="state-team" value="{{ equipo.idEquipo }}" />
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>
+                    <div class="pull-right">
+                        <button type="button" id="assign-teams" class="btn btn-sm btn-danger" title="Guardar Cambios">
+                            Guardar <i class="glyphicon glyphicon-floppy-saved"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+        {% else %}
+        No se encuentran equipos registrados
+
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="modal fade" id="delete-estado" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar Estado</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="idEstado" id="idEstado" />
+                <p id="mensaje"> </p>
+            </div>
+            <div class="modal-footer" role="group" aria-label="formActions">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="edit-state-name" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar Nombre de Estado</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nombre"> Nuevo Nombre</label>
+                    <input name="nombre"  id="nombre" type="text" class="form-control add-team" placeholder="Nombre de Estado ..."  />
+                    <input type="hidden" name="idEstado" id="idEstado" />
+                    <input type="hidden" name="nombreOriginal" id="nombreOriginal" />
+                    <div class="error-msg alert-danger" role="alert" hidden>
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        Enter a valid email address
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" role="group" aria-label="formActions">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -297,4 +297,6 @@
         var ajaxElement = document.getElementById('ajax-loader');
         $(ajaxElement).css('opacity', '0');
     };
+
+
 })(jQuery);

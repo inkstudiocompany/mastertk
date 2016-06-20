@@ -575,6 +575,7 @@ $(document).ready(function (){
         editItemType.find("#edit-item-type-wz").bootstrapWizard('show',1);
         editItemType.find("#nombreEstado").val('');
         editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh', {url:'/tipoitems/workflow/'+id});
+        editItemType.find("#states-team-table").hide();
 
     });
 
@@ -596,17 +597,30 @@ $(document).ready(function (){
                 if (row.tickets.length > 0 || row.tipoEstado != 3) {
                     disabled = ' disabled ';
                 }
+                if(row.tipoEstado != 3){
+                    return [ '  ',value,
+                        '<div class="pull-right">' ,
+                        '<button type="button" class="btn btn-sm btn-danger remove-item-type" title="Eliminar" disabled >',
+                        '<i class="glyphicon glyphicon-trash"></i></button>',
+                        '<button type="button" class="btn btn-sm btn-info state-team-btn" title="Equipos Atenci&oacute;n">',
+                        '<i class="glyphicon glyphicon-tags"></i></button> </div>'
+                    ].join('');
 
-                return [
-                    '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-team-name"',
-                    'data-id="', row.idEstado,'" data-nombre= "', value,'"  title="Cambiar Nombre">',
-                    '<i class="glyphicon glyphicon-pencil"></i></a>  ',
-                    value,
-                    '<div class="pull-right"><button type="button" class="btn btn-sm btn-danger remove-item-type" title="Eliminar"',  disabled,'>',
-                    '<i class="glyphicon glyphicon-trash"></i></button>',
-                    '<button type="button" class="btn btn-sm btn-info state-team-btn" title="Equipos Atenci&oacute;n">',
-                    '<i class="glyphicon glyphicon-tags"></i></button> </div>'
-                ].join('');
+                }else{
+                    return [
+                        '<a href="#" class="btn-sm" data-toggle="modal" data-target="#edit-state-name"',
+                        'data-id="', row.idEstado,'" data-nombre= "', value,'"  title="Cambiar Nombre">',
+                        '<i class="glyphicon glyphicon-pencil"></i></a>  ',
+                        value,
+                        '<div class="pull-right">' ,
+                        '<button type="button" class="btn btn-sm btn-danger remove-item-type" title="Eliminar"',  disabled,
+                        '  data-target="#delete-estado" data-toggle="modal" data-id="', row.idEstado,'" data-message= "¿Seguro que eliminar el estado: ', value,'?">',
+                        '<i class="glyphicon glyphicon-trash"></i></button>',
+                        '<button type="button" class="btn btn-sm btn-info state-team-btn" title="Equipos Atenci&oacute;n">',
+                        '<i class="glyphicon glyphicon-tags"></i></button> </div>'
+                    ].join('');
+                }
+
             },
             events:{
                 'click .state-team-btn': function (e, value, row) {
@@ -749,6 +763,115 @@ $(document).ready(function (){
             error:  function(data){console.log(data)}
         });
 
-    })
+    });
+
+    editItemType.find("#delete-estado").on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            idEstado = button.data('id'),
+            modal = $(this);
+        modal.find("#idEstado").val(idEstado);
+        modal.find("#mensaje").html(button.data('message'));
+    });
+
+    editItemType.find('#delete-estado').find('.btn-primary').click(function(){
+        var id = editItemType.find("#delete-estado #idEstado").val(),
+        modal = editItemType.find('#delete-estado');
+        $.ajax({
+            method: 'POST',
+            url: '/estado/borrar/'+id,
+            success: function(response) {
+                editItemType.find("#edit-item-type-wz #states-table").bootstrapTable('refresh');
+                modal.modal('hide');
+            }
+        });
+    });
+
+    editItemType.find('#edit-state-name').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            modal = $(this);
+
+        modal.find('#nombre').val(button.data('nombre'));
+        modal.find('#nombreOriginal').val(button.data('nombre'));
+        modal.find('#idEstado').val(button.data('id'));
+
+
+    });
+
+    editItemType.find('#edit-state-name').find('.btn-primary').click(function(){
+        var  messages= {
+                nombreVacio: "Debe ingresar un nombre de Estado",
+                nombreExistente: "Ya existe un estado con el mismo nombre" },
+            modal = editItemType.find('#edit-state-name'),
+            alert= modal.find('.error-msg'),
+            states = editItemType.find('#edit-item-type-wz #states-table').bootstrapTable('getData'),
+            estado = { nombreEstado:  modal.find('#nombre').val(),
+                idEstado:  modal.find('#idEstado').val()
+            };
+        alert.hide();
+        if(modal.find('#nombre').val() == modal.find('#nombreOriginal').val()){
+            modal.modal('hide');
+            return null;
+        }
+        if(estado.nombreEstado  === '' ){
+            alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreVacio).show(0).delay(5000).hide(0);
+            return null;
+        }else{
+            var exist = states.find(function(element, index, array) {
+                return ((element.nombreEstado === estado.nombreEstado) && (element.idEstado != estado.nombreEstado));
+            });
+            if(exist){
+                alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreExistente).show(0).delay(5000).hide(0);
+                return null;
+            }
+        }
+
+        $.ajax({
+            url: '/estado/renombrar',
+            type: 'POST',
+            data:  estado,
+            success: function(){
+                editItemType.find('#edit-item-type-wz #states-table').bootstrapTable('refresh');
+                modal.modal('hide');
+            }
+        });
+    });
+
+    editItemType.find('#edit-item-name').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            modal = $(this);
+        modal.find('#nombre').val(button.data('nombre'));
+        modal.find('#nombreOriginal').val(button.data('nombre'));
+        modal.find('#idItem').val(button.data('id'));
+
+    });
+
+    editItemType.find('#edit-item-name').find('.btn-primary').click(function(){
+        var  messages= {
+                nombreVacio: "Debe ingresar un nombre de Tipo Item",
+                nombreExistente: "Ya existe un Tipo Item con el mismo nombre" },
+            modal = editItemType.find('#edit-item-name'),
+            alert= modal.find('.error-msg'),
+            tipoItem = { descripcion:  modal.find('#nombre').val(),
+                idTipoItem:  modal.find('#idItem').val()
+            },
+            idProyecto = editItemType.find('#idProyecto').val();
+        alert.hide();
+        if(modal.find('#nombre').val() == modal.find('#nombreOriginal').val()){
+            modal.modal('hide');
+            return null;
+        }
+        if(tipoItem.descripcion  === '' ){
+            alert.html('<i class="glyphicon glyphicon-exclamation-sign"></i> ' + messages.nombreVacio).show(0).delay(5000).hide(0);
+            return null;
+        }
+        $.ajax({
+            url: '/tipoitems/renombrar',
+            type: 'POST',
+            data:  tipoItem,
+            success: function(){
+                document.location.href = '/proyectos/tipo-item/'+idProyecto;
+            }
+        });
+    });
 });
 

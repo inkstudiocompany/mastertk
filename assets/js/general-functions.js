@@ -53,7 +53,12 @@ $(document).ready(function(){
     $('button[role-button="detalle"]').detalle();
 
     $.fn.ajaxLoaderInit();
+
+
 });
+$(document).ajaxStart(function () {
+        })
+    .ajaxStop(function () {});
 
 
 

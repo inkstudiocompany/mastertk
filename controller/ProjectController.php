@@ -15,13 +15,13 @@
 			return proyecto::find($id);
 		}
 
-		public static function delete($id)
+		/*public static function delete($id)
 		{
 
 			$proyecto = self::getById($id);
 			return $proyecto -> delete();
 
-		}
+		}*/
 
 		public function index()
 		{
