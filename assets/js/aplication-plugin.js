@@ -20,7 +20,7 @@
             form.attr('action', url);
             form.submit();
         });
-    }
+    };
 
     /**
      * editar
@@ -33,7 +33,7 @@
 			var url = e.data('urledit');
 			window.document.location.href = url;
 		});
-	}
+	};
 
     /**
      * borrar
@@ -53,7 +53,7 @@
 					message: message
 				}, function(){
 					$.ajax({
-						method: 'post',
+						method: 'POST',
 						url: url,
 						success: function(response) {
 							if (response.status === true) {
@@ -64,7 +64,7 @@
 				}
 			);
 		});
-	}
+	};
 
     /**
      * detalle
@@ -77,7 +77,7 @@
             var url = e.data('urldetail');
             window.document.location.href = url;
         });
-    }
+    };
 
     /**
      * confirm
@@ -111,7 +111,7 @@
 				}
 			}
 		});
-	}
+	};
 
     /**
      * modal
@@ -147,7 +147,7 @@
             $('div[role="alert"]').find('.modal-content').html('');
             $('div[role="alert"]').find('.modal-content').append($(HTMLBodyModal));
             $('div[role="alert"]').modal();
-    }
+    };
 
 	/**
 	 * appValidate
@@ -173,7 +173,7 @@
             rules: opts.rules,
             messages: opts.messages
         });
-	}
+	};
 
     /**
      * login

@@ -20,7 +20,7 @@
         }
 
         public function itemsAsignados(){
-            return $this->hasMany('Model\ORM\Item', 'idUsuarioRolEquipo' ,'responsable');
+            return $this->hasMany('Model\ORM\Item', 'responsable', 'idUsuarioRolEquipo');
         }
 
         public static function scopeBuscarUsuarioEquipo($query, $idUsuario,$idEquipo)

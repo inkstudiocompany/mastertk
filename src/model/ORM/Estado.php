@@ -18,4 +18,5 @@ class Estado extends EntityBase{
     public function equiposAtencion(){
         return $this -> hasMany('Model\ORM\EquipoAtencion','idEstado','idEstado');
     }
+
 }

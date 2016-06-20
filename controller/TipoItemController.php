@@ -26,7 +26,7 @@
 
 		public static function getByProject($id)
 		{
-			$tipoitems = tipoitem::where ('idProyecto','=',$id)
+			$tipoitems = tipoitem::with('tickets') ->where ('idProyecto','=',$id)
 				-> get();
 			return $tipoitems;
 		}
@@ -111,7 +111,21 @@
         public function delete($id = 0) 
         {
             $tipoitem = TipoItem::find($id);
-            return $tipoitem->delete();
+			$tipoitem -> estado = 0;
+            return $tipoitem->save();
         }
+
+		public static function getByProjectWithRelationship($id)
+		{
+			$tipoitems = tipoitem::with(['estados',
+				'estados.equiposAtencion',
+				'estados.equiposAtencion.equipo',
+				'estados.equiposAtencion.equipo.UsuarioRolEquipo',
+				'estados.equiposAtencion.equipo.UsuarioRolEquipo.usuario'])
+			->where ('idProyecto','=',$id)
+
+				-> get();
+			return $tipoitems;
+		}
 
 	}

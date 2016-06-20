@@ -232,7 +232,10 @@
                     'tipoItem.estados'
                 ]) -> find($id);
 
-            $tipoItems = TipoItem::tipoItemsProyecto($id)->get();
+            $tipoItems = TipoItemController::getByProject($id);
+
+           /* var_dump(json_encode(TipoItemController::getByProjectWithRelationship($id)));
+                die();*/
 
             $data_relations = [];
             $data_relations['tipo_items'] = [];
@@ -252,9 +255,7 @@
                 }
                 array_push($data_relations['tipo_items'], $data);
             }
-
             $usuarios_atencion = $this->usersByState($data_relations['tipo_items'][0]['estados'][0]['id']);
-
             return $this->render('tickets/agregar.html.twig', [
                 'proyecto'      => $response,
                 'relaciones'    => $data_relations,

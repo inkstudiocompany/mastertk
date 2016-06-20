@@ -35,6 +35,7 @@
                                         <i class="glyphicon glyphicon-pencil"></i>
                                     </a>
                                     {{ tipoItem.descripcion }}
+                                    <span class="badge">{{ tipoItem.tickets | length }}</span>
                                     <div class="pull-right">
                                         <button type="button" class="btn btn-sm btn-danger wf-ed" data-name="{{ tipoItem.descripcion }}" data-id="{{ tipoItem.idTipoItem }}"
                                                 title="Cambiar Workflow">
@@ -43,6 +44,15 @@
                                         <button type="button"  class="btn btn-sm btn-danger st-ed"  data-name="{{ tipoItem.descripcion }}"
                                            data-id="{{ tipoItem.idTipoItem }}" title="Ver Estados">
                                             Estados <i class="glyphicon glyphicon-tasks"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                                data-id="{{ tipoItem.idTipoItem }}" data-message="¿Seguro de eliminar el tipo de Item :{{tipoItem.descripcion}} ?"
+                                                data-deleteurl="/tipoitems/borrar/{{ tipoItem.idTipoItem }}"
+                                                {% if tipoItem.tickets | length >0 %}
+                                                    disabled
+                                                {% endif %}
+                                                role-button="eliminar">Eliminar
+                                            <i class='glyphicon glyphicon-trash'></i>
                                         </button>
                                     </div>
                                 </td>
@@ -128,6 +138,8 @@
                                  </tr>
                                 </tfoot>
                             </table>
+                        {% else %}
+                        No se encuentran equipos registrados
 
                         {% endif %}
                     </div>
@@ -155,6 +167,26 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="delete-item-estado" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eliminar Estado</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="idEstado" id="idEstado" />
+                    <p id="mensaje"> </p>
+                </div>
+                <div class="modal-footer" role="group" aria-label="formActions">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Confirmar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
 

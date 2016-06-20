@@ -136,5 +136,24 @@
 
             </div>
         </div>
+
+        <div class="modal fade" id="delete-equipo" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Eliminar Equipo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="idEquipo" id="idEquipo" />
+                        <p id="mensaje"> </p>
+                    </div>
+                    <div class="modal-footer" role="group" aria-label="formActions">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Confirmar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 {% endblock body %}

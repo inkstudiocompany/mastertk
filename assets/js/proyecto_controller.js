@@ -2,6 +2,7 @@ $(document).ready(function (){
 
 
     var agregarProyecto =$("form#agregar_proyecto");
+    var listaProyectos = $("div#project-list");
     var editTeamForm =  $("div#team-edition");
     var editItemType = $("div#item-type-edition");
 
@@ -111,6 +112,7 @@ $(document).ready(function (){
 
     /*Equipos*/
 
+    /*Boostrap table para agregar equipos en la creacion de proyectos*/
     agregarProyecto.find('#teamTable').bootstrapTable({
         pagination:true,
         pageSize:5,
@@ -238,7 +240,28 @@ $(document).ready(function (){
 
     agregarProyecto.find('.error-msg').hide();
 
-    /*Edicion de Equipos*/
+    /*LISTA DE PROYECTOS*/
+
+    listaProyectos.find("#delete-proyecto").on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            idProyecto = button.data('id'),
+            modal = $(this);
+        modal.find("#idProyecto").val(idProyecto);
+        modal.find("#mensaje").html(button.data('message'));
+    });
+
+    listaProyectos.find('#delete-proyecto').find('.btn-primary').click(function(){
+        var id = listaProyectos.find("#delete-proyecto #idProyecto").val();
+        $.ajax({
+            method: 'POST',
+            url: '/proyectos/borrar/'+id,
+            success: function(response) {
+                document.location.href = '/proyectos';
+            }
+        });
+    });
+
+    /*EDICION DE EQUIPOS*/
 
     editTeamForm.ajaxUpdate = function(url, method,team ,callback, error ){
         $.ajax({
@@ -299,23 +322,13 @@ $(document).ready(function (){
             class:'col-md-3',
             align:'center',
             formatter: function(value, row, index) {
+                var deletable = (row.cuenta_items_asignados.length >0)?' disabled ':' ';
                 return [
                     '<button type="button" class="btn btn-sm btn-info team-members"  data-id="', row.idEquipo,'" data-toggle="modal" data-target="#edit-team-members">',
                     'Integrantes<i class="glyphicon glyphicon-user"></i></button>',
-                    '<button type="button" class="btn btn-sm btn-danger remove-team" role-button="delete">',
+                    '<button type="button" ', deletable,' class="btn btn-sm btn-danger remove-team" data-message="¿Seguro que eliminar el equipo : ',row.nombreEquipo,'?" data-id="', row.idEquipo,'" data-toggle="modal" data-target="#delete-equipo">',
                     'Eliminar<i class="glyphicon glyphicon-trash"></i></button>'
                 ].join('');
-            },
-            events:{
-                'click .remove-team': function (e, value, row) {
-                    editar.find('#teamTable').bootstrapTable('remove', {
-                        field: 'nombre',
-                        values: [row.nombre]
-                    });
-                },
-                'click .team-members': function (e, value, row) {
-
-                }
             }
         }]
     });
@@ -355,6 +368,27 @@ $(document).ready(function (){
             editTeamForm.find('#nombreEquipo').val('');
         });
 
+    });
+
+    editTeamForm.find("#delete-equipo").on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            idEquipo = button.data('id'),
+            modal = $(this);
+        modal.find("#idEquipo").val(idEquipo);
+        modal.find("#mensaje").html(button.data('message'));
+    });
+
+    editTeamForm.find('#delete-equipo').find('.btn-primary').click(function(){
+        var id = editTeamForm.find("#delete-equipo #idEquipo").val(),
+            modal = editTeamForm.find('#delete-equipo');
+        $.ajax({
+            method: 'POST',
+            url: '/equipos/borrar/'+id,
+            success: function(response) {
+                editTeamForm.find('#teamTable').bootstrapTable('refresh');
+                modal.modal('hide');
+            }
+        });
     });
 
     editTeamForm.find('#edit-team-name').on('show.bs.modal', function (event) {
@@ -463,6 +497,10 @@ $(document).ready(function (){
 
     editTeamForm.find('#edit-team-leader #members-list').bootstrapTable({
         method: 'get',
+        detailFormatter: function(index, row, element) {
+            console.log(index, row, element);
+            return row.usuario.nombreCompleto;
+        },
         columns: [
             {
                 field: 'usuario.nombreCompleto',
@@ -509,7 +547,7 @@ $(document).ready(function (){
         editTeamForm.ajaxUpdate(url,'POST',[],callback,function(){});
     });
 
-    /*Edition de Tipos de Item*/
+    /*EDICION DE TIPOS DE ITEM*/
 
     editItemType.find("[name='equipo-estado']").bootstrapSwitch({
         onText:'SI',
@@ -559,7 +597,7 @@ $(document).ready(function (){
             title: 'Nombre Estado',
             formatter: function(value, row, index) {
                 var disabled = '';
-                if (row.tickets.length > 0) {
+                if (row.tickets.length > 0 || row.tipoEstado != 3) {
                     disabled = ' disabled ';
                 }
 

@@ -21,7 +21,8 @@ class EstadoController extends ControllerBase
         $estados = estado::with([
                 'tickets'
             ])
-            ->where('idTipoItem','=',$id) -> get();
+            -> where ('estado',1)
+            -> where('idTipoItem','=',$id) -> get();
         return $estados;
     }
 

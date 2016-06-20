@@ -20,4 +20,5 @@
         public function items(){
             return $this->hasMany('Model\ORM\Item','idProyecto','idProyecto');
         }
+
 	}

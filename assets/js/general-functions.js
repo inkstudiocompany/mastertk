@@ -21,7 +21,7 @@ $.fn.createCookie = function(name, value, days) {
         expires = "";
     }
     document.cookie = name + "=" + value + expires + "; path=/";
-}
+};
 
 $.fn.getCookie = function(name) {
     if (document.cookie.length > 0) {
@@ -36,7 +36,7 @@ $.fn.getCookie = function(name) {
         }
     }
     return '';
-}
+};
 
 
 $(document).ready(function(){

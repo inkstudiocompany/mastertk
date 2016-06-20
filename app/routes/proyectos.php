@@ -70,6 +70,14 @@ use Model\ORM\TipoItem;
         echo (new  ProjectController()) -> editTeamForm($parse -> get('id'));
     });
 
+    $app::Router()->post($app->path('delete_project'), function( Request $request, Response $response, $args){
+        $parse = new RequestParse($request,$args);
+        $resultado = ProjectController::delete($parse ->get("id"));
+        http_response_code(200);
+        echo json_encode($resultado);
+    });
+
+
     $app::Router()->get($app->path('list_project_teams'), function( Request $request, Response $response, $args){
         $parse = new RequestParse($request,$args);
         $equipos = TeamController::getByProject($parse -> get('id'));

@@ -23,5 +23,26 @@
         }
 
 
+        public function scopeLiderEquipo(){
+            return $this ->usuarioRolEquipo()
+                -> with(['usuario'])
+                -> where('activo',1)
+                -> where('esLider',1);
+        }
+
+
+        public function scopeCuentaItemsAsignados(){
+            return $this ->usuarioRolEquipo()
+                -> join("Item","UsuarioRolEquipo.idUsuarioRolEquipo" ,"=","Item.responsable")
+                -> selectRaw('count(idItem) as cuentaItems, idEquipo')
+                -> groupBy('idEquipo');
+        }
+
+        public function scopeCuentaItemsAtendidos(){
+            return $this ->usuarioRolEquipo()
+                -> join("TransicionItem","UsuarioRolEquipo.idUsuarioRolEquipo" ,"=","TransicionItem.responsable")
+                -> selectRaw('count(idItem) as cuentaItems, idEquipo')
+                -> groupBy('idEquipo');
+        }
 
     }

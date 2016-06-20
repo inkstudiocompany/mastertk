@@ -13,15 +13,29 @@
 	{
 		public static function getByProject($idProject)
 		{
-			$equipos = equipo::where('idProyecto','=',$idProject)
+/*			error_log(equipo::with('borrable')
+				->where('idProyecto','=',$idProject)
 				->leftJoin('UsuarioRolEquipo', function($join){
 					$join->on('Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
-					->where ('UsuarioRolEquipo.esLider','=',1)
-					->where ('UsuarioRolEquipo.activo','=',1);
+						->where ('UsuarioRolEquipo.esLider','=',1)
+						->where ('UsuarioRolEquipo.activo','=',1);
 				})
 				->leftjoin('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
 				->select ('Equipo.*', 'Usuario.nombreCompleto')
-				-> get();
+				->toSql());*/
+
+
+			$equipos = equipo::with(['cuentaItemsAsignados'])
+				-> where('idProyecto','=',$idProject)
+				-> where('Equipo.estado',1)
+				->leftJoin('UsuarioRolEquipo', function($join){
+					$join->on('Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
+						->where ('UsuarioRolEquipo.esLider','=',1)
+						->where ('UsuarioRolEquipo.activo','=',1);
+				})
+				->leftjoin('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+				->select ('Equipo.*', 'Usuario.nombreCompleto')
+				->get();
 			return $equipos;
 		}
 
@@ -75,6 +89,7 @@
 		public function listado()
 		{
 			$equipos = equipo::with('Proyecto')
+			-> where('Equipo.estado',1)
 			->leftjoin('UsuarioRolEquipo', 'Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
 			->leftjoin('Usuario', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
 			->leftjoin('Rol', 'Rol.idRol', '=', 'UsuarioRolEquipo.idRol')
@@ -107,13 +122,15 @@
 
         public static function listAll()
         {
-            return Equipo::all();
+            return Equipo::where('estado',1);
         }
 
         public function delete($id = 0) 
         {
             $equipo = Equipo::find($id);
-            return $equipo->delete();
+			$equipo -> estado = 0;
+			return 	$equipo -> save();
+            //return $equipo->delete();
         }
 
         public static function Save($params)

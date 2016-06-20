@@ -3,7 +3,6 @@
 	namespace Application\Controller;
 
 	use Model\ORM\Proyecto as proyecto;
-	use Model\ORM\Usuario as usuario;
 
 
 
@@ -16,6 +15,14 @@
 			return proyecto::find($id);
 		}
 
+		public static function delete($id)
+		{
+
+			$proyecto = self::getById($id);
+			return $proyecto -> delete();
+
+		}
+
 		public function index()
 		{
 			return $this->render('proyectos/proyectos.html.twig');
@@ -23,7 +30,7 @@
 
 		public function listado()
 		{
-			$proyectos = proyecto::with('lider') -> get();
+			$proyectos = proyecto::with(['lider','items']) -> get();
 			return $this->render('proyectos/listado.html.twig', [
 				'proyectos' => $proyectos
 			]);
