@@ -497,10 +497,6 @@ $(document).ready(function (){
 
     editTeamForm.find('#edit-team-leader #members-list').bootstrapTable({
         method: 'get',
-        detailFormatter: function(index, row, element) {
-            console.log(index, row, element);
-            return row.usuario.nombreCompleto;
-        },
         columns: [
             {
                 field: 'usuario.nombreCompleto',

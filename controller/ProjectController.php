@@ -25,7 +25,7 @@
 
 		public function index()
 		{
-			return $this->render('proyectos/proyectos.html.twig');
+            return $this->render('proyectos/proyectos.html.twig');
 		}
 
 		public function listado()
@@ -94,7 +94,7 @@
 			$proyecto = self::getById($id);
 			$tiposItem = TipoItemController::getByProject($id);
 			$equipos = TeamController::getByProject($id);
-			//echo $equipos;
+
 			return $this->render('proyectos/editar-tipos-item.html.twig', [
 				'proyecto' => $proyecto,
 				'tiposItem' =>$tiposItem,
@@ -118,5 +118,12 @@
             return $this->render('misproyectos/detalle.html.twig', [
                 'proyecto'  => $response
             ]);
+        }
+
+        public function delete($id = 0)
+        {
+            $proyecto = proyecto::find($id);
+            $proyecto->estado = 0;
+            return $proyecto->save();
         }
 	}

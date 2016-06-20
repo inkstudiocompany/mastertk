@@ -19,3 +19,7 @@ priority = '{"1" : "ALTA", "2" : "MEDIA", "3" : "BAJA" }'
 
 [security]
 profile_security = '{"1" : "ROOT", "2" : "USER"}'
+
+[mailgun]
+apiKey	= 'key-49q9bbckgotoiidcppqsgju--9fbf-w2'
+domain	= 'sandbox2155.mailgun.org'

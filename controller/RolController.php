@@ -33,7 +33,9 @@
 
         public static function listAll()
         {
-            return Rol::with(['Usuarios'])->get();
+            return Rol::with(['Usuarios'])
+                ->where('estado', '=', '1')
+                ->get();
         }
 
         public static function getById($id)
@@ -61,6 +63,7 @@
         public function delete($id = 0) 
         {
             $rol = Rol::find($id);
-            return $rol->delete();
+            $rol->estado = 0;
+            return $rol->save();
         }
     }

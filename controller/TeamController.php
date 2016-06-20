@@ -128,9 +128,8 @@
         public function delete($id = 0) 
         {
             $equipo = Equipo::find($id);
-			$equipo -> estado = 0;
-			return 	$equipo -> save();
-            //return $equipo->delete();
+            $equipo->estado = 0;
+            return $equipo->save();
         }
 
         public static function Save($params)

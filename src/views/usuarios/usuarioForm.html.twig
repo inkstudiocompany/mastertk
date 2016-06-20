@@ -4,6 +4,8 @@
   {{ title }}
 {% endblock form_title %}
 
+{% set passwordRequired = (1 == app.user.profile and usuario is not defined) %}
+
 {% block form %}
     <form id="usuario_form" name="usuario_form" method="POST" novalidate="novalidate" action="{{ app.path('save_user', {'from':'user'}) }}">
         <input type="hidden" name="id" id="id" value="{{ usuario.idUsuario }}" />
@@ -50,12 +52,20 @@
          {% if app.user.profile == 1 %}
             <div class="form-group">
                 <label for="password">Password</label>
-                <input name="password" type="password" id="password" placeholder="Password" class="form-control" required/>
+                <input name="password" type="password" id="password" placeholder="Password" class="form-control" minlength="5"
+                {% if true == passwordRequired %}
+                required
+                {% endif %}
+                />
             </div>
 
             <div class="form-group">
                 <label for="confirm_password">Confirmar Password</label>
-                <input name="confirm_password" type="password" id="confirm_password" placeholder="Password" class="form-control" required/>
+                <input name="confirm_password" type="password" id="confirm_password" placeholder="Password" class="form-control" minlength="5"
+                 {% if true == passwordRequired %}
+                 required
+                 {% endif %}
+                />
             </div>
         {% endif %}
 

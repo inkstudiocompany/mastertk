@@ -17,15 +17,15 @@ $(document).ready(function (){
             rolPrincipal: { required: true },
             tipoDocumento: { required: true },
             usuario:  { lettersonly: true },
-            password: {
+            /*password: {
                 required: true,
                 minlength: 5
-            },
+            }/*,
             confirm_password: {
                 required: true,
                 minlength: 5,
                 equalTo: "#password"
-            }
+            }*/
         },
         messages: {
             numDocumento: "Debe ingresar un nro. de documento",

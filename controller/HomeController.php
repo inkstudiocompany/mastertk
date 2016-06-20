@@ -10,21 +10,21 @@
 		public function index()
 		{
             $usuario = SecurityController::user();
-            $lidero = Proyecto::with(['equipos', 'lider'])
-                ->join('Usuario', 'Usuario.idUsuario', '=', 'Proyecto.idLider')
-                ->join('Rol', 'Rol.idRol', '=', 'Usuario.idRolPrincipal')
-                ->where('Proyecto.idLider', '=', $usuario->id())
-                ->select('Proyecto.*', 'Usuario.nombreCompleto', 'Rol.nombreRol');
 
-            $misproyectos = Proyecto::with(['equipos', 'lider'])
-                ->join('Equipo', 'Proyecto.idProyecto', '=', 'Equipo.idProyecto')
+            $lidero = Proyecto::with(['lider.rolPrincipal'])
+                ->join('Equipo', 'Equipo.idProyecto', '=', 'Proyecto.idProyecto')
                 ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
-                ->join('Rol', 'UsuarioRolEquipo.idRol', '=', 'Rol.idRol')
-                ->join('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
-                ->where('Usuario.idUsuario', '=', $usuario->id())
-                ->select('Proyecto.*', 'Usuario.nombreCompleto', 'Rol.nombreRol')
+                ->join('Rol', 'Rol.idRol', '=', 'UsuarioRolEquipo.idRol')
+                ->where('Proyecto.idLider', '=', $usuario->id())
+                ->select('Proyecto.*', 'Rol.nombreRol');
+
+            $misproyectos = Proyecto::with(['lider.rolPrincipal'])
+                ->join('Equipo', 'Equipo.idProyecto', '=', 'Proyecto.idProyecto')
+                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
+                ->join('Rol', 'Rol.idRol', '=', 'UsuarioRolEquipo.idRol')
+                ->where('UsuarioRolEquipo.idUsuario', '=', $usuario->id())
                 ->union($lidero)
-                ->distinct()
+                ->select('Proyecto.*', 'Rol.nombreRol')
                 ->get();
 
             $mistickets = Proyecto::with(['equipos', 'lider'])

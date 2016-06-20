@@ -12,6 +12,7 @@
     use Model\ORM\Estado;
     use Model\ORM\UsuarioRolEquipo;
     use Slim\Http\Response;
+    use Application\Controller\MailController;
 
 	class TicketController extends ControllerBase
 	{
@@ -60,6 +61,7 @@
 
 			$ticketUpdate   = true;
             $newticket      = true;
+            $sendMail       = false;
 			$dataLog = [];
 
 			$item = new Item();
@@ -89,7 +91,9 @@
             if (false !== $asignado) {
                 $item -> responsable  = $asignado;
                 $ticketUpdate         = true;
-                $dataLog['ticket']['Responsable'] = UsuarioRolEquipo::with('usuario')->find($asignado)->usuario->nombreCompleto;
+                $usuarioAsignado      = UsuarioRolEquipo::with('usuario')->find($asignado)->usuario;
+                $dataLog['ticket']['Asignado a'] = $usuarioAsignado->nombreCompleto;
+                $sendMail = true;
             }
 
             if (false !== $descripcion) {
@@ -110,11 +114,11 @@
                 $dataLog['ticket']['Estado']  = Estado::find($estado)->nombreEstado;
 			}
 
-            if (false !== $asignado) {
+            /*if (false !== $asignado) {
                 $item -> responsable    = $asignado;
                 $ticketUpdate           = true;
                 $dataLog['ticket']['Asignado a']  = UsuarioRolEquipo::with('usuario')->find($asignado)->usuario->nombreCompleto;
-            }
+            }*/
 
 			if (false !== $prioridad) {
 				$item -> prioridad    = $prioridad;
@@ -147,6 +151,22 @@
                 $transicion -> data        = json_encode($dataLog, JSON_FORCE_OBJECT);
 
                 $item -> transiciones() -> save($transicion);
+
+                if (true === $sendMail) {
+                    try {
+                        global $app;
+                        $urlTicket = $app->path('item_detail', ['id'=>$item -> idItem], true);
+                        $subject = 'Te han asignado un ticket. #' . $item -> idItem;
+                        $from    = 'MasterTicket <ticket@sandbox2155.mailgun.org>';
+                        $to      = $usuarioAsignado->nombreCompleto . '<'.$usuarioAsignado->email.'>';
+                        $message = 'Puedes ver el detalle del ticket en el siguiente enlace
+                                    <a href="'.$urlTicket.'">'.$urlTicket.'</a>';
+                        $mail = new MailController();
+                        $mail->sendMessage($from, $to, $subject, $message);
+                    } catch(Exception $e) {
+
+                    }
+                }
             }
 
 			return $item;
@@ -268,5 +288,12 @@
         {
             $equipoAtencion = new EquipoAtencion();
             return $equipoAtencion->usersByState($idEstado)->get();
+        }
+
+        public function delete($id = 0)
+        {
+            $ticket = Item::find($id);
+            $ticket->estado = 0;
+            return $ticket->save();
         }
 	}
