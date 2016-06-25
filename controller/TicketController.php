@@ -25,7 +25,7 @@
 		{
 
             $response = Item::with([
-                    'proyecto', 'asignado.usuario', 'estado',
+                    'proyecto', 'asignado.usuario', 'status',
                     'tipoItem',
                     'transiciones' => function($query){
                         $query->orderBy('TransicionItem.fechahora' ,'Desc');

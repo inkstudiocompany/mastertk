@@ -19,7 +19,7 @@ class Item extends EntityBase{
 	    return $this->belongsTo('Model\ORM\TipoItem', 'idTipoItem', 'idTipoItem');
     }
 
-    public function estado()
+    public function status()
     {
 	    return $this->belongsTo('Model\ORM\Estado', 'estadoActual', 'idEstado');
     }
