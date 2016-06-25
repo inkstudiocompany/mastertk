@@ -28,4 +28,9 @@
             return $query->where('idUsuario','=', $idUsuario)
                 ->where('idEquipo', '=',$idEquipo);
         }
+
+        public function scopeMiniUsuario()
+        {
+            return $this ->usuario() -> select(['idUsuario','nombreCompleto']);
+        }
     }

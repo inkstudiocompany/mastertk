@@ -33,4 +33,8 @@
                 -> selectRaw('count(idItem) as cuentaItems, idTipoItem')
                 -> groupBy('idTipoItem');
         }
+
+        public  function scopeEstadoInicial(){
+            return $this -> estados() -> where('tipoEstado',1);
+        }
     }

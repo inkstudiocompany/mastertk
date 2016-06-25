@@ -45,4 +45,8 @@
                 -> groupBy('idEquipo');
         }
 
+        public function scopeUsuariosRolActivos(){
+            return $this -> usuarioRolEquipo() -> where('activo',1);
+        }
+
     }

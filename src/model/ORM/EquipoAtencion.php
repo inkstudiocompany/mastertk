@@ -24,4 +24,9 @@
                 ->select('Usuario.idUsuario', 'Usuario.nombreCompleto', 'UsuarioRolEquipo.idUsuarioRolEquipo')
                 ->groupBy('Usuario.nombreCompleto');
         }
+
+        public function scopeEquiposActivos(){
+            return $this -> equipo()
+                            -> where('estado',1);
+        }
     }
