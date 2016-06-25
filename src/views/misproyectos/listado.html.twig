@@ -33,24 +33,39 @@
                               NO
                           {%  endif %}
                       </td>
-                      <td nowrap="nowrap text-center" class="col-md-4 text-right">
-                          <div class="btn-group btn-group-sm" role="group">
-                              <button type="button" class="btn btn-sm btn-info"
-                                      data-urldetail="{{ app.path('project_detail', {'id': myproyect.idProyecto }, true) }}" role-button="detalle">
-                                  ver proyecto
-                                  <i class="glyphicon glyphicon-eye-open"></i>
-                              </button>
-                              <a href="{{ app.path('new_ticket', { 'id' : myproyect.idProyecto }, true) }}"
-                                 class="btn btn-info btn-sm col-md-offset-11">Nuevo Ticket</a>
+                      <td nowrap="nowrap text-center" class="col-md-4">
+                          <div class="btn-group btn-group-sm right" role="group">
 
-                              <button type="button"
-                                      class="btn btn-sm btn-danger"
-                                      data-title="Estad&iacute;sticas"
-                                      data-id="{{ myproyect.idProyecto }}"
-                                      data-target="#project-stats"
-                                      data-toggle="modal"  >Reporte
-                                  <i class='glyphicon glyphicon glyphicon-stats'></i>
-                              </button>
+                              {%  if myproyect.idLider == app.user.id %}
+                              <div class="btn-group" role="group">
+                                  <button type="button"
+                                          class="btn btn-sm btn-danger  dropdown-toggle"
+                                          data-toggle="dropdown">Edici&oacute;n
+                                      <i class='glyphicon glyphicon-cog'></i>
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                      <li><a class='glyphicon glyphicon-file' href="/proyectos/editar/{{ myproyect.idProyecto  }}"> Datos B&aacute;sicos</a></li>
+                                      <li><a class='glyphicon glyphicon-user' href="/proyectos/equipos/{{ myproyect.idProyecto }}"> Equipos</a></li>
+                                      <li><a class='glyphicon glyphicon-text-width' href="/proyectos/tipo-item/{{ myproyect.idProyecto }}"> Tipos de Item </a></li>
+                                  </ul>
+                              </div>
+                              {%   endif %}
+                              <div class="btn-group" role="group">
+                                  <button type="button"
+                                          class="btn btn-sm btn-danger  dropdown-toggle"
+                                          data-toggle="dropdown">Detalles
+                                      <i class='glyphicon glyphicon-eye-open'></i>
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                      <li><a type="button" class='glyphicon glyphicon-eye-open' href="/proyectos/detalle/{{ myproyect.idProyecto }}"> Ver Proyecto</a></li>
+                                      <li><a class='glyphicon glyphicon glyphicon-stats' href="#" data-id="{{ myproyect.idProyecto }}"
+                                             data-target="#project-stats"
+                                             data-toggle="modal"> Estad&iacute;sticas</a></li>
+                                  </ul>
+                              </div>
+                              <a href="{{ app.path('new_ticket', { 'id' : myproyect.idProyecto }, true) }}" class="btn btn-info btn-sm  col-md-offset-11">
+                                  <i class='glyphicon glyphicon-plus'></i>Nuevo Ticket
+                              </a>
                           </div>
                       </td>
                   </tr>
