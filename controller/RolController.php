@@ -24,7 +24,7 @@
 
         public function editForm($id)
         {
-            $rol = Rol::find($id);
+            $rol = self::getById($id);
             return  $this->render('roles/rolForm.html.twig', [
                 'title' => 'Editar Rol',
                 'rol' => $rol
@@ -35,6 +35,7 @@
         {
             return Rol::with(['Usuarios'])
                 ->where('estado', '=', '1')
+                ->where('descripcion','!=','system root')
                 ->get();
         }
 

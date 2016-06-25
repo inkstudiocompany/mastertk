@@ -32,7 +32,7 @@
 
         public function scopeCuentaItemsPorEstado(){
           return $this -> items()
-                -> join('Estado' ,'item.estadoActual', '=', 'Estado.idEstado')
+                -> join('Estado' ,'Item.estadoActual', '=', 'Estado.idEstado')
                 -> selectRaw('count(idItem) as cuentaItems, idProyecto, Estado.tipoEstado')
                 -> groupBy(['idProyecto', 'Estado.tipoEstado']);
         }
