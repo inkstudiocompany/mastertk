@@ -10,6 +10,7 @@
     use Model\ORM\TipoItem;
 	use Model\ORM\TransicionItem;
     use Model\ORM\Estado;
+    use Model\ORM\Usuario;
     use Model\ORM\UsuarioRolEquipo;
     use Slim\Http\Response;
     use Application\Controller\MailController;
@@ -204,6 +205,7 @@
                 $states['workflow'][] = [
                     'id'      => $estado->idEstado,
                     'nombre'  => $estado->nombreEstado,
+                    'tipo'    => $estado->tipoEstado,
                 ];
                 $idEstado = $estado->idEstado;
             }
@@ -291,7 +293,17 @@
         public function usersByState($idEstado)
         {
             $equipoAtencion = new EquipoAtencion();
-            return $equipoAtencion->usersByState($idEstado)->get();
+            /** @var \Illuminate\Database\Eloquent\Collection $usuarios */
+            $usuarios = $equipoAtencion->usersByState($idEstado)->get();
+
+                if (true === $usuarios->isEmpty()) {
+                    $usuarios[] = Usuario::with([])
+                        ->Join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+                        ->select('Usuario.idUsuario', 'Usuario.nombreCompleto', 'UsuarioRolEquipo.idUsuarioRolEquipo')
+                        ->find(App::getInstance()->user->id());
+                }
+
+            return $usuarios;
         }
 
         public function delete($id = 0)

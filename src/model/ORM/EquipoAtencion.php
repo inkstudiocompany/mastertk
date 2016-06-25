@@ -21,6 +21,7 @@
                 ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'EquipoAtencion.idEquipo')
                 ->join('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
                 ->where('EquipoAtencion.idEstado', '=', $idEstado)
+                ->where('Usuario.estado', '=', '1')
                 ->select('Usuario.idUsuario', 'Usuario.nombreCompleto', 'UsuarioRolEquipo.idUsuarioRolEquipo')
                 ->groupBy('Usuario.nombreCompleto');
         }
