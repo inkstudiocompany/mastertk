@@ -252,16 +252,31 @@
                     'tipoItem.estados'
                 ]) -> find($id);
 
-            $tipoItems = TipoItemController::getByProject($id);
+           // $tipoItems = TipoItemController::getByProject($id);
 
-           /* var_dump(json_encode(TipoItemController::getByProjectWithRelationship($id)));
+            $tipoItems = TipoItem::with([
+                'estadoInicial.equiposAtencion.equiposActivos.usuariosRolActivos.miniUsuario',
+                'estadoInicial.equiposAtencion.equiposActivos.usuariosRolActivos.rol'])
+                ->where('estado', '=', '1')
+                ->where('idProyecto', '=', $id)
+                ->get();
+
+            /* var_dump(json_encode(TipoItemController::getByProjectWithRelationship($id)));
                 die();*/
 
             $data_relations = [];
             $data_relations['tipo_items'] = [];
             foreach ($tipoItems As $tipoitem)
             {
-                $data = [];
+                foreach ($tipoitem->estadoInicial As $key => $estado)
+                {
+                    $data['estados'][$key] = [
+                        'id'      => $estado->idEstado,
+                        'nombre'  => $estado->nombreEstado
+                    ];
+                }
+
+                /*$data = [];
                 $data['id']             = $tipoitem->idTipoItem;
                 $data['descripcion']    = $tipoitem->descripcion;
                 $data['estados']        = [];
@@ -271,8 +286,9 @@
                     $data['estados'][$key] = [
                         'id'      => $estado->idEstado,
                         'nombre'  => $estado->nombreEstado,
+                        'tipo'    => $estado->nombreEstado,
                     ];
-                }
+                }*/
                 array_push($data_relations['tipo_items'], $data);
             }
             $usuarios_atencion = $this->usersByState($data_relations['tipo_items'][0]['estados'][0]['id']);
