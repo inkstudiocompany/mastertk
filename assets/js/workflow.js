@@ -97,9 +97,9 @@ Workflow.prototype = {
                 lineWidth: 2,
                 outlineColor: "transparent",
                 outlineWidth: 4
-                },
+            },
             maxConnections: -1,
-                onMaxConnections: function (info, e) {
+            onMaxConnections: function (info, e) {
                 alert("Maximum connections (" + info.maxConnections + ") reached");
                }
         });
@@ -141,6 +141,7 @@ Workflow.prototype = {
         });
         instance.unbind("connection");
         instance.bind("connection", function (info) {
+
             var label = info.connection.source.innerText+ ' -> ' + info.connection.target.innerText;
             info.connection.setLabel({
                 label:label,
@@ -148,6 +149,9 @@ Workflow.prototype = {
                 id:"label",
                 cssClass:"label"
             });
+            if(instance.select({source:info.sourceId, target:info.target}).length >1){
+                instance.detach(info.connection);
+            }
         });
     },
     obtenerWorkflows(){

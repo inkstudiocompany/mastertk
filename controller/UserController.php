@@ -62,6 +62,7 @@
         {
             $usuarios = usuario::with('rolPrincipal')
                 -> where('estado','=',1)
+                -> where ('profile',2)
                 -> get() ;
             return $usuarios;
         }
