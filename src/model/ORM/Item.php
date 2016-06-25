@@ -67,8 +67,8 @@ class Item extends EntityBase{
             ->join('Proyecto', 'Proyecto.idProyecto', '=', 'Item.idProyecto')
             ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuarioRolEquipo', '=', 'Item.responsable')
             ->where('Item.idItem', '=', $this->idItem)
-            ->where('Proyecto.idLider', '=', $id)
-            ->orWhere('UsuarioRolEquipo.idUsuario', '=', $id);
+            ->where('UsuarioRolEquipo.idUsuario', '=', $id)
+            ->orWhere('Proyecto.idLider', '=', $id);
     }
 
     public function isEditable($idUsuario)
