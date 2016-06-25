@@ -33,13 +33,16 @@
                               NO
                           {%  endif %}
                       </td>
-                      <td nowrap="nowrap text-center" class="col-md-3 text-right">
+                      <td nowrap="nowrap text-center" class="col-md-4 text-right">
                           <div class="btn-group btn-group-sm" role="group">
                               <button type="button" class="btn btn-sm btn-info"
                                       data-urldetail="{{ app.path('project_detail', {'id': myproyect.idProyecto }, true) }}" role-button="detalle">
                                   ver proyecto
                                   <i class="glyphicon glyphicon-eye-open"></i>
                               </button>
+                              <a href="{{ app.path('new_ticket', { 'id' : myproyect.idProyecto }, true) }}"
+                                 class="btn btn-info btn-sm col-md-offset-11">Nuevo Ticket</a>
+
                               <button type="button"
                                       class="btn btn-sm btn-danger"
                                       data-title="Estad&iacute;sticas"
