@@ -141,7 +141,6 @@ Workflow.prototype = {
         });
         instance.unbind("connection");
         instance.bind("connection", function (info) {
-
             var label = info.connection.source.innerText+ ' -> ' + info.connection.target.innerText;
             info.connection.setLabel({
                 label:label,
@@ -149,7 +148,7 @@ Workflow.prototype = {
                 id:"label",
                 cssClass:"label"
             });
-            if(instance.select({source:info.sourceId, target:info.target}).length >1){
+            if(info.connection.source.innerText === "Cerrado"  || instance.select({source:info.sourceId, target:info.target}).length >1){
                 instance.detach(info.connection);
             }
         });
