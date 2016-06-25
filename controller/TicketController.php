@@ -261,36 +261,24 @@
                 ->where('idProyecto', '=', $id)
                 ->get();
 
-            /* var_dump(json_encode(TipoItemController::getByProjectWithRelationship($id)));
-                die();*/
-
-            $data_relations = [];
             $data_relations['tipo_items'] = [];
-            foreach ($tipoItems As $tipoitem)
+            foreach ($tipoItems As $index => $tipoitem)
             {
+                $data['items'][$index] = [
+                    'id'      => $tipoitem->idTipoItem,
+                    'nombre'  => $tipoitem->descripcion,
+                    'estados' => []
+                ];
+
                 foreach ($tipoitem->estadoInicial As $key => $estado)
                 {
-                    $data['estados'][$key] = [
+                    $data['items'][$index]['estados'][$key] = [
                         'id'      => $estado->idEstado,
                         'nombre'  => $estado->nombreEstado
                     ];
                 }
-
-                /*$data = [];
-                $data['id']             = $tipoitem->idTipoItem;
-                $data['descripcion']    = $tipoitem->descripcion;
-                $data['estados']        = [];
-
-                foreach ($tipoitem->estados()->get() As $key => $estado)
-                {
-                    $data['estados'][$key] = [
-                        'id'      => $estado->idEstado,
-                        'nombre'  => $estado->nombreEstado,
-                        'tipo'    => $estado->nombreEstado,
-                    ];
-                }*/
-                array_push($data_relations['tipo_items'], $data);
             }
+            $data_relations['tipo_items'] = $data['items'];
             $usuarios_atencion = $this->usersByState($data_relations['tipo_items'][0]['estados'][0]['id']);
             return $this->render('tickets/agregar.html.twig', [
                 'proyecto'      => $response,
