@@ -15,7 +15,7 @@
               <td>Rol asignado</td>
               <td>Lider del Proyecto</td>
               <td class="col-md-2">Proyecto Productivo</td>
-              <td class="col-md-1">Acciones</td>
+              <td class="col-md-1 text-right">Acciones</td>
           </tr>
       </thead>
 
@@ -33,12 +33,20 @@
                               NO
                           {%  endif %}
                       </td>
-                      <td nowrap="nowrap text-center">
+                      <td nowrap="nowrap text-center" class="col-md-3 text-right">
                           <div class="btn-group btn-group-sm" role="group">
                               <button type="button" class="btn btn-sm btn-info"
                                       data-urldetail="{{ app.path('project_detail', {'id': myproyect.idProyecto }, true) }}" role-button="detalle">
                                   ver proyecto
                                   <i class="glyphicon glyphicon-eye-open"></i>
+                              </button>
+                              <button type="button"
+                                      class="btn btn-sm btn-danger"
+                                      data-title="Estad&iacute;sticas"
+                                      data-id="{{ myproyect.idProyecto }}"
+                                      data-target="#project-stats"
+                                      data-toggle="modal"  >Reporte
+                                  <i class='glyphicon glyphicon glyphicon-stats'></i>
                               </button>
                           </div>
                       </td>
@@ -55,5 +63,5 @@
       </tbody>
   </table>
 </div>
-
+{{ include ('proyectos/estadisticas.html')  }}
 {% endblock body %}

@@ -20,6 +20,7 @@
                 ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
                 ->join('Rol', 'Rol.idRol', '=', 'UsuarioRolEquipo.idRol')
                 ->where('Proyecto.idLider', '=', $usuario->id())
+                ->where('Rol.idRol', '!=', '1')
                 ->select('Proyecto.*', 'Rol.nombreRol');
 
             $misproyectos = Proyecto::with(['lider.rolPrincipal'])
@@ -27,6 +28,7 @@
                 ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
                 ->join('Rol', 'Rol.idRol', '=', 'UsuarioRolEquipo.idRol')
                 ->where('UsuarioRolEquipo.idUsuario', '=', $usuario->id())
+                ->where('Rol.idRol', '!=', '1')
                 ->union($lidero)
                 ->select('Proyecto.*', 'Rol.nombreRol')
                 ->get();
