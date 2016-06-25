@@ -4,9 +4,9 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#detailTabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-      });
+                e.preventDefault();
+                $(this).tab('show');
+            });
 
             $('#estado').relation({
                 relation  : 'estados',
@@ -19,6 +19,10 @@
                 key       : 'idUsuarioRolEquipo',
                 value     : 'nombreCompleto',
                 url       : '{{ app.path('users_allows_ticket') }}'
+            });
+
+            $('#tipoitem').change(function(){
+                $('#estado').change();
             });
         });
   </script>
@@ -67,7 +71,8 @@
                             <strong class="col-md-5">Estado</strong>
                             <select id="estado" name="estado" data-reference="tipoitem" class="form-control input-sm">
                                 {% for estado in workflow %}
-                                    <option value="{{ estado.id }}">{{ estado.nombre }}</option>
+
+                                        <option value="{{ estado.id }}">{{ estado.nombre }}</option>
                                 {% endfor %}
                             </select>
                         </div>

@@ -46,7 +46,17 @@
                     <li><a href="/proyectos/equipos/{{ proyecto.idProyecto }}"> Equipos</a></li>
                     <li><a href="/proyectos/tipo-item/{{ proyecto.idProyecto }}">Tipos de Item </a></li>
                   </ul>
-
+                  <button type="button"
+                          class="btn btn-sm btn-danger"
+                          {% if proyecto.items is  empty  %}
+                              disabled
+                          {% endif %}
+                          data-title="Estad&iacute;sticas"
+                          data-id="{{ proyecto.idProyecto}}"
+                          data-target="#project-stats"
+                          data-toggle="modal"  >Reporte
+                      <i class='glyphicon glyphicon glyphicon-stats'></i>
+                  </button>
                   <button type="button"
                           class="btn btn-sm btn-danger"
                           {% if proyecto.items is not empty  %}
