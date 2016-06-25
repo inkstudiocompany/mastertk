@@ -102,3 +102,9 @@ use Model\ORM\TipoItem;
 
         echo $response;
     });
+
+    $app::Router()->get($app->path('project_stats'), function(Request $request, Response $response, $args){
+        $parse = new RequestParse($request, $args);
+        $projectController = new ProjectController();
+        echo json_encode($projectController -> getProjectStats($parse->get('id')));
+    });

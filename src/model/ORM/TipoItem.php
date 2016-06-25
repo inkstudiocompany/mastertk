@@ -23,4 +23,14 @@
         {
             return $query->whereIdproyecto($idProyecto);
         }
+
+        public function scopeEstadosActivos(){
+            return $this -> estados() -> where('estado',1);
+        }
+
+        public function scopeCuentaTickets(){
+            return $this -> tickets()
+                -> selectRaw('count(idItem) as cuentaItems, idTipoItem')
+                -> groupBy('idTipoItem');
+        }
     }

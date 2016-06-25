@@ -117,17 +117,6 @@
             return $tipoitem->save();
         }
 
-		public static function getByProjectWithRelationship($id)
-		{
-			$tipoitems = tipoitem::with(['estados',
-				'estados.equiposAtencion',
-				'estados.equiposAtencion.equipo',
-				'estados.equiposAtencion.equipo.UsuarioRolEquipo',
-				'estados.equiposAtencion.equipo.UsuarioRolEquipo.usuario'])
-			->where ('idProyecto','=',$id)
-				-> get();
-			return $tipoitems;
-		}
 
 		public function rename($descripcion, $id)
 		{

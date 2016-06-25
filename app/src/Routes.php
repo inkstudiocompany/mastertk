@@ -84,7 +84,8 @@
 			'edit_project_workflow'     => '/proyectos/workflow[/{id}]',
 			'save_project'              => '/proyectos/guardar',
             'project_detail'            => '/proyectos/detalle[/{id}]',
-			'delete_project'			=> '/proyectos/borrar[/{id}]'
+			'delete_project'			=> '/proyectos/borrar[/{id}]',
+			'project_stats'				=> '/proyecto/estadisticas[/{id}]'
 		];
 
 		public static function getRoutes()

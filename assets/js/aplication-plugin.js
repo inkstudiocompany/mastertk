@@ -299,4 +299,40 @@
     };
 
 
+    $.fn.piesChart = function( datos,title ){
+        var element = this[0],
+            data = new google.visualization.arrayToDataTable(datos),
+            gChart= new google.visualization.PieChart(element);
+        gChart.draw(data, {
+            title: title,
+            is3D: true,
+            width:700,
+            height:500
+        });
+    };
+
+    $.fn.columnsChart = function( datos,title ){
+        var element = this[0],
+            data = new google.visualization.arrayToDataTable(datos),
+            gChart= new google.visualization.ColumnChart(element);
+        gChart.draw(data, {
+            title: title,
+            is3D: true,
+            width:700,
+            height:500
+        });
+    };
+
+    $.fn.barsChart = function( datos,title ){
+        var element = this[0],
+            data = new google.visualization.arrayToDataTable(datos),
+            gChart= new google.visualization.BarChart(element);
+        gChart.draw(data, {
+            title: title,
+            is3D: true,
+            width:700,
+            height:500
+        });
+    };
+
 })(jQuery);

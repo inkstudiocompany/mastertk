@@ -21,4 +21,20 @@
             return $this->hasMany('Model\ORM\Item','idProyecto','idProyecto');
         }
 
+        public function scopeTipoItemActivos(){
+
+            return $this -> tipoItem() -> where('estado',1);
+        }
+
+        public function scopeEquiposActivos(){
+            return $this -> equipos() -> where('estado',1);
+        }
+
+        public function scopeCuentaItemsPorEstado(){
+          return $this -> items()
+                -> join('Estado' ,'item.estadoActual', '=', 'Estado.idEstado')
+                -> selectRaw('count(idItem) as cuentaItems, idProyecto, Estado.tipoEstado')
+                -> groupBy(['idProyecto', 'Estado.tipoEstado']);
+        }
+
 	}

@@ -5,7 +5,6 @@
 	use Model\ORM\Proyecto as proyecto;
 
 
-
 	class ProjectController extends ControllerBase
 	{
 
@@ -126,4 +125,16 @@
             $proyecto->estado = 0;
             return $proyecto->save();
         }
+
+		public static function getProjectStats($id)
+		{
+			$tipoitems = proyecto::with(['equiposActivos',
+				'tipoItemActivos',
+				'cuentaItemsPorEstado',
+				'equiposActivos.cuentaItemsAsignados',
+				'tipoItemActivos.cuentaTickets'])
+				-> where ('idProyecto','=',$id)
+				-> get();
+			return $tipoitems;
+		}
 	}

@@ -54,6 +54,7 @@ $(document).ready(function(){
 
     $.fn.ajaxLoaderInit();
 
+    google.charts.load('current', {'packages':['corechart','timeline']});
 
 });
 $(document).ajaxStart(function () {

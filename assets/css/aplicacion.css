@@ -368,3 +368,8 @@ a:hover{
 .registeroff{
     background: #ecf0f1;
 }
+
+div#project-stats, div#project-stats > .modal-dialog {
+     min-width: 750px;
+    margin: auto;
+}

@@ -36,9 +36,11 @@ var libsJavascript = [
   'bower/bootstrap-table/dist/bootstrap-table.min.js',
   'bower/bootstrap-table/dist/locale/bootstrap-table-es-AR.min.js',
   'bower/jsPlumb/dist/js/jsPlumb-2.0.7-min.js',
+  'bower/webcomponentsjs/webcomponents.min.js',
   'vendor/twbs/bootstrap/dist/js/bootstrap.min.js',
   'vendor/twbs/bootstrap/assets/js/jquery.js',
-  'bower/jasny-bootstrap/js/fileinput.js'
+  'bower/jasny-bootstrap/js/fileinput.js',
+  'assets/external/loader.js'
 ];
 
 var libsCss = [

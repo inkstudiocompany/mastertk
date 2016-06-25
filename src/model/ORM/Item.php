@@ -77,4 +77,11 @@ class Item extends EntityBase{
         $response = $this->userEdit($idUsuario)->get();
         return !$response->isEmpty();
     }
+
+
+    public function estadoA()
+    {
+        return $this->belongsTo('Model\ORM\Estado', 'estadoActual', 'idEstado');
+    }
+
 }
