@@ -105,7 +105,7 @@
             $response = proyecto::with([
                     'lider',
                     'equipos.usuarioRolEquipo.usuario',
-                    'items.estado',
+                    'items.status',
                     'items.asignado.usuario'
                 ]) -> find($id);
 
