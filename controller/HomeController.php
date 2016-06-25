@@ -10,22 +10,20 @@
 		public function index()
 		{
             $usuario = SecurityController::user();
-
-            $lidero = Proyecto::with(['lider.rolPrincipal'])
-                ->join('Equipo', 'Equipo.idProyecto', '=', 'Proyecto.idProyecto')
-                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
-                ->join('Rol', 'Rol.idRol', '=', 'UsuarioRolEquipo.idRol')
-                ->where('Proyecto.idLider', '=', $usuario->id())
-                ->select('Proyecto.*', 'Rol.nombreRol');
-
-            $misproyectos = Proyecto::with(['lider.rolPrincipal'])
-                ->join('Equipo', 'Equipo.idProyecto', '=', 'Proyecto.idProyecto')
-                ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'Equipo.idEquipo')
-                ->join('Rol', 'Rol.idRol', '=', 'UsuarioRolEquipo.idRol')
-                ->where('UsuarioRolEquipo.idUsuario', '=', $usuario->id())
-                ->union($lidero)
-                ->select('Proyecto.*', 'Rol.nombreRol')
-                ->get();
+			$misproyectos = Proyecto::with(['lider.rolPrincipal'])
+				->leftJoin('Equipo', function($join){
+					$join->on('Equipo.idProyecto', '=', 'Proyecto.idProyecto')
+						->where ('Equipo.estado','=',1);
+					})
+				->leftJoin('UsuarioRolEquipo', function($join){
+					$join->on('Equipo.idEquipo', '=', 'UsuarioRolEquipo.idEquipo')
+						->where ('UsuarioRolEquipo.activo','=',1);
+				})
+				->where('UsuarioRolEquipo.idUsuario', '=', $usuario->id())
+				->orWhere('Proyecto.idLider', '=', $usuario->id())
+				->distinct('Proyecto.*')
+				->select('Proyecto.*')
+				-> get();
 
             $mistickets = Proyecto::with(['equipos', 'lider'])
                 ->join('Item', 'Proyecto.idProyecto', '=', 'Item.idProyecto')
