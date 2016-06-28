@@ -19,7 +19,7 @@
       <h1>#{{ ticket.idItem }} - {{ ticket.tituloItem }}</h1>
     </div>
     <div class="col-md-2">
-        {% if true == ticket.isEditable(app.user.id) %}
+        {% if true == ticket.isEditable(app.user.id) and 2 != ticket.status.tipoEstado %}
             <button class="btn btn-default right" style="margin-top: 15px"
             data-urledit="{{ app.path('edit_ticket', {'id': ticket.idItem }, true) }}" role-button="editar">Editar</button>
         {% endif %}

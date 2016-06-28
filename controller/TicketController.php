@@ -10,6 +10,7 @@
     use Model\ORM\TipoItem;
 	use Model\ORM\TransicionItem;
     use Model\ORM\Estado;
+    use Model\ORM\Usuario;
     use Model\ORM\UsuarioRolEquipo;
     use Slim\Http\Response;
     use Application\Controller\MailController;
@@ -204,6 +205,7 @@
                 $states['workflow'][] = [
                     'id'      => $estado->idEstado,
                     'nombre'  => $estado->nombreEstado,
+                    'tipo'    => $estado->tipoEstado,
                 ];
                 $idEstado = $estado->idEstado;
             }
@@ -261,36 +263,24 @@
                 ->where('idProyecto', '=', $id)
                 ->get();
 
-            /* var_dump(json_encode(TipoItemController::getByProjectWithRelationship($id)));
-                die();*/
-
-            $data_relations = [];
             $data_relations['tipo_items'] = [];
-            foreach ($tipoItems As $tipoitem)
+            foreach ($tipoItems As $index => $tipoitem)
             {
+                $data['items'][$index] = [
+                    'id'      => $tipoitem->idTipoItem,
+                    'nombre'  => $tipoitem->descripcion,
+                    'estados' => []
+                ];
+
                 foreach ($tipoitem->estadoInicial As $key => $estado)
                 {
-                    $data['estados'][$key] = [
+                    $data['items'][$index]['estados'][$key] = [
                         'id'      => $estado->idEstado,
                         'nombre'  => $estado->nombreEstado
                     ];
                 }
-
-                /*$data = [];
-                $data['id']             = $tipoitem->idTipoItem;
-                $data['descripcion']    = $tipoitem->descripcion;
-                $data['estados']        = [];
-
-                foreach ($tipoitem->estados()->get() As $key => $estado)
-                {
-                    $data['estados'][$key] = [
-                        'id'      => $estado->idEstado,
-                        'nombre'  => $estado->nombreEstado,
-                        'tipo'    => $estado->nombreEstado,
-                    ];
-                }*/
-                array_push($data_relations['tipo_items'], $data);
             }
+            $data_relations['tipo_items'] = $data['items'];
             $usuarios_atencion = $this->usersByState($data_relations['tipo_items'][0]['estados'][0]['id']);
             return $this->render('tickets/agregar.html.twig', [
                 'proyecto'      => $response,
@@ -303,7 +293,17 @@
         public function usersByState($idEstado)
         {
             $equipoAtencion = new EquipoAtencion();
-            return $equipoAtencion->usersByState($idEstado)->get();
+            /** @var \Illuminate\Database\Eloquent\Collection $usuarios */
+            $usuarios = $equipoAtencion->usersByState($idEstado)->get();
+
+                if (true === $usuarios->isEmpty()) {
+                    $usuarios[] = Usuario::with([])
+                        ->Join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
+                        ->select('Usuario.idUsuario', 'Usuario.nombreCompleto', 'UsuarioRolEquipo.idUsuarioRolEquipo')
+                        ->find(App::getInstance()->user->id());
+                }
+
+            return $usuarios;
         }
 
         public function delete($id = 0)

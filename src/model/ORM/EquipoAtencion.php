@@ -23,6 +23,7 @@
                 ->join('Equipo', 'Equipo.idEquipo','=','UsuarioRolEquipo.idEquipo')
                 ->where('EquipoAtencion.idEstado', '=', $idEstado)
                 ->where('UsuarioRolEquipo.activo',1)
+                ->where('Usuario.estado', '=', '1')
                 ->where('Equipo.estado',1)
                 -> selectRaw("Usuario.idUsuario, Usuario.nombreCompleto,
                                 concat(Usuario.nombreCompleto, ' (', Equipo.nombreEquipo,
