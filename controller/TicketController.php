@@ -296,13 +296,18 @@
             /** @var \Illuminate\Database\Eloquent\Collection $usuarios */
             $usuarios = $equipoAtencion->usersByState($idEstado)->get();
 
-                if (true === $usuarios->isEmpty()) {
+
+            if (true === $usuarios->isEmpty()) {
                     $usuarios[] = Usuario::with([])
                         ->Join('UsuarioRolEquipo', 'UsuarioRolEquipo.idUsuario', '=', 'Usuario.idUsuario')
-                        ->select('Usuario.idUsuario', 'Usuario.nombreCompleto', 'UsuarioRolEquipo.idUsuarioRolEquipo')
+                        ->join('Equipo', 'Equipo.idEquipo','=','UsuarioRolEquipo.idEquipo')
+                        -> selectRaw("Usuario.idUsuario, Usuario.nombreCompleto,
+                                concat(Usuario.nombreCompleto, ' (', Equipo.nombreEquipo,
+                                        CASE WHEN UsuarioRolEquipo.esLider= 1 THEN ' - Lider' ELSE '' END , ')'
+                                ) as descripcion"
+                        )
                         ->find(App::getInstance()->user->id());
                 }
-
             return $usuarios;
         }
 
