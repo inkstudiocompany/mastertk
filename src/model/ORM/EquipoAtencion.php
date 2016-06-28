@@ -20,9 +20,17 @@
             return $query
                 ->join('UsuarioRolEquipo', 'UsuarioRolEquipo.idEquipo', '=', 'EquipoAtencion.idEquipo')
                 ->join('Usuario', 'Usuario.idUsuario', '=', 'UsuarioRolEquipo.idUsuario')
+                ->join('Equipo', 'Equipo.idEquipo','=','UsuarioRolEquipo.idEquipo')
                 ->where('EquipoAtencion.idEstado', '=', $idEstado)
-                ->select('Usuario.idUsuario', 'Usuario.nombreCompleto', 'UsuarioRolEquipo.idUsuarioRolEquipo')
-                ->groupBy('Usuario.nombreCompleto');
+                ->where('UsuarioRolEquipo.activo',1)
+                ->where('Equipo.estado',1)
+                -> selectRaw("Usuario.idUsuario, Usuario.nombreCompleto,
+                                concat(Usuario.nombreCompleto, ' (', Equipo.nombreEquipo,
+                                        CASE WHEN UsuarioRolEquipo.esLider= 1 THEN ' - Lider' ELSE '' END , ')'
+                                ) as descripcion"
+                )
+                ->groupBy('Usuario.nombreCompleto')
+                ->orderBy('UsuarioRolEquipo.esLider','desc');
         }
 
         public function scopeEquiposActivos(){

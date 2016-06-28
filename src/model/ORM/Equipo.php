@@ -49,4 +49,7 @@
             return $this -> usuarioRolEquipo() -> where('activo',1);
         }
 
+        public function scopeUsuarios(){
+            return $this -> usuarioRolEquipo() -> with(['rol','miniUsuario']) -> where('UsuarioRolEquipo.activo',1);
+        }
     }

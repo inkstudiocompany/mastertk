@@ -17,7 +17,7 @@
 
             $('#asignado').relation({
                 key       : 'idUsuarioRolEquipo',
-                value     : 'nombreCompleto',
+                value     : 'descripcion',
                 url       : '{{ app.path('users_allows_ticket') }}'
             });
 
@@ -76,7 +76,8 @@
                               {% if usuario.idUsuario == ticket.asignado.idUsuario %}
                                   selected
                               {% endif %}
-                          >{{ usuario.nombreCompleto }}</option>
+
+                          >{{ usuario.descripcion }}</option>
                       {% endfor %}
                   </select>
               </div>

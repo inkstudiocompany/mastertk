@@ -58,6 +58,7 @@ class Item extends EntityBase{
             ->join('WorkFlow', 'Item.estadoActual', '=', 'WorkFlow.idEstadoActual')
             ->join('Estado', 'WorkFlow.idEstadoSiguiente', '=', 'Estado.idEstado')
             ->where('Item.idItem', '=', $id)
+            ->where('WorkFlow.deleted',0)
             ->select('Estado.idEstado', 'Estado.nombreEstado');
     }
 

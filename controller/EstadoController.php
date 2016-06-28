@@ -6,6 +6,7 @@ namespace Application\Controller;
 use Model\ORM\EquipoAtencion as equipoAtencion;
 use Model\ORM\Estado as estado;
 
+
 class EstadoController extends ControllerBase
 {
 
@@ -43,6 +44,18 @@ class EstadoController extends ControllerBase
     public static function saveNew($estado)
     {
         return $estado ->save();
+    }
+
+    public static function getEstadosSiguientes($estadoActual)
+    {
+        $estado=  estado::with(['workflowsSiguientes.estadoSiguiente.equipos'])
+            -> where('estado',1)
+            -> where('idEstado',$estadoActual) -> first();
+
+        return $estado -> workflowsSiguientes;
+
+
+
     }
 
     public function delete($id)
